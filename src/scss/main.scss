@@ -1,0 +1,16 @@
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../src/scss/bootstrap-icons";
+
+@import "components/navbar";
+@import "components/hero";
+@import "components/footer";
+@import "components/buttons";
+@import "components/cards";
+@import "components/forms";
+
+body {
+    background-color: $fondo-secundario;
+    position: relative; // Obligatorio para ScrollSpy
+    font-family: $font-family-base;
+}
