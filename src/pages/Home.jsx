@@ -1,7 +1,7 @@
 //Home
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import Hero from '../components/Hero';
+import Hero from '../components/Home/Hero';
 export default function Home() {
     return <>
         {/* <h1 className='display-1'>Patata Placeholder<p className="bi bi-briefcase text-danger"></p></h1>
