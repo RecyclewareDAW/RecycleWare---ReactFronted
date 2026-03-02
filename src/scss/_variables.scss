@@ -37,7 +37,10 @@ $font-alexandria: 'Alexandria';
 $font-family-base: $font-roboto;
 
 $headings-font-family: $font-alexandria;
-$headings-font-weight: 500;
+
+//Grosores:
+
+$weight-titulo: 600;
 
 // Tamaños de fuentes:
 $font-size-base: 1.1rem;
@@ -70,20 +73,19 @@ $theme-colors: (
     }
 
     .logo {
-        height: 50px;
+        // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
+        height: clamp(32px, 6vw, 50px);
         width: auto;
+        object-fit: contain; // Mantiene la proporción sin deformarse
     }
 
-    @media (min-width: 992px) {
-        .menu-centrado {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
+    //para el color de la hamburguesa en tamaño pequeño
+    .navbar-toggler {
+        color: $secondary;
+        border-color: $secondary;
     }
 
+    // navegador del header
     .navbar-nav {
         .nav-link {
             color: $light;
@@ -93,9 +95,35 @@ $theme-colors: (
             &.active {
                 color: $secondary;
             }
+
+            &:hover {
+                color: $secondary;
+            }
         }
     }
 
+    // box buscador controlar tamaño mínimo
+    // .form-control {
+    //     min-width: 8ch;
+    // }
+
+
+    // Derecha el iniciar sesión
+    .iniciar-sesion {
+        color: $light;
+        font-family: $headings-font-family;
+        font-size: 1.2rem;
+
+        &.active {
+            color: $secondary;
+        }
+
+        &:hover {
+            color: $secondary;
+        }
+    }
+
+    // botón del buscador
     .btn-primary {
         background-color: transparent;
         color: $success;
@@ -151,38 +179,34 @@ $theme-colors: (
         z-index: 2;
         color: $light;
         padding: 4rem 1.5rem;
-        /* NUEVO: 4rem de padding arriba y abajo para despegarlo de los bordes */
+        /* 4rem de padding arriba y abajo para despegarlo de los bordes */
         width: 100%;
 
-        .etiqueta-hero {
-            display: inline-block;
-            background-color: $secondary;
-            /* Tu verde azulado */
-            color: $light;
-            padding: 0.5rem 1rem;
-            border-radius: 50rem;
-            margin-bottom: 1.5rem;
-            font-family: $font-alexandria;
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        // .etiqueta-hero {
+        //     display: inline-block;
+        //     background-color: $secondary;
+        //     /* Tu verde azulado */
+        //     color: $light;
+        //     padding: 0.5rem 1rem;
+        //     border-radius: 50rem;
+        //     margin-bottom: 1.5rem;
+        //     font-family: $font-alexandria;
+        //     font-size: 1rem;
+        //     font-weight: $headings-font-weight;
+        // }
 
         .titulo-hero {
             font-family: $headings-font-family;
-            /* Tu fuente Alexandria */
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: $headings-font-weight;
             margin-bottom: 1rem;
 
             .resaltado {
                 color: $success;
-                /* Tu verde menta para que resalte la palabra */
             }
         }
 
         .descripcion-hero {
             font-family: $font-family-base;
-            /* Mi fuente Roboto */
             font-size: 1.25rem;
             color: $light;
             margin: 0 auto 2rem auto;
@@ -201,7 +225,7 @@ $theme-colors: (
                 // Esto asegura que ambos tengan el mismo ancho mínimo
                 min-width: 200px;
 
-                // Opcional: En pantallas muy pequeñas, que ocupen todo el ancho
+                // En pantallas muy pequeñas, que ocupen todo el ancho
                 @media (max-width: 576px) {
                     width: 100%;
                     max-width: 300px; // Para que no sean gigantes en móviles grandes
@@ -227,12 +251,46 @@ $theme-colors: (
     }
 }
 
+//Inputs del formulario:
+#nombre, #email, #asunto {
+    border: none;
+    border-bottom: 2px solid $primary;
+    background-color: transparent;
+}
+
+#terminos {
+    border-color: $primary;
+}
+
+.form-check-label {
+    a.text-link {
+        color: $secondary; // color inicial similar a text-secondary
+        text-decoration: none;
+
+        &:hover {
+            color: $primary;
+            text-decoration: underline;
+        }
+    }
+}
 
 // Títulos:
 
 .titulo {
-    
+    color: $primary;
+    font-weight: $weight-titulo;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+
 }
+
+//footer
+
+#footer {
+    background-color: $dark;
+}
+
 
 // Cards
 
