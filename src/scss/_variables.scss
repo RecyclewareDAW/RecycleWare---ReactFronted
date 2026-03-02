@@ -16,7 +16,7 @@ $fondo-secundario: rgb(236, 248, 248);
 
 @font-face {
     font-family: 'Roboto';
-    src: url('../../assets/fonts/Roboto-VariableFont_wdth\,wght.woff2') format('woff2');
+    src: url('../assets/fonts/Roboto-VariableFont_wdth\,wght.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@ $fondo-secundario: rgb(236, 248, 248);
 
 @font-face {
     font-family: 'Alexandria';
-    src: url('../../assets/fonts/Alexandria-VariableFont_wght.woff2') format('woff2');
+    src: url('../assets/fonts/Alexandria-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -37,7 +37,10 @@ $font-alexandria: 'Alexandria';
 $font-family-base: $font-roboto;
 
 $headings-font-family: $font-alexandria;
-$headings-font-weight: 500;
+
+//Grosores:
+
+$weight-titulo: 600;
 
 // Tamaños de fuentes:
 $font-size-base: 1.1rem;
@@ -61,179 +64,3 @@ $theme-colors: (
     "light": $light,
     "dark": $dark
 );
-
-.navbar {
-    position: relative;
-
-    .container-fluid {
-        position: relative;
-    }
-
-    .logo {
-        height: 50px;
-        width: auto;
-    }
-
-    @media (min-width: 992px) {
-        .menu-centrado {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
-    }
-
-    .navbar-nav {
-        .nav-link {
-            color: $light;
-            font-family: $headings-font-family;
-            font-size: 1.2rem;
-
-            &.active {
-                color: $secondary;
-            }
-        }
-    }
-
-    .btn-primary {
-        background-color: transparent;
-        color: $success;
-        border: 2px solid $secondary;
-        border-radius: 1rem;
-
-        &:hover {
-            color: $light;
-            background-color: $secondary;
-            border-color: $secondary;
-        }
-    }
-}
-
-
-/*   SECCIÓN HERO   */
-
-.seccion-hero {
-    position: relative;
-    overflow: hidden;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 70vh;
-
-    /* Vídeo de fondo */
-    .video-fondo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
-
-    .capa-oscura {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba($dark, 0.75);
-        /* Oscurece el vídeo para que el texto contraste */
-        z-index: 1;
-    }
-
-    /* Contenedor del texto y botones */
-    .hero-contenido {
-        position: relative;
-        z-index: 2;
-        color: $light;
-        padding: 4rem 1.5rem;
-        /* NUEVO: 4rem de padding arriba y abajo para despegarlo de los bordes */
-        width: 100%;
-
-        .etiqueta-hero {
-            display: inline-block;
-            background-color: $secondary;
-            /* Tu verde azulado */
-            color: $light;
-            padding: 0.5rem 1rem;
-            border-radius: 50rem;
-            margin-bottom: 1.5rem;
-            font-family: $font-alexandria;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .titulo-hero {
-            font-family: $headings-font-family;
-            /* Tu fuente Alexandria */
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: $headings-font-weight;
-            margin-bottom: 1rem;
-
-            .resaltado {
-                color: $success;
-                /* Tu verde menta para que resalte la palabra */
-            }
-        }
-
-        .descripcion-hero {
-            font-family: $font-family-base;
-            /* Mi fuente Roboto */
-            font-size: 1.25rem;
-            color: $light;
-            margin: 0 auto 2rem auto;
-            max-width: 700px;
-            line-height: 1.6;
-        }
-
-        /* Botones */
-        .hero-acciones {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-
-            .btn {
-                // Esto asegura que ambos tengan el mismo ancho mínimo
-                min-width: 200px;
-
-                // Opcional: En pantallas muy pequeñas, que ocupen todo el ancho
-                @media (max-width: 576px) {
-                    width: 100%;
-                    max-width: 300px; // Para que no sean gigantes en móviles grandes
-                }
-            }
-
-            .btn-primary {
-                font-family: $headings-font-family;
-                padding: 0.75rem 2rem;
-
-
-                &.btn-hero-outline {
-                    background-color: transparent;
-                    border: 2px solid;
-                }
-
-                &:hover {
-                    background-color: $light;
-                    color: $primary;
-                }
-            }
-        }
-    }
-}
-
-
-// Títulos:
-
-.titulo {
-    
-}
-
-// Cards
-
-$box-shadow: 0px 0px 10px 0px $dark;

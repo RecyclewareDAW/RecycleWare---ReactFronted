@@ -1,0 +1,223 @@
+
+.navbar {
+    position: relative;
+
+    .container-fluid {
+        position: relative;
+    }
+
+    .logo {
+        // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
+        height: clamp(32px, 6vw, 50px);
+        width: auto;
+        object-fit: contain; // Mantiene la proporción sin deformarse
+    }
+
+    //para el color de la hamburguesa en tamaño pequeño
+    .navbar-toggler {
+        color: $secondary;
+        border-color: $secondary;
+    }
+
+    // navegador del header
+    .navbar-nav {
+        .nav-link {
+            color: $light;
+            font-family: $headings-font-family;
+            font-size: 1.2rem;
+
+            &.active {
+                color: $secondary;
+            }
+
+            &:hover {
+                color: $secondary;
+            }
+        }
+    }
+
+    // box buscador controlar tamaño mínimo
+    // .form-control {
+    //     min-width: 8ch;
+    // }
+
+
+    // Derecha el iniciar sesión
+    .iniciar-sesion {
+        color: $light;
+        font-family: $headings-font-family;
+        font-size: 1.2rem;
+
+        &.active {
+            color: $secondary;
+        }
+
+        &:hover {
+            color: $secondary;
+        }
+    }
+
+    // botón del buscador
+    .btn-primary {
+        background-color: transparent;
+        color: $success;
+        border: 2px solid $secondary;
+        border-radius: 1rem;
+
+        &:hover {
+            color: $light;
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+    }
+}
+
+
+/*   SECCIÓN HERO   */
+
+.seccion-hero {
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 70vh;
+
+    /* Vídeo de fondo */
+    .video-fondo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .capa-oscura {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($dark, 0.75);
+        /* Oscurece el vídeo para que el texto contraste */
+        z-index: 1;
+    }
+
+    /* Contenedor del texto y botones */
+    .hero-contenido {
+        position: relative;
+        z-index: 2;
+        color: $light;
+        padding: 4rem 1.5rem;
+        /* 4rem de padding arriba y abajo para despegarlo de los bordes */
+        width: 100%;
+
+        // .etiqueta-hero {
+        //     display: inline-block;
+        //     background-color: $secondary;
+        //     /* Tu verde azulado */
+        //     color: $light;
+        //     padding: 0.5rem 1rem;
+        //     border-radius: 50rem;
+        //     margin-bottom: 1.5rem;
+        //     font-family: $font-alexandria;
+        //     font-size: 1rem;
+        //     font-weight: $headings-font-weight;
+        // }
+
+        .titulo-hero {
+            font-family: $headings-font-family;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+
+            .resaltado {
+                color: $success;
+            }
+        }
+
+        .descripcion-hero {
+            font-family: $font-family-base;
+            font-size: 1.25rem;
+            color: $light;
+            margin: 0 auto 2rem auto;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        /* Botones */
+        .hero-acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            .btn {
+                // Esto asegura que ambos tengan el mismo ancho mínimo
+                min-width: 200px;
+
+                // En pantallas muy pequeñas, que ocupen todo el ancho
+                @media (max-width: 576px) {
+                    width: 100%;
+                    max-width: 300px; // Para que no sean gigantes en móviles grandes
+                }
+            }
+
+            .btn-primary {
+                font-family: $headings-font-family;
+                padding: 0.75rem 2rem;
+
+                &.btn-hero-outline {
+                    background-color: transparent;
+                    border: 2px solid;
+                }
+
+                &:hover {
+                    background-color: $light;
+                    color: $primary;
+                }
+            }
+        }
+    }
+}
+
+//Inputs del formulario:
+#nombre, #email, #asunto {
+    border: none;
+    border-bottom: 2px solid $primary;
+    background-color: transparent;
+}
+
+#terminos {
+    border-color: $primary;
+}
+
+.form-check-label {
+    a.text-link {
+        color: $secondary;
+        text-decoration: none;
+
+        &:hover {
+            color: $primary;
+            text-decoration: underline;
+        }
+    }
+}
+
+// Títulos:
+
+.titulo {
+    color: $primary;
+    font-weight: $weight-titulo;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+
+}
+
+// Cards
+
+$box-shadow: 0px 0px 10px 0px $dark;
