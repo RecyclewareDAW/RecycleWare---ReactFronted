@@ -1,13 +1,17 @@
-import {BrowserRouter, Router, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home";
+import Test from "./pages/TestSegundaPagina";
 
-function App() {
+export default function App() {
 
   return (
     <>
-      <Home></Home>
+      <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home/>}></Route>
+                <Route path="/estrella" element={<Test/>}></Route>
+              </Routes>
+            </BrowserRouter>
     </>
   )
 }
-
-export default App
