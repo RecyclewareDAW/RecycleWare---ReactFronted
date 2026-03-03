@@ -11,7 +11,7 @@
     margin: 0;       /* Quita márgenes por defecto */
     padding: 0;      /* Quita padding por defecto */
     box-sizing: border-box; /* Hace que el width incluya padding y border */
-    scroll-padding-top: 5rem; 
+    scroll-padding-top: 5rem;  /* Para que haya distancia entre el header y la página que abre scrolleando */
     scroll-behavior: smooth;
 }
 

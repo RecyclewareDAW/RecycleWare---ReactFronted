@@ -23,7 +23,6 @@ export default function Comunidad() {
         <div className="container py-5">
             <div className="row row-cols-lg-3 row-cols-1 gy-3">
 
-
                 <div className="col">
                     <UltimoLogro/>
                 </div>
