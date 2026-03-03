@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 
 export default function Navbar() {
@@ -34,7 +35,7 @@ export default function Navbar() {
     <header className='fixed-top'>
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand d-flex align-items-center" href="#inicio" onClick={() => setActiveLink('#inicio')}>
+          <a className="navbar-brand d-flex align-items-center" href="/#inicio" onClick={() => setActiveLink('#inicio')}>
             <img src={logo} alt="RecycleWare logo" className="logo" />
           </a>
 
@@ -50,7 +51,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a 
                   className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} 
-                  href="#inicio"
+                  href="/#inicio"
                   onClick={() => setActiveLink('#inicio')}
                 >
                   Inicio
@@ -59,7 +60,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a 
                   className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`} 
-                  href="#categorias"
+                  href="/#categorias"
                   onClick={() => setActiveLink('#categorias')}
                 >
                   Productos
@@ -68,7 +69,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a 
                   className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} 
-                  href="#info"
+                  href="/#info"
                   onClick={() => setActiveLink('#info')}
                 >
                   ¿Cómo funciona?
@@ -77,7 +78,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a 
                   className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`} 
-                  href="#contacto"
+                  href="/#contacto"
                   onClick={() => setActiveLink('#contacto')}
                 >
                   Contacto
@@ -93,7 +94,7 @@ export default function Navbar() {
                   <i className="bi bi-search"></i>
                 </button>
               </form>
-              <a href="#" className="iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0">Iniciar Sesión</a>
+              <Link to="/login" className="iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0">Iniciar Sesión</Link>
             </div>
           </div>
         </div>
