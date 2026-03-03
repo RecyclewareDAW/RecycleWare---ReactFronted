@@ -28,10 +28,9 @@ export default function Home() {
             window.scrollTo(0, 0);
         }
     }, [location]); // Se ejecuta cada vez que cambia la URL
+    
     return <>
-        {/* <h1 className='display-1'>Patata Placeholder<p className="bi bi-briefcase text-danger"></p></h1>
-        <div className="bi bi-star-fill text-danger">Estrella</div>
-        <Link to="/estrella" className='btn btn-sm text-danger'>Navegación de testeo</Link> */}
+
         <div
             data-bs-spy="scroll"
             data-bs-target=".navbar"

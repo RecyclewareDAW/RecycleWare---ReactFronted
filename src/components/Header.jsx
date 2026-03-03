@@ -4,9 +4,15 @@ import logo from '../assets/img/logo.png';
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState('#inicio');
-  const location = useLocation(); // Para aber en qué ruta estamos
+  const location = useLocation(); // Para saber en qué ruta estamos
 
   useEffect(() => {
+    // Si la ruta es '/login', forzamos el estado activo a '#login' y evitamos el scroll spy
+    if (location.pathname === '/login') {
+      setActiveLink('#login');
+      return;
+    }
+
     // Si no estamos en la ruta raíz ('/'), no intentamos calcular el scroll
     if (location.pathname !== '/') return;
 
@@ -101,7 +107,13 @@ export default function Navbar() {
                   <i className="bi bi-search"></i>
                 </button>
               </form>
-              <Link to="/login" className="iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0">Iniciar Sesión</Link>
+              <Link 
+                to="/login" 
+                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
+                onClick={() => setActiveLink('#login')}
+              >
+                Iniciar Sesión
+              </Link>
             </div>
           </div>
         </div>
