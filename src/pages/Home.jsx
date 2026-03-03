@@ -2,6 +2,9 @@
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Home/Hero';
+import Info from '../components/Home/Info';
+import Contacto from '../components/Home/Contacto';
+
 export default function Home() {
     return <>
         {/* <h1 className='display-1'>Patata Placeholder<p className="bi bi-briefcase text-danger"></p></h1>
@@ -17,18 +20,18 @@ export default function Home() {
                 <Header />
                 <Hero />
             </div>
-{/* 
+
             <main>
-                <Categorias />
+                {/* <Categorias />
                 <hr />
                 <Comunidad />
-                <hr className="my-5 opacity-25" />
+                <hr className="my-5 opacity-25" /> */}
                 <Info />
                 <hr />
                 <Contacto />
             </main>
 
-            <Footer /> */}
+            {/* <Footer /> */}
         </div>
 
     </>
