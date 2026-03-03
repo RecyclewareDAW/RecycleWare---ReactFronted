@@ -1,9 +1,9 @@
-//Home
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Home/Hero';
 import Info from '../components/Home/Info';
 import Contacto from '../components/Home/Contacto';
+import Categorias from '../components/Home/Categorias';
 
 export default function Home() {
     return <>
@@ -22,7 +22,8 @@ export default function Home() {
             </div>
 
             <main>
-                {/* <Categorias />
+               <Categorias />
+                {/* 
                 <hr />
                 <Comunidad />
                 <hr className="my-5 opacity-25" /> */}
