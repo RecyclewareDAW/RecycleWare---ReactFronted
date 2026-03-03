@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Hero from '../components/Home/Hero';
 import Info from '../components/Home/Info';
 import Contacto from '../components/Home/Contacto';
+import Footer from '../components/Footer';
 
 export default function Home() {
     return <>
@@ -31,7 +32,7 @@ export default function Home() {
                 <Contacto />
             </main>
 
-            {/* <Footer /> */}
+            <Footer />
         </div>
 
     </>
