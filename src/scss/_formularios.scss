@@ -1,0 +1,25 @@
+form {
+    //Inputs del formulario:
+    .inputs {
+        border: none;
+        border-bottom: 2px solid $primary;
+        background-color: transparent;
+    }
+
+    // box de los términos y condiciones
+    .terminos {
+        border-color: $primary;
+    }
+}
+
+.form-check-label {
+    a.text-link {
+        color: $secondary;
+        text-decoration: none;
+
+        &:hover {
+            color: $primary;
+            text-decoration: underline;
+        }
+    }
+}
