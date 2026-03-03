@@ -6,6 +6,7 @@ import Contacto from '../components/Home/Contacto';
 import Categorias from '../components/Home/Categorias';
 import Footer from '../components/Footer';
 import Comunidad from '../components/Home/Comunidad';
+
 export default function Home() {
     return <>
         {/* <h1 className='display-1'>Patata Placeholder<p className="bi bi-briefcase text-danger"></p></h1>
