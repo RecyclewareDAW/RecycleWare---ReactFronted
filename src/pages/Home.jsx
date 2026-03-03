@@ -5,7 +5,6 @@ import Info from '../components/Home/Info';
 import Contacto from '../components/Home/Contacto';
 import Categorias from '../components/Home/Categorias';
 import Footer from '../components/Footer';
-
 import Comunidad from '../components/Home/Comunidad';
 export default function Home() {
     return <>
@@ -21,16 +20,11 @@ export default function Home() {
             <div className="d-flex flex-column min-vh-100">
                 <Header />
                 <Hero />
-                <hr/>
-                <Comunidad/>
             </div>
 
             <main>
                <Categorias />
-                {/* 
-                <hr />
-                <Comunidad />
-                <hr className="my-5 opacity-25" /> */}
+                <Comunidad/>
                 <Info />
                 <hr />
                 <Contacto />
