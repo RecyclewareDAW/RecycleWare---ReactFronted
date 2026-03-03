@@ -1,25 +1,21 @@
 @import "variables";
+@import "header";
+@import "hero";
+@import "contacto";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @import "bootstrap-icons";
-@import "estilos";
-
-//@import "components/navbar";
-//@import "components/hero";
-//@import "components/footer";
-//@import "components/buttons";
-//@import "components/cards";
-//@import "components/forms";
 
 /* Reset CSS básico */
 * {
     margin: 0;       /* Quita márgenes por defecto */
     padding: 0;      /* Quita padding por defecto */
     box-sizing: border-box; /* Hace que el width incluya padding y border */
+    scroll-padding-top: 5rem;  /* Para que haya distancia entre el header y la página que abre scrolleando */
+    scroll-behavior: smooth;
 }
 
 body {
     background-color: $fondo-secundario;
-    position: relative; // Obligatorio para ScrollSpy
     font-family: $font-family-base;
 }

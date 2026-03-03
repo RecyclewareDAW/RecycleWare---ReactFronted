@@ -1,12 +1,41 @@
-//Header con nav
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 
 export default function Navbar() {
+  const [activeLink, setActiveLink] = useState('#inicio');
+ useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['inicio', 'categorias', 'info', 'contacto'];
+  
+      let currentSection = ''; 
+
+      sections.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentSection = `#${id}`;
+          }
+        }
+      });
+
+      if (currentSection !== '') {
+        setActiveLink(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg bg-dark fixed-top">
+    <header className='fixed-top'>
+      <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand d-flex align-items-center" href="#inicio">
+          <a className="navbar-brand d-flex align-items-center" href="/#inicio" onClick={() => setActiveLink('#inicio')}>
             <img src={logo} alt="RecycleWare logo" className="logo" />
           </a>
 
@@ -18,18 +47,44 @@ export default function Navbar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#inicio">Inicio</a>
+                <a 
+                  className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} 
+                  href="/#inicio"
+                  onClick={() => setActiveLink('#inicio')}
+                >
+                  Inicio
+                </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#categorias">Productos</a>
+                <a 
+                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`} 
+                  href="/#categorias"
+                  onClick={() => setActiveLink('#categorias')}
+                >
+                  Productos
+                </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-nowrap" href="#info">¿Cómo funciona?</a>
+                <a 
+                  className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} 
+                  href="/#info"
+                  onClick={() => setActiveLink('#info')}
+                >
+                  ¿Cómo funciona?
+                </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#contacto">Contacto</a>
+                <a 
+                  className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`} 
+                  href="/#contacto"
+                  onClick={() => setActiveLink('#contacto')}
+                >
+                  Contacto
+                </a>
               </li>
+
             </ul>
 
             <div className="d-flex flex-column flex-lg-row align-items-lg-center">
@@ -39,7 +94,7 @@ export default function Navbar() {
                   <i className="bi bi-search"></i>
                 </button>
               </form>
-              <a href="#" className="iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0">Iniciar Sesión</a>
+              <Link to="/login" className="iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0">Iniciar Sesión</Link>
             </div>
           </div>
         </div>
