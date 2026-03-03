@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Home/Hero';
+import Comunidad from '../components/Home/Comunidad';
 export default function Home() {
     return <>
         {/* <h1 className='display-1'>Patata Placeholder<p className="bi bi-briefcase text-danger"></p></h1>
@@ -16,6 +17,8 @@ export default function Home() {
             <div className="d-flex flex-column min-vh-100">
                 <Header />
                 <Hero />
+                <hr/>
+                <Comunidad/>
             </div>
 {/* 
             <main>
