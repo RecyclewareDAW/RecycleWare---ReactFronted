@@ -1,0 +1,73 @@
+
+.navbar {
+    position: relative;
+
+    .container-fluid {
+        position: relative;
+    }
+
+    .logo {
+        // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
+        height: clamp(32px, 6vw, 50px);
+        width: auto;
+        object-fit: contain; // Mantiene la proporción sin deformarse
+    }
+
+    //para el color de la hamburguesa en tamaño pequeño
+    .navbar-toggler {
+        color: $secondary;
+        border-color: $secondary;
+    }
+
+    // navegador del header
+    .navbar-nav {
+        .nav-link {
+            color: $light;
+            font-family: $headings-font-family;
+            font-size: 1.2rem;
+
+            &.active {
+                color: $secondary;
+            }
+
+            &:hover {
+                color: $secondary;
+            }
+        }
+    }
+
+    // box buscador controlar tamaño mínimo
+    // .form-control {
+    //     min-width: 8ch;
+    // }
+
+
+    // Derecha el iniciar sesión
+    .iniciar-sesion {
+        color: $light;
+        font-family: $headings-font-family;
+        font-size: 1.2rem;
+
+        &.active {
+            color: $secondary;
+        }
+
+        &:hover {
+            color: $secondary;
+        }
+    }
+
+    // botón del buscador
+    .btn-primary {
+        background-color: transparent;
+        color: $success;
+        border: 2px solid $secondary;
+        border-radius: 1rem;
+
+        &:hover {
+            color: $light;
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+    }
+}
