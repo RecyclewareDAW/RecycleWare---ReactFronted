@@ -1,0 +1,94 @@
+@import "variables";
+
+.user-config-container {
+  min-height: 80vh; 
+}
+
+// Estilos del Sidebar 
+.config-sidebar {
+  border: 1px solid rgba(0,0,0,0.05);
+  
+  .avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border: 2px solid $secondary;
+  }
+
+  .custom-list-group {
+    .list-group-item {
+      border: none;
+      padding: 0.8rem 1rem;
+      color: $dark;
+      font-weight: 500;
+      border-radius: 0.5rem !important;
+      margin-bottom: 0.2rem;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+
+      i {
+        color: $primary; 
+        transition: color 0.3s ease;
+      }
+
+      &:hover {
+        background-color: $fondo-secundario;
+        color: $secondary;
+        i { color: $secondary; }
+      }
+
+      &.active {
+        background-color: rgba($secondary, 0.1);
+        color: $secondary;
+        border-left: 4px solid $secondary;
+        border-radius: 0 0.5rem 0.5rem 0 !important;
+        
+        i { color: $secondary; }
+      }
+    }
+  }
+}
+
+// Estilos del contenedor derecho
+.config-content {
+  border: 1px solid rgba(0,0,0,0.05);
+  
+  .titulo {
+    justify-content: flex-start; 
+    font-size: $h3-font-size;
+  }
+
+  .form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border-color: #dee2e6;
+    
+    &:focus {
+      border-color: $secondary;
+      box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
+    }
+  }
+
+  .form-switch .form-check-input {
+    &:checked {
+      background-color: $secondary;
+      border-color: $secondary;
+    }
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/%3e%3c/svg%3e");
+    }
+    &:checked:focus {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    }
+  }
+}
+
+// Animación de transición entre pestañas
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
