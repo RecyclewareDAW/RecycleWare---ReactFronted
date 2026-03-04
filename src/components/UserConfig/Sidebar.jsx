@@ -3,7 +3,7 @@ import React from 'react';
 export default function Sidebar({ activeTab, setActiveTab, userRole }) {
     return (
         <aside className="col-12 col-lg-3">
-            <div className="config-sidebar bg-white rounded shadow-sm p-3 h-100 d-flex flex-column">
+            <div className="config-sidebar bg-white p-3 h-100 d-flex flex-column">
                 
                 <div className="list-group list-group-flush custom-list-group flex-grow-1">
                     {/* Opciones Globales */}

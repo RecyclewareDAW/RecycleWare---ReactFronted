@@ -1,7 +1,7 @@
     export default function TabAyuda() {
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4 border-bottom pb-2">Ayuda y Soporte</h2>
+            <h2 className="titulo">Ayuda y Soporte</h2>
             <div className="alert alert-info d-flex align-items-center mb-4 border-0" style={{ backgroundColor: 'rgba(33, 158, 188, 0.1)' }}>
                 <i className="bi bi-info-circle-fill fs-4 text-info me-3"></i>
                 <div>¿Tienes un problema con una solicitud o equipo? Nuestro equipo está aquí para ayudarte.</div>

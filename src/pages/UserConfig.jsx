@@ -73,7 +73,7 @@ export default function UserConfig() {
                     />
 
                     <section className="col-12 col-lg-9">
-                        <div className="config-content bg-white rounded shadow-sm p-4 p-md-5 h-100">
+                        <div className="config-content bg-white p-4 p-md-5 h-100">
                             {renderContent()}
                         </div>
                     </section>

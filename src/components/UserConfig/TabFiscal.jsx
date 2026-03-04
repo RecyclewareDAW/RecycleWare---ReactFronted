@@ -1,7 +1,7 @@
 export default function TabFiscal() {
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4 border-bottom pb-2">Datos Fiscales</h2>
+            <h2 className="titulo">Datos Fiscales</h2>
             <form>
                 <div className="mb-3">
                     <label className="form-label">Razón Social</label>

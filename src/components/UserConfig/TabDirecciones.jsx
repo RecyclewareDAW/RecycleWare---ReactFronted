@@ -1,7 +1,7 @@
 export default function TabDirecciones() {
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4 border-bottom pb-2">Mis Direcciones</h2>
+            <h2 className="titulo">Mis Direcciones</h2>
             <form>
                 <div className="mb-3">
                     <label className="form-label">Dirección Completa</label>

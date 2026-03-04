@@ -1,7 +1,7 @@
 export default function TabSeguridad() {
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4 border-bottom pb-2">Seguridad</h2>
+            <h2 className="titulo">Seguridad</h2>
             <form>
                 <div className="mb-3">
                     <label className="form-label">Contraseña Actual</label>

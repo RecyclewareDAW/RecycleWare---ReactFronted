@@ -4,7 +4,6 @@
 .user-config-container {
   min-height: 80vh;
 
-  // Personalización del nuevo saludo global
   h1 {
     font-family: $headings-font-family;
     color: $primary;
@@ -15,10 +14,9 @@
 // Estilos compartidos para las "Tarjetas" (Menú y Contenido)
 .config-sidebar, .config-content {
   background-color: #ffffff;
-  border: none !important; // Forzamos quitar el borde de Bootstrap
-  border-radius: 1rem !important; // Esquinas más redondeadas (moderno)
-  // Sombra muy suave y elegante, tintada con tu azul oscuro
-  box-shadow: 0 10px 40px rgba($primary, 0.06) !important; 
+  border: none; 
+  border-radius: 1rem; 
+  box-shadow: 0 10px 40px rgba($primary, 0.06); 
 }
 
 // --- MENÚ LATERAL ---
@@ -26,14 +24,17 @@
   .custom-list-group {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem; // Espacio de respiración entre botones
+    gap: 0.4rem; 
 
-    .list-group-item {
+    // Añadimos las pseudo-clases para ganar a Bootstrap sin usar !important
+    .list-group-item,
+    .list-group-item:first-child,
+    .list-group-item:last-child {
       border: none;
       padding: 0.85rem 1.2rem;
       color: rgba($dark, 0.7);
       font-weight: 500;
-      border-radius: 0.5rem !important;
+      border-radius: 0.5rem;
       background-color: transparent;
       transition: all 0.25s ease;
 
@@ -43,7 +44,6 @@
         transition: color 0.25s ease;
       }
 
-      // Efecto Hover Moderno (se mueve ligeramente a la derecha)
       &:hover {
         background-color: rgba($fondo-secundario, 0.6);
         color: $primary;
@@ -52,7 +52,6 @@
         i { color: $primary; }
       }
 
-      // Estado Activo (Píldora sólida y suave)
       &.active {
         background-color: rgba($secondary, 0.12);
         color: $secondary;
@@ -63,7 +62,6 @@
     }
   }
 
-  // Animación para el botón de cerrar sesión
   .btn-outline-danger {
     border-radius: 0.5rem;
     border-width: 2px;
@@ -83,9 +81,9 @@
   .titulo {
     font-family: $headings-font-family;
     font-size: 1.75rem;
-    border-bottom: 2px solid rgba($primary, 0.05) !important;
-    padding-bottom: 1rem !important;
-    margin-bottom: 1.5rem !important;
+    border-bottom: 2px solid rgba($primary, 0.05);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .form-label {
@@ -95,7 +93,6 @@
     margin-bottom: 0.4rem;
   }
 
-  // Botones de acción principales
   .btn-secondary {
     background-color: $secondary;
     border: none;
@@ -106,16 +103,15 @@
 
     &:hover {
       background-color: darken($secondary, 5%);
-      transform: translateY(-2px); // Efecto de elevación
+      transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba($secondary, 0.3);
     }
   }
 
-  // Interruptores (Switches) de notificaciones
   .form-switch {
     display: flex;
     align-items: center;
-    margin-bottom: 1.2rem !important;
+    margin-bottom: 1.2rem;
     
     .form-check-input {
       width: 3em;
@@ -157,3 +153,15 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+// --- ESTILOS PARA LA PESTAÑA DE IMPACTO ---
+.impact-card-success {
+  background-color: rgba($success, 0.1);
+  color: $success;
+  
+  i, h2 { color: $success; }
+}
+
+.impact-card-info { background-color: rgba($info, 0.1); }
+.impact-card-warning { background-color: rgba($warning, 0.1); }
+.insignia-icon { width: 50px; height: 50px; }
