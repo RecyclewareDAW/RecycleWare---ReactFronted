@@ -15,20 +15,20 @@ export default function Home() {
             // Buscamos el elemento (quitando el '#' de la cadena)
             const id = location.hash.replace('#', '');
             const element = document.getElementById(id);
-            
+
             if (element) {
                 // Hacemos scroll suave. El setTimeout es necesario a veces 
                 // para darle a React unos milisegundos para renderizar la página antes de moverla
                 setTimeout(() => {
                     element.scrollIntoView({ behavior: 'smooth' });
-                }, 100); 
+                }, 100);
             }
         } else {
             // Si la URL no tiene '#', nos aseguramos de estar arriba del todo
             window.scrollTo(0, 0);
         }
     }, [location]); // Se ejecuta cada vez que cambia la URL
-    
+
     return <>
 
         <div
@@ -37,14 +37,12 @@ export default function Home() {
             data-bs-smooth-scroll="true"
             tabIndex={0}
         >
-            <div className="d-flex flex-column min-vh-100">
-                <Header />
-                <Hero />
-            </div>
+            <Header />
+            <Hero />
 
             <main>
-               <Categorias />
-                <Comunidad/>
+                <Categorias />
+                <Comunidad />
                 <Info />
                 <hr />
                 <Contacto />
