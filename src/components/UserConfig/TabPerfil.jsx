@@ -1,52 +1,77 @@
 export default function TabPerfil({ userRole, setActiveTab }) {
     return (
         <div className="animate-fade-in">
-            {/* Título dinámico según el rol */}
             <h2 className="titulo">
                 {userRole === 'individual' ? 'Datos Personales' : 'Datos de la Empresa'}
             </h2>
             
             <form>
-                {/* RENDERIZADO CONDICIONAL DE LOS INPUTS */}
                 {userRole === 'individual' ? (
-                    <div className="row mb-3">
-                        <div className="col-md-6">
-                            <label className="form-label">Nombre</label>
-                            <input type="text" className="form-control inputs" placeholder="Tu nombre" />
+                    // -----------------------------------------
+                    //        FORMULARIO PARA PARTICULARES
+                    // -----------------------------------------
+                    <>
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <label className="form-label">Nombre</label>
+                                <input type="text" className="form-control inputs" placeholder="Tu nombre" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className="form-label">Apellidos</label>
+                                <input type="text" className="form-control inputs" placeholder="Tus apellidos" />
+                            </div>
                         </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Apellidos</label>
-                            <input type="text" className="form-control inputs" placeholder="Tus apellidos" />
+                        <div className="row mb-4">
+                            <div className="col-md-6">
+                                <label className="form-label">Teléfono de contacto</label>
+                                <input type="tel" className="form-control inputs" placeholder="Tu número de teléfono" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className="form-label">Correo Electrónico</label>
+                                <input type="email" className="form-control inputs" placeholder="tucorreo@ejemplo.com" />
+                            </div>
                         </div>
-                    </div>
+                    </>
                 ) : (
-                    <div className="row mb-3">
-                        <div className="col-md-6">
-                            <label className="form-label">Razón Social</label>
-                            <input type="text" className="form-control inputs" placeholder="Nombre legal de la empresa" />
+                    // -----------------------------------------
+                    //          FORMULARIO PARA EMPRESAS
+                    // -----------------------------------------
+                    <>
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <label className="form-label">Razón Social</label>
+                                <input type="text" className="form-control inputs" placeholder="Nombre legal de la empresa" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className="form-label">CIF</label>
+                                <input type="text" className="form-control inputs" placeholder="B-12345678" />
+                            </div>
                         </div>
-                        <div className="col-md-6">
-                            <label className="form-label">CIF</label>
-                            <input type="text" className="form-control inputs" placeholder="B-12345678" />
+                        
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <label className="form-label">Persona de contacto</label>
+                                <input type="text" className="form-control inputs" placeholder="Nombre de la persona encargada" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className="form-label">Correo Electrónico</label>
+                                <input type="email" className="form-control inputs" placeholder="correo@empresa.com" />
+                            </div>
                         </div>
-                        <div className="col-md-6 pt-4">
-                            <label className="form-label">Nombre de la persona de contacto</label>
-                            <input type="text" className="form-control inputs" placeholder="Nombre de la persona de contacto" />
+
+                        <div className="row mb-4">
+                            <div className="col-md-6">
+                                <label className="form-label">Teléfono principal</label>
+                                <input type="tel" className="form-control inputs" placeholder="Teléfono principal" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className="form-label">Teléfono secundario <span className="text-muted fw-normal fs-6">(Opcional)</span></label>
+                                <input type="tel" className="form-control inputs" placeholder="Teléfono alternativo" />
+                            </div>
                         </div>
-                    </div>
+                    </>
                 )}
 
-                {/* Campos comunes para ambos */}
-                <div className="mb-3 pt-3">
-                    <label className="form-label">Teléfono de contacto</label>
-                    <input type="tel" className="form-control inputs" placeholder="Número de teléfono para contactar" />
-                </div>
-                
-                <div className="mb-4 pt-3">
-                    <label className="form-label">Correo Electrónico</label>
-                    <input type="email" className="form-control inputs" placeholder="tucorreo@ejemplo.com" />
-                </div>
-                
                 <button type="button" className="btn btn-primary mb-4">Guardar Cambios</button>
             </form>
 
@@ -54,7 +79,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
             {userRole === 'empresa' && (
                 <div className="mt-5 pt-2 border-top">
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
-                        <h3 className="mb-0 fw-bold text-primary" style={{ fontFamily: 'Alexandria, sans-serif', fontSize: '1.4rem' }}>
+                        <h3 className="mb-0 fw-bold text-primary titulo-secundario">
                             Últimas Donaciones
                         </h3>
                         <button 
@@ -67,7 +92,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                     </div>
                     
                     <div className="d-flex flex-column gap-3">
-                        <div className="p-3 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(236, 248, 248, 0.5)' }}>
+                        <div className="p-3 rounded-3 d-flex justify-content-between align-items-center card-soft-bg">
                             <div>
                                 <h6 className="mb-1 fw-bold text-dark">Lote de 10 Monitores Dell 24"</h6>
                                 <small className="text-muted d-block"><i className="bi bi-calendar3 me-2"></i>28 Feb 2026</small>
@@ -76,7 +101,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                                 Completado
                             </span>
                         </div>
-                        <div className="p-3 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(236, 248, 248, 0.5)' }}>
+                        <div className="p-3 rounded-3 d-flex justify-content-between align-items-center card-soft-bg">
                             <div>
                                 <h6 className="mb-1 fw-bold text-dark">5 Portátiles HP ProBook</h6>
                                 <small className="text-muted d-block"><i className="bi bi-calendar3 me-2"></i>15 Feb 2026</small>
