@@ -19,8 +19,8 @@ export default function Comunidad() {
     //noticiaLogro.push(4);
 
     return <>
-        <h2 className="titulo text-center m-3">Comunidad RecycleWare</h2>
-        <div className="container py-5">
+        <h2 className="titulo text-center pt-5">Comunidad RecycleWare</h2>
+        <div className="container">
             <div className="row row-cols-lg-3 row-cols-1 gy-3">
 
                 <div className="col">
