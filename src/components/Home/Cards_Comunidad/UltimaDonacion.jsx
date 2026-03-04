@@ -1,6 +1,6 @@
 export default function UltimaDonacion() {
     return <>
-        <div className="card h-100 border-success bg-white">
+        <div className="card h-100 border-success bg-white text-dark">
             <div className="card-body text-center">
                 <span className="badge bg-success mb-2">Nueva Donación</span>
                 <h3 className="h5 card-title">TechCorp se une al cambio</h3>
