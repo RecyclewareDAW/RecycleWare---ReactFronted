@@ -11,7 +11,7 @@ export default function TabSeguridad() {
                     <label className="form-label">Nueva Contraseña</label>
                     <input type="password" className="form-control inputs" />
                 </div>
-                <button type="button" className="btn btn-secondary mt-3">Actualizar Contraseña</button>
+                <button type="button" className="btn btn-primary mt-3">Actualizar Contraseña</button>
             </form>
         </div>
     );

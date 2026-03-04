@@ -16,7 +16,6 @@ import TabHistorial from '../components/UserConfig/TabHistorial';
 
 import TabDonaciones from '../components/UserConfig/TabDonaciones';
 import TabCertificados from '../components/UserConfig/TabCertificados';
-import TabFiscal from '../components/UserConfig/TabFiscal';
 import TabImpacto from '../components/UserConfig/TabImpacto';
 
 export default function UserConfig() {
@@ -36,7 +35,6 @@ export default function UserConfig() {
             case 'historial': return <TabHistorial />;
             case 'donaciones': return <TabDonaciones />;
             case 'certificados': return <TabCertificados />;
-            case 'fiscal': return <TabFiscal />;
             case 'impacto': return <TabImpacto />;
             default: return null;
         }

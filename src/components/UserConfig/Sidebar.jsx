@@ -44,9 +44,6 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                             <button className={`list-group-item list-group-item-action ${activeTab === 'certificados' ? 'active' : ''}`} onClick={() => setActiveTab('certificados')}>
                                 <i className="bi bi-file-earmark-check me-2"></i> Certificados
                             </button>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'fiscal' ? 'active' : ''}`} onClick={() => setActiveTab('fiscal')}>
-                                <i className="bi bi-building me-2"></i> Datos Fiscales
-                            </button>
                             <button className={`list-group-item list-group-item-action ${activeTab === 'impacto' ? 'active' : ''}`} onClick={() => setActiveTab('impacto')}>
                                 <i className="bi bi-globe-europe-africa me-2"></i> Mi Impacto
                             </button>

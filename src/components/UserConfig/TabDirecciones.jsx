@@ -17,7 +17,7 @@ export default function TabDirecciones() {
                         <input type="text" className="form-control inputs" />
                     </div>
                 </div>
-                <button type="button" className="btn btn-secondary mt-3">Guardar Dirección</button>
+                <button type="button" className="btn btn-primary mt-3">Guardar Dirección</button>
             </form>
         </div>
     );

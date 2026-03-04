@@ -1,23 +1,53 @@
 export default function TabPerfil({ userRole, setActiveTab }) {
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo">Datos Personales</h2>
+            {/* Título dinámico según el rol */}
+            <h2 className="titulo">
+                {userRole === 'individual' ? 'Datos Personales' : 'Datos de la Empresa'}
+            </h2>
+            
             <form>
-                <div className="row mb-3">
-                    <div className="col-md-6">
-                        <label className="form-label">Nombre</label>
-                        <input type="text" className="form-control inputs" placeholder="Tu nombre" />
+                {/* RENDERIZADO CONDICIONAL DE LOS INPUTS */}
+                {userRole === 'individual' ? (
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <label className="form-label">Nombre</label>
+                            <input type="text" className="form-control inputs" placeholder="Tu nombre" />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">Apellidos</label>
+                            <input type="text" className="form-control inputs" placeholder="Tus apellidos" />
+                        </div>
                     </div>
-                    <div className="col-md-6">
-                        <label className="form-label">Apellidos</label>
-                        <input type="text" className="form-control inputs" placeholder="Tus apellidos" />
+                ) : (
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <label className="form-label">Razón Social</label>
+                            <input type="text" className="form-control inputs" placeholder="Nombre legal de la empresa" />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">CIF</label>
+                            <input type="text" className="form-control inputs" placeholder="B-12345678" />
+                        </div>
+                        <div className="col-md-6 pt-4">
+                            <label className="form-label">Nombre de la persona de contacto</label>
+                            <input type="text" className="form-control inputs" placeholder="Nombre de la persona de contacto" />
+                        </div>
                     </div>
+                )}
+
+                {/* Campos comunes para ambos */}
+                <div className="mb-3 pt-3">
+                    <label className="form-label">Teléfono de contacto</label>
+                    <input type="tel" className="form-control inputs" placeholder="Número de teléfono para contactar" />
                 </div>
-                <div className="mb-4">
+                
+                <div className="mb-4 pt-3">
                     <label className="form-label">Correo Electrónico</label>
                     <input type="email" className="form-control inputs" placeholder="tucorreo@ejemplo.com" />
                 </div>
-                <button type="button" className="btn btn-secondary mb-4">Guardar Cambios</button>
+                
+                <button type="button" className="btn btn-primary mb-4">Guardar Cambios</button>
             </form>
 
             {/* SECCIÓN: RESUMEN DE DONACIONES (SOLO EMPRESAS) */}
