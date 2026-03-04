@@ -1,10 +1,9 @@
 const FormInput = ({label, type, id, placeholder, required}) => {
   return (
-    <div className="mb-3">
-        <label htmlFor={id} className="">{label}</label>
+    <div>
+        <label htmlFor={id}>{label}</label>
         <input 
             type={type}
-            className=""
             id={id}
             name={id}
             placeholder={placeholder}
