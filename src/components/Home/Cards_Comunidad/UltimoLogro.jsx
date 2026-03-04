@@ -30,7 +30,7 @@ export default function UltimoLogro() {
     
 
     return <>
-        <div className="card h-100 border-primary bg-white">
+        <div className="card h-100 border-primary bg-white text-dark">
             <div className="card-body text-center">
                 <span className="badge bg-primary mb-2">Logro</span>
                 <h3 className="h5 card-title">¡1.000 equipos entregados!</h3>

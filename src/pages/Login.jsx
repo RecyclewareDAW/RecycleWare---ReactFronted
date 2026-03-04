@@ -11,11 +11,12 @@ const Login = () => {
                 data-bs-smooth-scroll="true"
                 tabIndex={0}
             >
-                <div className="d-flex flex-column">
+                <div className="d-flex flex-column min-vh-100">
                     <Header />
 
-                    <main>
-                        <FormLogin />
+
+                    <main className='flex-fill'>
+                        <FormLogin/>
                     </main>
 
                     <Footer />
