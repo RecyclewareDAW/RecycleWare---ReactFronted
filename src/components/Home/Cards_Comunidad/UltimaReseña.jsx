@@ -1,7 +1,7 @@
 export default function UltimaReseña() {
     return <>
         
-            <div className="card h-100 border-warning bg-white">
+            <div className="card h-100 border-warning bg-white text-dark">
                 <div className="card-body text-center">
                     <div className="mb-3 text-warning">
                         <i className="bi bi-star-fill"></i>
