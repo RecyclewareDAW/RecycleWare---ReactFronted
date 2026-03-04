@@ -1,50 +1,91 @@
-import { useState, useRef } from 'react'; // <-- Importación corregida
+import { useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer'; 
 
 export default function UserConfig() {
-    // Estados para controlar la interfaz
     const [activeTab, setActiveTab] = useState('perfil');
     const [userRole, setUserRole] = useState('individual'); // Mock: 'individual' o 'empresa'
 
-    // --- SELECCIONAR Y GUARDAR LA FOTO DE PERFIL ---
-    const [profileImage, setProfileImage] = useState(null); // Guardará la URL de la imagen
-    const fileInputRef = useRef(null); // Referencia oculta para el input de archivo
-
-    // Función que se ejecuta al seleccionar una foto
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            // Crea una URL temporal para previsualizar la imagen al instante
-            const imageUrl = URL.createObjectURL(file);
-            setProfileImage(imageUrl);
-        }
-    };
-
-    // Función para renderizar el contenido dinámico a la derecha
     const renderContent = () => {
         switch (activeTab) {
             case 'perfil':
                 return (
                     <div className="animate-fade-in">
+                        {/* 1. FORMULARIO DE DATOS PERSONALES */}
                         <h2 className="titulo mb-4 border-bottom pb-2">Datos Personales</h2>
                         <form>
                             <div className="row mb-3">
                                 <div className="col-md-6">
                                     <label className="form-label">Nombre</label>
-                                    <input type="text" className="form-control" placeholder="Tu nombre" />
+                                    <input type="text" className="form-control inputs" placeholder="Tu nombre" />
                                 </div>
                                 <div className="col-md-6">
                                     <label className="form-label">Apellidos</label>
-                                    <input type="text" className="form-control" placeholder="Tus apellidos" />
+                                    <input type="text" className="form-control inputs" placeholder="Tus apellidos" />
                                 </div>
                             </div>
-                            <div className="mb-3">
+                            <div className="mb-4">
                                 <label className="form-label">Correo Electrónico</label>
-                                <input type="email" className="form-control" placeholder="tucorreo@ejemplo.com" />
+                                <input type="email" className="form-control inputs" placeholder="tucorreo@ejemplo.com" />
                             </div>
-                            <button className="btn btn-secondary mt-3">Guardar Cambios</button>
+                            <button className="btn btn-secondary mb-4">Guardar Cambios</button>
                         </form>
+
+                        {/* 2. NUEVA SECCIÓN: RESUMEN DE DONACIONES (SOLO EMPRESAS) */}
+                        {userRole === 'empresa' && (
+                            <div className="mt-5 pt-2 border-top">
+                                <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
+                                    <h3 className="mb-0 fw-bold text-primary" style={{ fontFamily: 'Alexandria, sans-serif', fontSize: '1.4rem' }}>
+                                        Últimas Donaciones
+                                    </h3>
+                                    {/* Este botón cambia la pestaña activa a 'donaciones' */}
+                                    <button 
+                                        className="btn btn-sm btn-link text-secondary text-decoration-none fw-bold p-0"
+                                        onClick={() => setActiveTab('donaciones')}
+                                    >
+                                        Ver todas <i className="bi bi-arrow-right"></i>
+                                    </button>
+                                </div>
+                                
+                                {/* Lista de últimas donaciones (Mockup) */}
+                                <div className="d-flex flex-column gap-3">
+                                    
+                                    {/* Donación 1 */}
+                                    <div className="p-3 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(236, 248, 248, 0.5)' }}>
+                                        <div>
+                                            <h6 className="mb-1 fw-bold text-dark">Lote de 10 Monitores Dell 24"</h6>
+                                            <small className="text-muted d-block"><i className="bi bi-calendar3 me-2"></i>28 Feb 2026</small>
+                                        </div>
+                                        <span className="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1 rounded-pill">
+                                            Completado
+                                        </span>
+                                    </div>
+
+                                    {/* Donación 2 */}
+                                    <div className="p-3 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(236, 248, 248, 0.5)' }}>
+                                        <div>
+                                            <h6 className="mb-1 fw-bold text-dark">5 Portátiles HP ProBook</h6>
+                                            <small className="text-muted d-block"><i className="bi bi-calendar3 me-2"></i>15 Feb 2026</small>
+                                        </div>
+                                        <span className="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-2 py-1 rounded-pill">
+                                            En Taller
+                                        </span>
+                                    </div>
+
+                                    {/* Donación 3 */}
+                                    <div className="p-3 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: 'rgba(236, 248, 248, 0.5)' }}>
+                                        <div>
+                                            <h6 className="mb-1 fw-bold text-dark">Lote de Periféricos mixtos</h6>
+                                            <small className="text-muted d-block"><i className="bi bi-calendar3 me-2"></i>02 Feb 2026</small>
+                                        </div>
+                                        <span className="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1 rounded-pill">
+                                            Completado
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        )}
                     </div>
                 );
             case 'direcciones':
@@ -54,16 +95,16 @@ export default function UserConfig() {
                         <form>
                             <div className="mb-3">
                                 <label className="form-label">Dirección Completa</label>
-                                <input type="text" className="form-control" placeholder="Calle, número, piso..." />
+                                <input type="text" className="form-control inputs" placeholder="Calle, número, piso..." />
                             </div>
                             <div className="row mb-3">
                                 <div className="col-md-6">
                                     <label className="form-label">Ciudad</label>
-                                    <input type="text" className="form-control" />
+                                    <input type="text" className="form-control inputs" />
                                 </div>
                                 <div className="col-md-6">
                                     <label className="form-label">Código Postal</label>
-                                    <input type="text" className="form-control" />
+                                    <input type="text" className="form-control inputs" />
                                 </div>
                             </div>
                             <button className="btn btn-secondary mt-3">Guardar Dirección</button>
@@ -77,11 +118,11 @@ export default function UserConfig() {
                         <form>
                             <div className="mb-3">
                                 <label className="form-label">Contraseña Actual</label>
-                                <input type="password" className="form-control" />
+                                <input type="password" className="form-control inputs" />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Nueva Contraseña</label>
-                                <input type="password" className="form-control" />
+                                <input type="password" className="form-control inputs" />
                             </div>
                             <button className="btn btn-secondary mt-3">Actualizar Contraseña</button>
                         </form>
@@ -117,7 +158,7 @@ export default function UserConfig() {
             case 'historial':
                 return <div className="animate-fade-in"><h2 className="titulo mb-4 border-bottom pb-2">Historial</h2><p>Listado de equipos que has recibido en el pasado.</p></div>;
             case 'donaciones':
-                return <div className="animate-fade-in"><h2 className="titulo mb-4 border-bottom pb-2">Mis Donaciones</h2><p>Aquí irá el listado de lotes donados.</p></div>;
+                return <div className="animate-fade-in"><h2 className="titulo mb-4 border-bottom pb-2">Mis Donaciones</h2><p>Aquí irá el listado COMPLETO de lotes donados.</p></div>;
             case 'certificados':
                 return <div className="animate-fade-in"><h2 className="titulo mb-4 border-bottom pb-2">Certificados</h2><p>Descarga tus certificados de donación aquí.</p></div>;
             case 'fiscal':
@@ -127,11 +168,11 @@ export default function UserConfig() {
                         <form>
                             <div className="mb-3">
                                 <label className="form-label">Razón Social</label>
-                                <input type="text" className="form-control" />
+                                <input type="text" className="form-control inputs" />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">CIF</label>
-                                <input type="text" className="form-control" />
+                                <input type="text" className="form-control inputs" />
                             </div>
                             <button className="btn btn-secondary mt-3">Guardar Datos Fiscales</button>
                         </form>
@@ -161,66 +202,36 @@ export default function UserConfig() {
                     </button>
                 </div>
 
-                <div className="row g-4">
+                {/* SALUDO GLOBAL */}
+                <div className="d-flex align-items-center mb-4">
+                    <h1 className="fw-bold mb-0 text-primary">
+                        ¡Hola, {userRole === 'individual' ? 'Usuario' : 'Empresa'}!
+                    </h1>
+                </div>
+
+                <div className="row g-4 align-items-stretch">
+                    
                     {/* MENÚ LATERAL */}
                     <aside className="col-12 col-lg-3">
-                        <div className="config-sidebar bg-white rounded shadow-sm p-3">
+                        <div className="config-sidebar bg-white rounded shadow-sm p-3 h-100 d-flex flex-column">
                             
-                            {/* --- ZONA DE AVATAR  --- */}
-                            <div className="text-center mb-3 pt-2 border-bottom pb-4">
-                                <div className="avatar-placeholder bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center text-primary" style={{ overflow: 'hidden' }}>
-                                    {/* Renderizado condicional de la imagen o el icono */}
-                                    {profileImage ? (
-                                        <img src={profileImage} alt="Perfil del usuario" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    ) : (
-                                        <i className="bi bi-person"></i>
-                                    )}
-                                </div>
-                                <h5 className="mb-1">¡Hola, Usuario!</h5>
-                                <small className="text-muted d-block mb-3">Gestiona tu cuenta</small>
-                                
-                                {/* INPUT OCULTO AÑADIDO AQUÍ */}
-                                <input 
-                                    type="file" 
-                                    accept="image/*" 
-                                    ref={fileInputRef} 
-                                    onChange={handleImageChange} 
-                                    className="d-none" 
-                                />
-
-                                {/* BOTÓN CONECTADO AL INPUT MEDIANTE ONCLICK */}
-                                <button 
-                                    className="btn btn-sm btn-outline-secondary"
-                                    onClick={() => fileInputRef.current.click()}
-                                >
-                                    <i className="bi bi-camera me-2"></i>Cambiar foto
-                                </button>
-                            </div>
-                            {/* ---------------------------- */}
-
-                            <div className="list-group list-group-flush custom-list-group">
-                                {/* GLOBAL */}
+                            <div className="list-group list-group-flush custom-list-group flex-grow-1">
                                 <button className={`list-group-item list-group-item-action ${activeTab === 'perfil' ? 'active' : ''}`} onClick={() => setActiveTab('perfil')}>
                                     <i className="bi bi-person-vcard me-2"></i> Mi Perfil
                                 </button>
-
                                 <button className={`list-group-item list-group-item-action ${activeTab === 'direcciones' ? 'active' : ''}`} onClick={() => setActiveTab('direcciones')}>
                                     <i className="bi bi-geo-alt me-2"></i> Mis Direcciones
                                 </button>
-
                                 <button className={`list-group-item list-group-item-action ${activeTab === 'seguridad' ? 'active' : ''}`} onClick={() => setActiveTab('seguridad')}>
                                     <i className="bi bi-shield-lock me-2"></i> Seguridad
                                 </button>
-
                                 <button className={`list-group-item list-group-item-action ${activeTab === 'notificaciones' ? 'active' : ''}`} onClick={() => setActiveTab('notificaciones')}>
                                     <i className="bi bi-bell me-2"></i> Notificaciones
                                 </button>
-                                
                                 <button className={`list-group-item list-group-item-action ${activeTab === 'privacidad' ? 'active' : ''}`} onClick={() => setActiveTab('privacidad')}>
                                     <i className="bi bi-incognito me-2"></i> Privacidad
                                 </button>
 
-                                {/* SOLO USUARIO PARTICULAR */}
                                 {userRole === 'individual' && (
                                     <>
                                         <button className={`list-group-item list-group-item-action ${activeTab === 'peticiones' ? 'active' : ''}`} onClick={() => setActiveTab('peticiones')}>
@@ -232,7 +243,6 @@ export default function UserConfig() {
                                     </>
                                 )}
 
-                                {/* SOLO EMPRESA */}
                                 {userRole === 'empresa' && (
                                     <>
                                         <button className={`list-group-item list-group-item-action ${activeTab === 'donaciones' ? 'active' : ''}`} onClick={() => setActiveTab('donaciones')}>
@@ -246,9 +256,10 @@ export default function UserConfig() {
                                         </button>
                                     </>
                                 )}
+                            </div>
 
-                                {/* CERRAR SESIÓN (GLOBAL) */}
-                                <button className="list-group-item list-group-item-action text-danger mt-4">
+                            <div className="mt-auto pt-4 border-top">
+                                <button className="btn btn-outline-danger w-100 d-flex justify-content-center align-items-center">
                                     <i className="bi bi-box-arrow-left me-2"></i> Cerrar Sesión
                                 </button>
                             </div>
@@ -264,7 +275,7 @@ export default function UserConfig() {
                 </div>
             </main>
 
-            <Footer />
+            <Footer /> 
         </>
     );
 }
