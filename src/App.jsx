@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Test from "./pages/TestSegundaPagina";
 import UserConfig from "./pages/UserConfig";
 import Registro from "./pages/Registro";
+import Login from "./pages/Login";
 
 export default function App() {
 
