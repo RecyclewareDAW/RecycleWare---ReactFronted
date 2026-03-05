@@ -1,4 +1,4 @@
-const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel }) => {
+const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange }) => {
   // Si el input es un checkbox 
   if (type === "checkbox") {
     return (
@@ -23,8 +23,8 @@ const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideL
   // Si es un Textarea
   if (type === "textarea") {
     return (
-      <div className="w-100">
-        <label htmlFor={id} className={`form-label ${hideLabel ? 'd-none' : ''}`}>
+      <div className="w-100 mb-4">
+        <label htmlFor={id} className={`form-label text-secondary ${hideLabel ? 'd-none' : ''}`}>
           {label}
         </label>
         <textarea
@@ -34,6 +34,8 @@ const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideL
           rows="2"
           placeholder={placeholder}
           required={required}
+          value={value}
+          onChange={onChange}
         ></textarea>
         <div className="invalid-feedback">
           {errorMessage}
@@ -43,8 +45,8 @@ const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideL
   }
 
   return (
-    <div className="w-100">
-      <label htmlFor={id} className={`form-label ${hideLabel ? 'd-none' : ''}`}>{label}</label>
+    <div className="w-100 mb-4">
+      <label htmlFor={id} className={`form-label fw-bold text-secondary ${hideLabel ? 'd-none' : ''}`}>{label}</label>
       <input
         className="form-control rounded-0 px-0 shadow-none text-primary inputs"
         id={id}
@@ -52,6 +54,8 @@ const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideL
         name={id}
         placeholder={placeholder}
         required={required}
+        value={value}
+        onChange={onChange}
       />
       <div className="invalid-feedback">
         {errorMessage}
@@ -60,4 +64,4 @@ const FormInput = ({ id, label, type, placeholder, required, errorMessage, hideL
   )
 }
 
-export default FormInput;
+export default CustomInput;
