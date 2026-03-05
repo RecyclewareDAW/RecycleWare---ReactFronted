@@ -8,8 +8,9 @@ export default function FormularioSolicitud({ producto, handleSubmit, validated 
                 onSubmit={handleSubmit} 
                 className={`needs-validation ${validated ? 'was-validated' : ''}`}
             >
+                {/* SECCIÓN MOTIVO CON LABEL VISIBLE */}
                 <div className="mb-4">
-                    <label htmlFor="motivo" className="form-label d-none">
+                    <label htmlFor="motivo" className="form-label text-muted small mb-1 fw-bold text-uppercase" style={{ letterSpacing: '0.5px' }}>
                         Motivo de la solicitud
                     </label>
                     <textarea 
@@ -24,6 +25,7 @@ export default function FormularioSolicitud({ producto, handleSubmit, validated 
                     </div>
                 </div>
 
+                {/* BLOQUE INFORMATIVO DEL CENTRO DE RECOGIDA */}
                 <div className="mb-4 p-3 border-start border-4 border-secondary bg-light rounded-end">
                     <p className="text-muted small mb-1 fw-bold text-uppercase" style={{ letterSpacing: '0.5px' }}>
                         Punto de recogida asignado
@@ -38,6 +40,7 @@ export default function FormularioSolicitud({ producto, handleSubmit, validated 
                     </p>
                 </div>
 
+                {/* CHECKBOX DE COMPROMISO */}
                 <div className="form-check mb-5 mt-4">
                     <input className="form-check-input terminos" type="checkbox" id="compromiso" required />
                     <label className="form-check-label text-muted small" htmlFor="compromiso">
@@ -49,7 +52,7 @@ export default function FormularioSolicitud({ producto, handleSubmit, validated 
                 </div>
 
                 <div className="d-flex gap-3">
-                    <Link to="/#categorias" className="btn btn-outline-secondary px-4 py-2">
+                    <Link to="/productos" className="btn btn-outline-secondary px-4 py-2">
                         Volver
                     </Link>
                     <button type="submit" className="btn btn-primary text-white px-4 py-2 flex-grow-1">

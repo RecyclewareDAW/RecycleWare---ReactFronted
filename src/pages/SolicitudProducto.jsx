@@ -44,7 +44,7 @@ export default function SolicitudProducto() {
                     <h2 className="mb-5 titulo">Solicitar Equipo</h2>
 
                     {!enviadoConExito ? (
-                        <div className="row g-5 align-items-center">
+                        <div className="row g-5">
                             <ResumenProducto producto={productoMock} />
                             <FormularioSolicitud 
                                 producto={productoMock} 
