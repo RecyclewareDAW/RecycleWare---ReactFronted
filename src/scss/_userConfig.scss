@@ -1,0 +1,178 @@
+@import "variables";
+
+// Contenedor principal
+.user-config-container {
+  min-height: 80vh;
+
+  h1 {
+    font-family: $headings-font-family;
+    color: $primary;
+    letter-spacing: -0.5px;
+  }
+}
+
+// Estilos compartidos para las "Tarjetas" (Menú y Contenido)
+.config-sidebar, .config-content {
+  background-color: #ffffff;
+  border: none; 
+  border-radius: 1rem; 
+  box-shadow: 0 10px 40px rgba($primary, 0.06); 
+}
+
+// --- MENÚ LATERAL ---
+.config-sidebar {
+  .custom-list-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem; 
+
+    // Añadimos las pseudo-clases para ganar a Bootstrap sin usar !important
+    .list-group-item,
+    .list-group-item:first-child,
+    .list-group-item:last-child {
+      border: none;
+      padding: 0.85rem 1.2rem;
+      color: rgba($dark, 0.7);
+      font-weight: 500;
+      border-radius: 0.5rem;
+      background-color: transparent;
+      transition: all 0.25s ease;
+
+      i {
+        color: rgba($primary, 0.5);
+        font-size: 1.1rem;
+        transition: color 0.25s ease;
+      }
+
+      &:hover {
+        background-color: rgba($fondo-secundario, 0.6);
+        color: $primary;
+        transform: translateX(4px); 
+
+        i { color: $primary; }
+      }
+
+      &.active {
+        background-color: rgba($secondary, 0.12);
+        color: $secondary;
+        font-weight: 600;
+        
+        i { color: $secondary; }
+      }
+    }
+  }
+
+  .btn-outline-danger {
+    border-radius: 0.5rem;
+    border-width: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba($danger, 0.2);
+    }
+  }
+}
+
+// --- ÁREA DE CONTENIDO (Formularios) ---
+.config-content {
+  
+  .titulo {
+    font-family: $headings-font-family;
+    font-size: 1.75rem;
+    border-bottom: 2px solid rgba($primary, 0.05);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: rgba($dark, 0.8);
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .btn-secondary {
+    background-color: $secondary;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    font-weight: 600;
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($secondary, 5%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba($secondary, 0.3);
+    }
+  }
+
+  .form-switch {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    
+    .form-check-input {
+      width: 3em;
+      height: 1.5em;
+      margin-top: 0;
+      background-color: rgba($primary, 0.2); 
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:checked {
+        background-color: $secondary;
+      }
+      
+      &:focus {
+        box-shadow: 0 0 0 4px rgba($secondary, 0.15);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/%3e%3c/svg%3e");
+      }
+      
+      &:checked:focus {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+    }
+    
+    .form-check-label {
+      cursor: pointer;
+      color: rgba($dark, 0.8);
+      font-size: 1rem;
+    }
+  }
+}
+
+// Animación de entrada
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// --- ESTILOS PARA LA PESTAÑA DE IMPACTO ---
+.impact-card-success {
+  background-color: rgba($success, 0.1);
+  color: $success;
+  
+  i, h2 { color: $success; }
+}
+
+.impact-card-info { background-color: rgba($info, 0.1); }
+.impact-card-warning { background-color: rgba($warning, 0.1); }
+.insignia-icon { width: 50px; height: 50px; }
+
+// Título secundario con la fuente Alexandria
+.titulo-secundario {
+  font-family: $headings-font-family;
+  font-size: 1.4rem;
+}
+
+// Fondo sutil para las tarjetas pequeñas (como las donaciones)
+.card-soft-bg {
+  background-color: rgba($fondo-secundario, 0.5);
+}
