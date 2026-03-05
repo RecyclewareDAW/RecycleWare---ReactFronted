@@ -4,7 +4,7 @@ import Test from "./pages/TestSegundaPagina";
 import UserConfig from "./pages/UserConfig";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
-
+import RecuperarContrasena from './pages/RecuperarContrasena';
 export default function App() {
 
   return (
@@ -15,7 +15,8 @@ export default function App() {
                 <Route path="/estrella" element={<Test/>}></Route>
                 <Route path="/perfil" element={<UserConfig />}></Route>
                 <Route path='/login' element={<Login/>}></Route>
-                <Route path="/registro" element={<Registro />} />
+                <Route path="/registro" element={<Registro />}></Route>
+                <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
               </Routes>
             </BrowserRouter>
     </>
