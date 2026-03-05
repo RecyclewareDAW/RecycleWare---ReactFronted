@@ -5,6 +5,7 @@ import UserConfig from "./pages/UserConfig";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import RecuperarContrasena from './pages/RecuperarContrasena';
+import ContrasenaOlvidada from "./pages/ContrasenaOlvidada";
 export default function App() {
 
   return (
@@ -17,6 +18,7 @@ export default function App() {
                 <Route path='/login' element={<Login/>}></Route>
                 <Route path="/registro" element={<Registro />}></Route>
                 <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
+                <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />} />
               </Routes>
             </BrowserRouter>
     </>

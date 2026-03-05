@@ -37,7 +37,7 @@ export default function FormRecuperar() {
         
         setTimeout(() => {
             navigate('/login');
-        }, 3000);
+        }, 2000);
     };
 
     if (success) {
