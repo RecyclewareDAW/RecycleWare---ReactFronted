@@ -13,6 +13,12 @@ export default function Navbar() {
       return;
     }
 
+    // 👇 NUEVO: Si estamos en la página de solicitud, iluminamos "Productos"
+    if (location.pathname.startsWith('/solicitud')) {
+      setActiveLink('#categorias');
+      return;
+    }
+
     // Si no estamos en la ruta raíz ('/'), no intentamos calcular el scroll
     if (location.pathname !== '/') return;
 
@@ -45,7 +51,7 @@ export default function Navbar() {
   }, [location.pathname]); // Escuchamos cambios en la ruta
 
   return (
-    <header className='fixed-top'>
+    <header className='sticky-top'>
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand d-flex align-items-center" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
