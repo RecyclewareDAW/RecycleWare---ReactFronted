@@ -6,7 +6,7 @@ export default function InfoSection() {
       <section className="row justify-content-center" id="info">
         <div className="col">
 
-          <article className="mb-5 p-4 bg-white border rounded-4 shadow-sm">
+          <article className="mb-5 p-4 bg-white border rounded-4 shadow-sm text-dark">
             <h2 className="h3 mb-3 text-primary">
               <i className="bi bi-info-circle me-2"></i>
               ¿Qué es RecycleWare?
@@ -28,11 +28,12 @@ export default function InfoSection() {
           </article>
 
           <article className="mb-5">
-            <h2 className="h3 mb-3">
+            <h2 className="h3 mb-3 text-primary">
               <i className="bi bi-laptop me-2"></i>
               ¿Necesitas equipamiento?
             </h2>
-            <div className="row align-items-center">
+
+            <div className="row align-items-center text-dark">
               <div className="col-md-8">
                 <p>
                   Cualquier persona puede visualizar nuestro catálogo disponible, pero para solicitar
@@ -57,22 +58,22 @@ export default function InfoSection() {
               <i className="bi bi-heart me-2"></i>
               ¿Quieres colaborar?
             </h2>
-            <p className="mb-4">
+            <p className="mb-4 text-dark">
               Tu hardware puede cambiar una vida. Puedes colaborar de distintas formas:
             </p>
 
             <div className="row g-4">
               <div className="col-md-6">
-                <h3 className="h5 fw-bold">
+                <h3 className="h5 fw-bold text-primary">
                   <i className="bi bi-person me-2"></i>
                   Particulares
                 </h3>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item px-0 border-0 bg-transparent">
+                  <li className="list-group-item px-0 border-0 bg-transparent text-dark">
                     <strong>Donación Identificada:</strong> Regístrate para llevar un historial
                     de tus donaciones y solicitudes, y elegir el punto de entrega o recogida.
                   </li>
-                  <li className="list-group-item px-0 border-0 bg-transparent">
+                  <li className="list-group-item px-0 border-0 bg-transparent text-dark">
                     <strong>Donación Puntual:</strong> Colabora sin registro entregando
                     tus equipos directamente en nuestros puntos autorizados.
                   </li>
@@ -80,11 +81,11 @@ export default function InfoSection() {
               </div>
 
               <div className="col-md-6">
-                <h3 className="h5 fw-bold">
+                <h3 className="h5 fw-bold text-primary">
                   <i className="bi bi-building me-2"></i>
                   Empresas
                 </h3>
-                <p className="small">
+                <p className="small text-dark">
                   Las empresas pueden registrarse con un perfil corporativo.
                   Al hacerlo, <strong>se reconocerán oficialmente sus méritos</strong> y
                   aportaciones a la economía circular, otorgando visibilidad a su

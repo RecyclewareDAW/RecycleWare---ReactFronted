@@ -1,18 +1,17 @@
 @import "variables";
 @import "header";
 @import "hero";
-@import "contacto";
+@import "formularios";
 @import "../../node_modules/bootstrap/scss/bootstrap";
-@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @import "bootstrap-icons";
+@import "userConfig";
 
 /* Reset CSS básico */
 * {
     margin: 0;       /* Quita márgenes por defecto */
     padding: 0;      /* Quita padding por defecto */
     box-sizing: border-box; /* Hace que el width incluya padding y border */
-    scroll-padding-top: 5rem;  /* Para que haya distancia entre el header y la página que abre scrolleando */
-    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
 }
 
 body {
@@ -21,5 +20,9 @@ body {
 }
 
 .pt-header{
+    padding-top: 5rem;
+}
+
+aside {
     padding-top: 5rem;
 }

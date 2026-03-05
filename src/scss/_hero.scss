@@ -1,12 +1,12 @@
 .seccion-hero {
     position: relative;
     overflow: hidden;
-    flex-grow: 1;
+
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 70vh;
+    min-height: calc(100vh - 76px); /* 100vh = 100% de la pantalla. Le restamos los píxeles que mide el Header */
 
     /* Vídeo de fondo */
     .video-fondo {

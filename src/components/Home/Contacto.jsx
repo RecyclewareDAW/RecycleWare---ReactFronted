@@ -38,7 +38,7 @@ export default function Contacto() {
                 </label>
                 <input
                   type="text"
-                  className="form-control rounded-0 px-0 shadow-none text-primary"
+                  className="form-control rounded-0 px-0 shadow-none text-primary inputs"
                   id="nombre"
                   name="nombre"
                   placeholder="Nombre"
@@ -55,7 +55,7 @@ export default function Contacto() {
                 </label>
                 <input
                   type="email"
-                  className="form-control rounded-0 px-0 shadow-none text-primary"
+                  className="form-control rounded-0 px-0 shadow-none text-primary inputs"
                   id="email"
                   name="email"
                   placeholder="Email"
@@ -72,7 +72,7 @@ export default function Contacto() {
                 Asunto
               </label>
               <textarea
-                className="form-control rounded-0 px-0 shadow-none text-primary"
+                className="form-control rounded-0 px-0 shadow-none text-primary inputs"
                 id="asunto"
                 name="asunto"
                 rows="2"
@@ -86,7 +86,7 @@ export default function Contacto() {
 
             <div className="form-check mb-5">
               <input
-                className="form-check-input"
+                className="form-check-input terminos"
                 type="checkbox"
                 id="terminos"
                 name="terminos"
