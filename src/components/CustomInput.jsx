@@ -1,4 +1,4 @@
-const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange }) => {
+const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, ...props}) => {
   // Si el input es un checkbox 
   if (type === "checkbox") {
     return (
@@ -56,6 +56,7 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
         required={required}
         value={value}
         onChange={onChange}
+        {...props}
       />
       <div className="invalid-feedback">
         {errorMessage}
