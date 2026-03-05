@@ -1,26 +1,22 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import FormRecuperar from '../components/Auth/FormularioRecuperar';
+import FormContrasenaOlvidada from '../components/Auth/FormContrasenaOlvidada';
 
-export default function RecuperarContrasena() {
+export default function ContrasenaOlvidada() {
     return (
-        <div
-                       data-bs-spy="scroll"
-                       data-bs-target=".navbar"
-                       data-bs-smooth-scroll="true"
-                       tabIndex={0}
-                   >
-                       <div className="d-flex flex-column min-vh-100">
-                           <Header />
-       
-       
-                           <main className='flex-fill'>
-       
-                            <FormRecuperar></FormRecuperar>
-                           </main>
-       
-                           <Footer />
-                       </div>
-                   </div>
+        <div data-bs-spy="scroll" data-bs-target=".navbar" data-bs-smooth-scroll="true" tabIndex={0}>
+         
+            <div className="d-flex flex-column min-vh-100">
+                <Header />
+                
+                <main className='flex-fill container d-flex justify-content-center align-items-center py-5'>
+                    <div className="col-12 col-md-8 col-lg-6 col-xl-5 mx-auto">
+                        <FormContrasenaOlvidada />
+                    </div>
+                </main>
+
+                <Footer />
+            </div>
+        </div>
     );
 }
