@@ -2,7 +2,7 @@ const FormCard = ({ title, subtitle, colSize, children }) => {
   return (
     <div className="row justify-content-center">
       {/* Usamos colSize para que el Registro pueda ser más ancho que el Login */}
-      <div className={`col-12 col-md-8 ${colSize}`}>
+      <div className={`col-12 ${colSize}`}>
         
         {/* Estilo de la card del formulario */}
         <div className="bg-white py-5 px-4 px-md-5 rounded-4 border shadow-sm">

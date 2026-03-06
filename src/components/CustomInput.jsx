@@ -1,4 +1,4 @@
-const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, ...props }) => {
+const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, options = [], ...props }) => {
   // Si el input es un checkbox 
   if (type === "checkbox") {
     return (

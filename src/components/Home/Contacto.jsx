@@ -17,7 +17,7 @@ export default function Contacto() {
       {/* Condicionamos el título para que no salga si el mensaje ya se envió */}
       <FormCard 
         title={!enviadoConExito ? "¡Contacta con nosotros!" : ""} 
-        colSize="col-md-12 col-lg-12"
+        colSize="col-lg-12"
       >
         
         {!enviadoConExito ? (
