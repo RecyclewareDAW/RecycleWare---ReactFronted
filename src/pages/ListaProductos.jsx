@@ -16,10 +16,10 @@ export default function ListaProductos() {
             <Header />
 
 
-            <main className="pt-header d-flex flex-column">
+            <main className="pt-4 d-flex flex-column">
                 <h1 className="titulo">Productos</h1>
-                <div className="d-flex flex-row p-3 justify-content-evenly">
-                    <aside className="p-4 bg-white border rounded-4 shadow-smpx-5 w-25 h-100">
+                <div className="d-flex flex-lg-row flex-column p-3 justify-content-evenly">
+                    <aside className="p-4 bg-white border rounded-4 shadow-sm flex-fill m-3 h-100">
                         <div className="list-group">
                             <div className="fw-bold list-group-item list-group-item-action list-group-item-primary" data-bs-toggle="collapse" data-bs-target="#categorias">Categorias</div>
                             <div className="collapse" id="categorias">
@@ -41,7 +41,7 @@ export default function ListaProductos() {
                             </div>
                         </div>
                     </aside>
-                    <div className="p-4 bg-white border rounded-4 shadow-smpx-5">
+                    <div className="p-4 m-3 bg-white border rounded-4 shadow-sm">
                         <Lista ></Lista>
                     </div>
                 </div>
