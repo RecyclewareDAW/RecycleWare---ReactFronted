@@ -49,7 +49,9 @@ const FormLogin = () => {
         ¿No tienes cuenta? <Link to="/registro" className="text-secondary text-decoration-none fw-bold">Regístrate aquí</Link>
       </p>
       <p className="text-center text-muted small mb-0">
-        ¿Olvidaste tu contraseña? <Link to="/#" className="text-secondary text-decoration-none fw-bold">Recuperar contraseña</Link>
+        ¿Olvidaste tu contraseña? <Link to="/olvide-contrasena" className="text-secondary fw-bold text-decoration-none ms-1">
+          Recuperar contraseña
+        </Link>
       </p>
     </FormCard>
   )

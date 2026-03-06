@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 const Card = ({imagen, titulo, descripcion, enlace}) => {
   return (
@@ -6,7 +7,7 @@ const Card = ({imagen, titulo, descripcion, enlace}) => {
         <div className='card-body d-flex flex-column'>
             <h5 className='card-title fw-bold text-secondary'>{titulo}</h5>
             <p className='card-text text-primary'>{descripcion}</p>
-            <a href={enlace} className='mt-auto btn btn-outline-success'>Ver catálogo</a>
+            <Link to={enlace} className='mt-auto btn btn-outline-success'>Ver catálogo</Link>
         </div>
     </div>
   )
