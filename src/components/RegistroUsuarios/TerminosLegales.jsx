@@ -1,4 +1,5 @@
 import CustomInput from '../CustomInput';
+import { Link } from 'react-router-dom';
 
 export default function TerminosLegales() {
     return (
@@ -14,10 +15,10 @@ export default function TerminosLegales() {
                 id="terminos"
                 type="checkbox"
                 required={true}
-                errorMessage="Debes aceptar los términos."
+                errorMessage="Debes aceptar los términos y condiciones."
                 label={
                     <>
-                        Acepto los <a href="#" className="text-link">términos y condiciones</a> y la política de privacidad.
+                        Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-secondary fw-bold text-decoration-none">términos y condiciones</Link> y la política de privacidad.
                     </>
                 }
             />

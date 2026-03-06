@@ -8,6 +8,7 @@ import ListaProductos from './pages/ListaProductos';
 import DonateProduct from "./pages/DonateProduct";
 import RecuperarContrasena from './pages/RecuperarContrasena';
 import ContrasenaOlvidada from "./pages/ContrasenaOlvidada";
+import PaginaTerminos from './pages/PaginaTerminos';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
                 <Route path='/donar' element={<DonateProduct />} />
                 <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
                 <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />}></Route>
+                <Route path="/terminos" element={<PaginaTerminos />} />
 
               </Routes>
             </BrowserRouter>
