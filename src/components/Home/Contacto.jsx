@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import CustomForm from '../CustomForm'; 
 import CustomInput from '../CustomInput'; 
 import FormCard from '../FormCard';
@@ -63,19 +64,16 @@ export default function Contacto() {
             </div>
 
             <CustomInput
-              id="terminos"
-              type="checkbox"
-              required={true}
-              errorMessage="Debes aceptar los términos y condiciones antes de enviar el mensaje."
-              label={
-                <>
-                  Acepto los{" "}
-                  <a href="#" className="text-link">
-                    términos y condiciones
-                  </a>
-                </>
-              }
-            />
+                id="terminos"
+                type="checkbox"
+                required={true}
+                errorMessage="Debes aceptar los términos y condiciones antes de enviar el mensaje."
+                label={
+                  <>
+                    Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-link">términos y condiciones</Link>
+                  </>
+    }
+/>
 
             <div className="text-center mt-4">
               <button
