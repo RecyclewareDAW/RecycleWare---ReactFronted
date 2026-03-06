@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ResumenProducto from '../components/SolicitudProducto/ResumenProducto';
@@ -8,56 +6,65 @@ import FormularioSolicitud from '../components/SolicitudProducto/FormularioSolic
 import MensajeExito from '../components/SolicitudProducto/MensajeExito';
 
 export default function SolicitudProducto() {
-    const { id } = useParams(); 
-    
-    const [validated, setValidated] = useState(false);
     const [enviadoConExito, setEnviadoConExito] = useState(false);
-
-    // MOCK
-    const productoMock = {
-        id: id || "1",
-        titulo: "Portátil Lenovo ThinkPad",
-        descripcion: "Intel Core i5, 8GB RAM, 256GB SSD. Equipo reacondicionado listo para ofimática y estudio.",
-        estado: "Reacondicionado",
-        imagen: "https://picsum.photos/id/231/600/600",
-        centroRecogida: "IES Doctor Balmis - Alicante" 
+    
+    const usuarioSesion = { 
+        nombre: "Manuel Rodriguez", 
+        dni: "12345678W", 
+        email: "manuel.rodriguez@email.com" 
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-            setValidated(true);
-        } else {
-            setEnviadoConExito(true);
-        }
+    const productoMock = { 
+        titulo: "Portátil Lenovo ThinkPad", 
+        imagen: "https://picsum.photos/id/231/800/600", 
+        descripcion: "Intel Core i5, 8GB RAM, 256GB SSD. Equipo reacondicionado bajo estándares de economía circular.",
+        estado: "Reacondicionado",
+        centroRecogida: "IES Doctor Balmis - Alicante" 
     };
 
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
+            <main className="flex-fill container py-5 pt-header align-content-center">
+                {!enviadoConExito ? (
+                    /* CENTRADO CON GRID:
+                       - row: crea el contexto.
+                       - justify-content-center: centra la columna.
+                       - col-xl-10: en pantallas grandes ocupa 10 de 12 (aprox 1100px).
+                    */
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-xl-11 col-xxl-10">
+                            
+                            <div className="bg-white p-4 p-md-5 rounded-4 border shadow-sm">
+                                <h2 className="titulo fw-bold pb-4 text-primary">Confirmar Solicitud</h2>
+                                
+                                <div className="row g-5 align-items-start">
+                                    {/* Izquierda: Resumen */}
+                                    <div className="col-lg-5">
+                                        <ResumenProducto producto={productoMock} />
+                                    </div>
 
-            <main className='flex-fill container py-5'>
-                <div className="bg-white py-4 px-4 px-md-5 rounded-4 border shadow-sm max-w-lg mx-auto">
-                    <h2 className="mb-5 titulo">Solicitar Equipo</h2>
+                                    {/* Derecha: Formulario */}
+                                    <div className="col-lg-7">
+                                        <FormularioSolicitud 
+                                            producto={productoMock} 
+                                            usuario={usuarioSesion} 
+                                            onSuccess={() => setEnviadoConExito(true)} 
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
-                    {!enviadoConExito ? (
-                        <div className="row g-5">
-                            <ResumenProducto producto={productoMock} />
-                            <FormularioSolicitud 
-                                producto={productoMock} 
-                                handleSubmit={handleSubmit} 
-                                validated={validated} 
-                            />
                         </div>
-                    ) : (
-                        <MensajeExito producto={productoMock} />
-                    )}
-                </div>
+                    </div>
+                ) : (
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-md-8 col-lg-6 animate-fade-in">
+                            <MensajeExito producto={productoMock} />
+                        </div>
+                    </div>
+                )}
             </main>
-
             <Footer />
         </div>
     );

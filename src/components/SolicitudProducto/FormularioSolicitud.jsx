@@ -1,65 +1,49 @@
-import { Link } from 'react-router-dom';
+import CustomForm from '../CustomForm';
+import CustomInput from '../CustomInput';
 
-export default function FormularioSolicitud({ producto, handleSubmit, validated }) {
-    return (
-        <div className="col-lg-7">
-            <form 
-                noValidate 
-                onSubmit={handleSubmit} 
-                className={`needs-validation ${validated ? 'was-validated' : ''}`}
-            >
-                {/* SECCIÓN MOTIVO CON LABEL VISIBLE */}
-                <div className="mb-4">
-                    <label htmlFor="motivo" className="form-label text-muted small mb-1 fw-bold text-uppercase" style={{ letterSpacing: '0.5px' }}>
-                        Motivo de la solicitud
-                    </label>
-                    <textarea 
-                        className="form-control rounded-0 px-0 shadow-none text-primary inputs" 
-                        id="motivo" 
-                        rows="3" 
-                        placeholder="¿Para qué necesitas este equipo? (Estudios, búsqueda de empleo...)" 
-                        required
-                    ></textarea>
-                    <div className="invalid-feedback">
-                        Por favor, cuéntanos brevemente para qué lo necesitas.
-                    </div>
-                </div>
+const FormularioSolicitud = ({ usuario, onSuccess }) => {
+  const { nombre, dni, email } = usuario || {};
 
-                {/* BLOQUE INFORMATIVO DEL CENTRO DE RECOGIDA */}
-                <div className="mb-4 p-3 border-start border-4 border-secondary bg-light rounded-end">
-                    <p className="text-muted small mb-1 fw-bold text-uppercase" style={{ letterSpacing: '0.5px' }}>
-                        Punto de recogida asignado
-                    </p>
-                    <div className="d-flex align-items-center text-primary fs-5 mb-2">
-                        <i className="bi bi-geo-alt-fill me-2 text-secondary"></i>
-                        <span className="fw-semibold">{producto.centroRecogida}</span>
-                    </div>
-                    <p className="text-muted small mb-0">
-                        <i className="bi bi-info-circle me-1"></i>
-                        Este equipo se encuentra físicamente en estas instalaciones y deberá ser recogido allí una vez aprobada la solicitud.
-                    </p>
-                </div>
-
-                {/* CHECKBOX DE COMPROMISO */}
-                <div className="form-check mb-5 mt-4">
-                    <input className="form-check-input terminos" type="checkbox" id="compromiso" required />
-                    <label className="form-check-label text-muted small" htmlFor="compromiso">
-                        Me comprometo a darle un buen uso a este equipo y acepto los <a href="#" className="text-link">términos y condiciones</a>.
-                    </label>
-                    <div className="invalid-feedback">
-                        Debes aceptar el compromiso de buen uso.
-                    </div>
-                </div>
-
-                <div className="d-flex gap-3">
-                    <Link to="/productos" className="btn btn-outline-secondary px-4 py-2">
-                        Volver
-                    </Link>
-                    <button type="submit" className="btn btn-primary text-white px-4 py-2 flex-grow-1">
-                        Confirmar Solicitud
-                    </button>
-                </div>
-            </form>
+  return (
+    <CustomForm onSubmit={onSuccess}>
+      <div className="bg-light p-4 rounded-4 mb-4 border border-light">
+        <p className="small fw-bold text-secondary mb-3 text-uppercase">Datos del solicitante</p>
+        <div className="row g-3">
+          <div className="col-sm-6">
+            <label className="small text-muted d-block mb-1">Nombre</label>
+            <span className="fw-bold text-primary d-block">{nombre}</span>
+          </div>
+          <div className="col-sm-6">
+            <label className="small text-muted d-block mb-1">DNI / NIE</label>
+            <span className="fw-bold text-primary d-block">{dni}</span>
+          </div>
+          <div className="col-12">
+            <label className="small text-muted d-block mb-1">Email de contacto</label>
+            <span className="fw-bold text-primary d-block">{email}</span>
+          </div>
         </div>
-    );
-}
+      </div>
+
+      <CustomInput 
+        id="motivo" 
+        label="¿Para qué necesitas este equipo?" 
+        type="textarea" 
+        placeholder="Ej: Para mis estudios de programación..." 
+        required 
+      />
+
+      <CustomInput 
+        id="confirmacion" 
+        label="Confirmo que mis datos son correctos y me comprometo a recoger el equipo en el centro indicado." 
+        type="checkbox" 
+        required 
+      />
+
+      <button type="submit" className="btn btn-primary w-100 py-3 mt-2 fw-bold shadow-sm">
+        Confirmar Reserva
+      </button>
+    </CustomForm>
+  );
+};
+
+export default FormularioSolicitud;
