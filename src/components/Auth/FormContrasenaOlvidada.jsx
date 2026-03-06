@@ -71,7 +71,7 @@ export default function FormContrasenaOlvidada() {
         <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm animate-fade-in">
             <h2 className="titulo text-center mb-4">¿Olvidaste tu contraseña?</h2>
             <p className="text-muted text-center mb-5">
-                No te preocupes. Introduce el correo electrónico asociado a tu cuenta y te enviaremos las instrucciones para recuperarla.
+                ¡No te preocupes!. Introduce el correo electrónico asociado a tu cuenta y te enviaremos las instrucciones para recuperarla.
             </p>
 
             <form onSubmit={handleSubmit}>
