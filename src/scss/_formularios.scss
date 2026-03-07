@@ -23,3 +23,36 @@ form {
         }
     }
 }
+
+
+/// CSS para el botón de visualización del form de crear nueva contraseña para el usuario
+// Contenedor relativo para el input y el ojo
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+// Botón del ojo: a la izquierda para dejar hueco a la validación de Bootstrap
+.btn-toggle-password {
+    position: absolute;
+    right: 2rem; 
+    top: 60%;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: rgba($primary, 0.6); 
+    background-color: transparent;
+    border: none;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    
+    &:hover {
+        color: $primary;
+    }
+
+    // Ajuste para el estado de validación de Bootstrap
+    .was-validated .form-control:invalid ~ &,
+    .was-validated .form-control:valid ~ & {
+        right: 3rem; 
+    }
+}

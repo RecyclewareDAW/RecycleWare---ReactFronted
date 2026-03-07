@@ -2,10 +2,10 @@
 @import "header";
 @import "hero";
 @import "formularios";
+@import 'formContrasenaOlvidada';
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "bootstrap-icons";
 @import "userConfig";
-@import "solicitudProducto";
 
 /* Reset CSS básico */
 * {
@@ -22,4 +22,8 @@ body {
 
 aside {
     padding-top: 5rem;
+}
+
+.vh-50{
+    height: 50vh;
 }

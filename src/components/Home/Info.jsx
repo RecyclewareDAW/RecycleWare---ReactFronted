@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function InfoSection() {
   return (
@@ -46,9 +46,9 @@ export default function InfoSection() {
                 </p>
               </div>
               <div className="col-md-4 text-center">
-                <button className="btn btn-primary">
+                <Link to="/registro" className="btn btn-primary">
                   Registrarse ahora
-                </button>
+                </Link>
               </div>
             </div>
           </article>

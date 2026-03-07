@@ -1,5 +1,6 @@
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import FormLogin from '../components/Session/FormLogin';
 
 const Login = () => {
     return (
@@ -13,9 +14,8 @@ const Login = () => {
                 <div className="d-flex flex-column min-vh-100">
                     <Header />
 
-
-                    <main className='flex-fill'>
-
+                    <main className='flex-fill container py-5 align-content-center'>
+                        <FormLogin/>
                     </main>
 
                     <Footer />

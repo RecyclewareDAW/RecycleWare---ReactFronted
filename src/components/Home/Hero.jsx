@@ -13,7 +13,6 @@ export default function Hero() {
       <div className="capa-oscura"></div>
 
       <div className="hero-contenido">
-
         <h1 className="titulo-hero">
           Da una <span className="resaltado">segunda vida</span> <br /> a tu tecnología
         </h1>

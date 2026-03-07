@@ -37,11 +37,12 @@
         color: $light;
         padding: 4rem 1.5rem;
         /* 4rem de padding arriba y abajo para despegarlo de los bordes */
-        width: 100%;
+        width: 90vw;
+        max-width: 1400px;
 
         .titulo-hero {
             font-family: $headings-font-family;
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 6vw, 8rem);
             margin-bottom: 1rem;
 
             .resaltado {
@@ -51,10 +52,10 @@
 
         .descripcion-hero {
             font-family: $font-family-base;
-            font-size: 1.25rem;
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
             color: $light;
             margin: 0 auto 2rem auto;
-            max-width: 700px;
+            max-width: 100%;
             line-height: 1.6;
         }
 
