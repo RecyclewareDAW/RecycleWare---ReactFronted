@@ -6,6 +6,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     // ESTADOS PARA PARTICULARES
     const [nombre, setNombre] = useState('');
     const [apellidos, setApellidos] = useState('');
+    const [dni, setDni] = useState(''); // <-- Nuevo estado para el DNI/NIE
     const [telefonoIndividual, setTelefonoIndividual] = useState('');
     const [correoIndividual, setCorreoIndividual] = useState('');
 
@@ -20,7 +21,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     const handleGuardarPerfil = (e) => {
         // e.preventDefault() ya está en CustomForm
         if (userRole === 'individual') {
-            console.log('Guardando particular:', { nombre, apellidos, telefonoIndividual, correoIndividual });
+            console.log('Guardando particular:', { nombre, apellidos, dni, telefonoIndividual, correoIndividual });
         } else {
             console.log('Guardando empresa:', { razonSocial, cif, personaContacto, correoEmpresa, telefonoPrincipal, telefonoSecundario });
         }
@@ -67,6 +68,18 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                         <div className="row">
                             <div className="col-md-6">
                                 <CustomInput 
+                                    id="dni"
+                                    label="DNI / NIE"
+                                    type="text"
+                                    placeholder="Ej: 12345678A"
+                                    required={true}
+                                    errorMessage="El DNI o NIE es obligatorio."
+                                    value={dni}
+                                    onChange={(e) => setDni(e.target.value)}
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <CustomInput 
                                     id="telefonoIndividual"
                                     label="Teléfono de contacto"
                                     type="tel"
@@ -77,6 +90,9 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                                     onChange={(e) => setTelefonoIndividual(e.target.value)}
                                 />
                             </div>
+                        </div>
+                        <div className="row">
+                            {/* El correo lo dejamos en su propia fila, ocupando la mitad (col-md-6) o todo (col-12) según prefieras. Aquí lo dejo en la mitad para seguir el estilo. */}
                             <div className="col-md-6">
                                 <CustomInput 
                                     id="correoIndividual"
@@ -186,6 +202,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                 </div>
             </CustomForm>
 
+            {/* SECCIÓN: RESUMEN DE DONACIONES (SOLO EMPRESAS) */}
             {userRole === 'empresa' && (
                 <div className="mt-5 pt-2 border-top">
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
@@ -226,7 +243,6 @@ export default function TabPerfil({ userRole, setActiveTab }) {
         </div>
     );
 }
-
 
 
 // export default function TabPerfil({ userRole, setActiveTab }) {
