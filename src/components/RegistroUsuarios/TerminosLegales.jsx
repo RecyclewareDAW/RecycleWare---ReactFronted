@@ -18,7 +18,7 @@ export default function TerminosLegales() {
                 errorMessage="Debes aceptar los términos y condiciones."
                 label={
                     <>
-                        Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-secondary fw-bold text-decoration-none">términos y condiciones</Link> y la política de privacidad.
+                        Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-link">términos y condiciones</Link> y la política de privacidad.
                     </>
                 }
             />

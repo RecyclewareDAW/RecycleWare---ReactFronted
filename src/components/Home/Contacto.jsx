@@ -78,7 +78,7 @@ export default function Contacto() {
             <div className="text-center mt-4">
               <button
                 type="submit"
-                className="btn btn-primary text-white px-5 py-2"
+                className="btn btn-primary"
               >
                 Enviar Mensaje
               </button>

@@ -2,7 +2,7 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
   // Si el input es un checkbox 
   if (type === "checkbox") {
     return (
-      <div className="form-check mb-5">
+      <div className="form-check mb-3">
         <input
           className="form-check-input terminos"
           type="checkbox"
