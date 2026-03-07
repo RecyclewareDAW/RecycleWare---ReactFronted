@@ -36,7 +36,7 @@ export default function FormRecuperar() {
 
     return (
         <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm animate-fade-in">
-            <h2 className="titulo mb-5">Nueva Contraseña</h2>
+            <h2 className="titulo">Nueva Contraseña</h2>
 
             <CustomForm onSubmit={handleSubmit}>
                 <div className="password-container mb-2">
