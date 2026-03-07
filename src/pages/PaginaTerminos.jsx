@@ -8,7 +8,7 @@ export default function PaginaTerminosV2() {
             <main className="container py-5 flex-fill">
                 <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm mx-auto col-lg-10">
                     
-                    <h1 className="titulo mb-2">Términos y Condiciones de Uso</h1>
+                    <h1 className="titulo">Términos y Condiciones de Uso</h1>
                     <p className="text-muted small text-center mb-4">Última actualización: 6 de marzo de 2026</p>
                     
                     <div className="alert alert-info bg-opacity-10 border-0 rounded-3 p-3 mb-5">

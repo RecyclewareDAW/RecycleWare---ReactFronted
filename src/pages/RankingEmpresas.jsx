@@ -26,7 +26,7 @@ export default function RankingEmpresas() {
         <Header />
         <main className="container">
             <div className="d-flex flex-column">
-                <h2 className="display-3 titulo text-center">Empresas participantes</h2>
+                <h2 className="display-3 titulo my-5">Empresas participantes</h2>
                 <Podio
                     nombre1={"Patata EXTREME"}
                     nombre2={"Patata Nº2"}

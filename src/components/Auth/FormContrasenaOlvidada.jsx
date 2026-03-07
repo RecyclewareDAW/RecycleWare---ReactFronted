@@ -42,8 +42,8 @@ export default function FormContrasenaOlvidada() {
 
     return (
         <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm animate-fade-in">
-            <h2 className="titulo text-center mb-4">¿Olvidaste tu contraseña?</h2>
-            <p className="text-muted text-center mb-5">
+            <h2 className="titulo">¿Olvidaste tu contraseña?</h2>
+            <p className="text-muted text-center mb-3">
                 ¡No te preocupes!. Introduce el correo electrónico asociado a tu cuenta.
             </p>
 
