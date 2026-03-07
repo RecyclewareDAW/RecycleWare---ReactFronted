@@ -40,12 +40,12 @@ const Registro = () => {
                         <DatosCuenta />
                         <TerminosLegales />
 
-                        <button type="submit" className="btn btn-primary w-100 py-2 mb-3 mt-2">
+                        <button type="submit" className="btn btn-primary w-100 mb-3 mt-2 rounded-pill">
                             Crear cuenta
                         </button>
 
                         <p className="text-center text-muted small mb-0">
-                            ¿Ya tienes una cuenta? <Link to="/login" className="text-secondary text-decoration-none fw-bold">Inicia sesión aquí</Link>
+                            ¿Ya tienes una cuenta? <Link to="/login" className="text-link fw-bold">Inicia sesión aquí</Link>
                         </p>
 
                     </CustomForm>
