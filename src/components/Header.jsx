@@ -109,7 +109,7 @@ export default function Navbar() {
             <div className="d-flex flex-column flex-lg-row align-items-lg-center">
               <form className="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
                 <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                <button className="btn btn-primary d-flex align-items-center justify-content-center" type="submit">
+                <button className="btn btn-primary px-3 d-flex align-items-center justify-content-center" type="submit">
                   <i className="bi bi-search"></i>
                 </button>
               </form>
