@@ -11,6 +11,7 @@ import ContrasenaOlvidada from "./pages/ContrasenaOlvidada";
 import PaginaTerminos from './pages/PaginaTerminos';
 import RankingEmpresas from './pages/RankingEmpresas';
 import CrudUsuarios from './pages/CrudUsuarios';
+import CrudProductos from './pages/CrudProductos';
 
 export default function App() {
 
@@ -31,6 +32,7 @@ export default function App() {
 
                 <Route path="/ranking" element={<RankingEmpresas />} />
                 <Route path="/usuarios" element={<CrudUsuarios />} />
+                <Route path="/inventario-productos" element={<CrudProductos />} />
               </Routes>
             </BrowserRouter>
     </>
