@@ -1,4 +1,4 @@
-//Hero con video
+import { Link } from 'react-router-dom';
 
 import video from '../../assets/video/video-hero.webm';
 
@@ -23,8 +23,8 @@ export default function Hero() {
         </p>
 
         <div className="hero-acciones">
-          <a href="#donar" className="btn btn-primary">Donar Equipo</a>
-          <a href="#solicitar" className="btn btn-primary btn-hero-outline">Solicitar Equipo</a>
+          <Link to={"/login"} className="btn btn-primary">Donar Equipo</Link>
+          <Link to={"/productos"} className="btn btn-primary btn-hero-outline">Solicitar Equipo</Link>
         </div>
       </div>
     </section>
