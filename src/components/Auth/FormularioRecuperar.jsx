@@ -36,7 +36,7 @@ export default function FormRecuperar() {
 
     return (
         <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm animate-fade-in">
-            <h2 className="titulo mb-5">Nueva Contraseña</h2>
+            <h2 className="titulo">Nueva Contraseña</h2>
 
             <CustomForm onSubmit={handleSubmit}>
                 <div className="password-container mb-2">
@@ -88,7 +88,7 @@ export default function FormRecuperar() {
                 )}
 
                 <div className="text-center mt-5">
-                    <button type="submit" className="btn btn-primary px-5 py-2 fw-bold rounded-pill">
+                    <button type="submit" className="btn btn-primary w-100 rounded-pill">
                         Guardar Contraseña
                     </button>
                     <p className="text-muted small mt-3 mb-0">Se te redirigirá al inicio de sesión automáticamente.</p>
