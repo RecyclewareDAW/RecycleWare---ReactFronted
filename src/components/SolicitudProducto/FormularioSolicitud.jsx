@@ -39,7 +39,7 @@ const FormularioSolicitud = ({ usuario, onSuccess }) => {
         required 
       />
 
-      <button type="submit" className="btn btn-primary w-100 py-3 mt-2 fw-bold shadow-sm">
+      <button type="submit" className="btn btn-primary w-100 my-3">
         Confirmar Reserva
       </button>
     </CustomForm>

@@ -18,7 +18,7 @@ export default function SolicitudProducto() {
         titulo: "Portátil Lenovo ThinkPad", 
         imagen: "https://picsum.photos/id/231/800/600", 
         descripcion: "Intel Core i5, 8GB RAM, 256GB SSD. Equipo reacondicionado bajo estándares de economía circular.",
-        estado: "Reacondicionado",
+        estado: "Buen Estado",
         centroRecogida: "IES Doctor Balmis - Alicante" 
     };
 
