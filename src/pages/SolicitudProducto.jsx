@@ -18,7 +18,7 @@ export default function SolicitudProducto() {
         titulo: "Portátil Lenovo ThinkPad", 
         imagen: "https://picsum.photos/id/231/800/600", 
         descripcion: "Intel Core i5, 8GB RAM, 256GB SSD. Equipo reacondicionado bajo estándares de economía circular.",
-        estado: "Reacondicionado",
+        estado: "Buen Estado",
         centroRecogida: "IES Doctor Balmis - Alicante" 
     };
 
@@ -36,7 +36,7 @@ export default function SolicitudProducto() {
                         <div className="col-12 col-xl-11 col-xxl-10">
                             
                             <div className="bg-white p-4 p-md-5 rounded-4 border shadow-sm">
-                                <h2 className="titulo fw-bold pb-4 text-primary">Confirmar Solicitud</h2>
+                                <h2 className="titulo">Confirmar Solicitud</h2>
                                 
                                 <div className="row g-5 align-items-start">
                                     {/* Izquierda: Resumen */}

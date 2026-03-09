@@ -12,8 +12,7 @@ form {
     }
 }
 
-.form-check-label {
-    a.text-link {
+.text-link {
         color: $secondary;
         text-decoration: none;
 
@@ -21,8 +20,8 @@ form {
             color: $primary;
             text-decoration: underline;
         }
-    }
 }
+
 
 
 /// CSS para el botón de visualización del form de crear nueva contraseña para el usuario

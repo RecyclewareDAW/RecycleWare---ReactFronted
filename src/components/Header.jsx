@@ -54,7 +54,7 @@ export default function Navbar() {
     <header className='sticky-top'>
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand d-flex align-items-center" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
+          <Link className="navbar-brand d-flex align-items-center ps-4" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
             <img src={logo} alt="RecycleWare logo" className="logo" />
           </Link>
 
@@ -109,13 +109,13 @@ export default function Navbar() {
             <div className="d-flex flex-column flex-lg-row align-items-lg-center">
               <form className="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
                 <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                <button className="btn btn-primary d-flex align-items-center justify-content-center" type="submit">
+                <button className="btn btn-primary px-3 d-flex align-items-center justify-content-center" type="submit">
                   <i className="bi bi-search"></i>
                 </button>
               </form>
               <Link 
                 to="/login" 
-                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
+                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-4 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
                 onClick={() => setActiveLink('#login')}
               >
                 Iniciar Sesión

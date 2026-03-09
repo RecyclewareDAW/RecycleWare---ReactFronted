@@ -6,7 +6,7 @@ const FormCard = ({ title, subtitle, colSize, children }) => {
         
         {/* Estilo de la card del formulario */}
         <div className="bg-white py-5 px-4 px-md-5 rounded-4 border shadow-sm">
-          <h2 className="titulo mb-4">{title}</h2>
+          <h2 className="titulo">{title}</h2>
           
           {/* Subtítulo opcional */}
           {subtitle && (

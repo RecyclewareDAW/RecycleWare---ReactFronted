@@ -3,12 +3,12 @@ import Footer from '../components/Footer';
 
 export default function PaginaTerminosV2() {
     return (
-        <div className="bg-light">
+        <div>
             <Header />
             <main className="container py-5 flex-fill">
                 <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm mx-auto col-lg-10">
                     
-                    <h1 className="titulo mb-2">Términos y Condiciones de Uso</h1>
+                    <h1 className="titulo">Términos y Condiciones de Uso</h1>
                     <p className="text-muted small text-center mb-4">Última actualización: 6 de marzo de 2026</p>
                     
                     <div className="alert alert-info bg-opacity-10 border-0 rounded-3 p-3 mb-5">
@@ -65,7 +65,7 @@ export default function PaginaTerminosV2() {
                     </div>
 
                     <div className="text-center mt-5 pt-4 border-top">
-                        <button onClick={() => window.close()} className="btn btn-primary px-5 py-2 fw-bold rounded-pill">
+                        <button onClick={() => window.close()} className="btn btn-primary rounded-pill">
                             He leído los términos y deseo volver
                         </button>
                     </div>

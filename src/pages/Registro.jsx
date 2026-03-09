@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-import FormCard from '../components/FormCard'; 
+import FormCard from '../components/FormCard';
 import CustomForm from '../components/CustomForm';
 
 import SelectorPerfil from '../components/RegistroUsuarios/SelectorPerfil';
@@ -11,6 +11,8 @@ import DatosIdentificacion from '../components/RegistroUsuarios/DatosIdentificac
 import DatosUbicacion from '../components/RegistroUsuarios/DatosUbicacion';
 import DatosCuenta from '../components/RegistroUsuarios/DatosCuenta';
 import TerminosLegales from '../components/RegistroUsuarios/TerminosLegales';
+
+import CustomButton from '../components/CustomButton';
 
 const Registro = () => {
     const [tipoPerfil, setTipoPerfil] = useState('particular');
@@ -24,33 +26,33 @@ const Registro = () => {
             <Header />
 
             <main className='flex-fill container py-5 d-flex align-items-center justify-content-center'>
-                
+
                 {/* Usamos FormCard para la caja blanca */}
-                <FormCard 
-                    title="Crear una cuenta" 
+                <FormCard
+                    title="Crear una cuenta"
                     subtitle="Únete a RecycleWare y dale una segunda vida a la tecnología."
                     colSize="col-lg-8"
                 >
                     {/* Usamos CustomForm para la validación */}
                     <CustomForm onSubmit={handleSubmit}>
-                        
+
                         <SelectorPerfil tipoPerfil={tipoPerfil} setTipoPerfil={setTipoPerfil} />
                         <DatosIdentificacion tipoPerfil={tipoPerfil} />
                         <DatosUbicacion tipoPerfil={tipoPerfil} />
                         <DatosCuenta />
                         <TerminosLegales />
 
-                        <button type="submit" className="btn btn-primary w-100 py-2 mb-3 mt-2">
-                            Crear cuenta
-                        </button>
+                        <CustomButton type="submit">
+                            Crear Cuenta
+                        </CustomButton>
 
                         <p className="text-center text-muted small mb-0">
-                            ¿Ya tienes una cuenta? <Link to="/login" className="text-secondary text-decoration-none fw-bold">Inicia sesión aquí</Link>
+                            ¿Ya tienes una cuenta? <Link to="/login" className="text-link fw-bold">Inicia sesión aquí</Link>
                         </p>
 
                     </CustomForm>
                 </FormCard>
-                
+
             </main>
 
             <Footer />
@@ -78,7 +80,7 @@ const Registro = () => {
 
 //     return (
 //         <div className="d-flex flex-column min-vh-100">
-            
+
 //             <Header />
 
 //             <main className='flex-fill container py-5'>
@@ -86,7 +88,7 @@ const Registro = () => {
 
 //                     <div className="col-12 col-lg-8">
 //                         <div className="bg-white py-5 px-4 px-md-5 rounded-4 border shadow-sm">
-                            
+
 //                             <h2 className="mb-4 titulo">Crear una cuenta</h2>
 //                             <p className="text-center text-muted mb-4">Únete a RecycleWare y dale una segunda vida a la tecnología.</p>
 
@@ -96,13 +98,13 @@ const Registro = () => {
 //                                 className={`needs-validation ${validated ? 'was-validated' : ''}`}
 //                             >
 //                                 <SelectorPerfil tipoPerfil={tipoPerfil} setTipoPerfil={setTipoPerfil} />
-                                
+
 //                                 <DatosIdentificacion tipoPerfil={tipoPerfil} />
-                                
+
 //                                 <DatosUbicacion tipoPerfil={tipoPerfil} />
-                                
+
 //                                 <DatosCuenta />
-                                
+
 //                                 <TerminosLegales />
 
 //                                 <button type="submit" className="btn btn-primary w-100 py-2 mb-3 mt-2">
