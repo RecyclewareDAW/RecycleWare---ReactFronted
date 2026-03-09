@@ -54,7 +54,7 @@ export default function Navbar() {
     <header className='sticky-top'>
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand d-flex align-items-center ps-5" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
+          <Link className="navbar-brand d-flex align-items-center ps-4" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
             <img src={logo} alt="RecycleWare logo" className="logo" />
           </Link>
 
@@ -115,7 +115,7 @@ export default function Navbar() {
               </form>
               <Link 
                 to="/login" 
-                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-5 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
+                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-4 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
                 onClick={() => setActiveLink('#login')}
               >
                 Iniciar Sesión
