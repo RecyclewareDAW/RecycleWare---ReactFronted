@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FormCard from '../FormCard';
 import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
+import CustomButton from '../CustomButton';
 
 const FormLogin = () => {
   const [email, setEmail] = useState('');
@@ -41,9 +42,11 @@ const FormLogin = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary w-100 mb-3 mt-4 rounded-pill">
-          Entrar
-        </button>
+
+        <CustomButton type="submit">
+                    Iniciar Sesión
+        </CustomButton>
+
       </CustomForm>
       <p className="text-center text-muted small mb-0">
         ¿No tienes cuenta? <Link to="/registro" className="text-link fw-bold">Regístrate aquí</Link>
