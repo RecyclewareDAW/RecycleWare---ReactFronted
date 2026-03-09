@@ -1,18 +1,42 @@
+@use 'sass:map';
+
 @import "variables";
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+/* Modificamos utilities para añadir vh-50 para ranking */
+$utilities: map.merge($utilities,
+    ("viewport-height": (
+        property: height,
+        responsive: true,
+        class: vh,
+        values: (
+            100: 100vh,
+            50: 50vh
+        )
+    ))
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+/* NUESTROS ARCHIVOS VAN DESPUÉS DE CARGAR TODO BOOTSTRAP */
 @import "header";
 @import "hero";
 @import "formularios";
-@import 'formContrasenaOlvidada';
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "formContrasenaOlvidada";
 @import "bootstrap-icons";
 @import "userConfig";
 
 /* Reset CSS básico */
 * {
-    margin: 0;       /* Quita márgenes por defecto */
-    padding: 0;      /* Quita padding por defecto */
+    margin: 0;
+    padding: 0;
     box-sizing: border-box; /* Hace que el width incluya padding y border */
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5rem; 
 }
 
 body {
@@ -22,8 +46,4 @@ body {
 
 aside {
     padding-top: 5rem;
-}
-
-.vh-50{
-    height: 50vh;
 }
