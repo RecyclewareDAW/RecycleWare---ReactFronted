@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
 import CustomButton from '../CustomButton';
 
 export default function FormContrasenaOlvidada() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState(false);
     const [resendStatus, setResendStatus] = useState('');
