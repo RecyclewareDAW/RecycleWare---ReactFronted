@@ -22,3 +22,22 @@ export default function ListaEmpresas(param) {
         </div>
     </>
 }
+
+// Con .map() evitamos utilizar arrays auxiliares como lista=[] pero las dos estan top y funcionan
+
+// import CardEmpresa from "./CardEmpresa";
+
+// export default function ListaEmpresas({ datos }) {
+//     return (
+//         <div className="d-flex flex-column mt-4">
+//             {datos.empresas.map((empresa, index) => (     <--- este .map()
+//                 <CardEmpresa 
+//                     key={index}
+//                     posicion={datos.posInicial + index} 
+//                     nombre={empresa.nombre} 
+//                     donaciones={empresa.donaciones}
+//                 />
+//             ))}
+//         </div>
+//     );
+// }
