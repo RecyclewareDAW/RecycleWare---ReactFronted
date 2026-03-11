@@ -8,42 +8,42 @@ export default function Contacto() {
   const [enviadoConExito, setEnviadoConExito] = useState(false);
 
   const handleSubmit = async (event) => {
-    // 1. Extraemos los datos del formulario gracias a los atributos 'name'
+    // 1. Evitamos que la página se recargue al enviar el formulario
+    event.preventDefault();
+
+    // 2. Extraemos los datos gracias a los atributos 'name' de los inputs
     const formData = new FormData(event.target);
     const datosFormulario = Object.fromEntries(formData.entries());
 
     try {
-      // 2. Usamos 'fetch' nativo para enviar el JSON a Spring Boot
-      const respuesta = await fetch('http://localhost:8080/contacto', {
+      // 3. Enviamos la petición POST a nuestro backend en Spring
+      const respuesta = await fetch('http://localhost:8080/api/contacto', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json' 
         },
         body: JSON.stringify({
           nombre: datosFormulario.nombre,
-          correo: datosFormulario.email,   // Mapeamos 'email' a 'correo'
-          mensaje: datosFormulario.asunto  // Pasamos el texto del 'asunto' a 'mensaje'
+          correo: datosFormulario.email,   
+          mensaje: datosFormulario.asunto  
         })
       });
       
-      // 3. Comprobamos si la respuesta del servidor es correcta (código 200-299)
+      // 4. Si Spring nos devuelve un OK (201 Created), mostramos el mensaje de éxito
       if (respuesta.ok) {
-        const data = await respuesta.json(); 
-        console.log("Mensaje guardado en H2 con éxito:", data);
         setEnviadoConExito(true);
       } else {
-        console.error("El servidor devolvió un error:", respuesta.status);
+        console.error("El servidor devolvió un error al intentar guardar el mensaje.");
       }
       
     } catch (error) {
-      console.error("Hubo un error de red al intentar enviar el mensaje:", error);
+      console.error("No se pudo conectar con el servidor backend:", error);
     }
   };
 
   return (
     <div id="contacto" className="container py-5">
       
-      {/* Condicionamos el título para que no salga si el mensaje ya se envió */}
       <FormCard 
         title={!enviadoConExito ? "¡Contacta con nosotros!" : ""} 
         colSize="col-lg-12"
@@ -119,7 +119,6 @@ export default function Contacto() {
 
         ) : (
 
-          // Mensaje de éxito se mostrará dentro de la tarjeta blanca
           <div id="mensajeExito" className="alert alert-success text-center">
             <h4 className="alert-heading mb-3">
               <i className="bi bi-check-circle-fill me-2"></i>
