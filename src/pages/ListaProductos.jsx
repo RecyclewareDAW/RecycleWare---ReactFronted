@@ -21,7 +21,7 @@ export default function ListaProductos() {
                 <div className="d-flex flex-lg-row flex-column p-3 justify-content-evenly">
                     <aside className="p-4 bg-white border rounded-4 shadow-sm flex-fill m-3 h-100">
                         <div className="list-group">
-                            <div className="fw-bold list-group-item list-group-item-action list-group-item-primary" data-bs-toggle="collapse" data-bs-target="#categorias">Categorias</div>
+                            <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Categorias</div>
                             <div className="collapse" id="categorias">
                                 <div className="list-group-item list-group-item-action">Periféricos</div>
                                 <div className="list-group-item list-group-item-action">Sobremesa</div>
@@ -31,7 +31,7 @@ export default function ListaProductos() {
                         </div>
                         <hr></hr>
                         <div className="list-group">
-                            <div className="fw-bold list-group-item list-group-item-action list-group-item-primary"
+                            <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light"
                                  data-bs-toggle="collapse"
                                  data-bs-target="#estado">Estado del producto</div>
                             <div className="collapse" id="estado">
