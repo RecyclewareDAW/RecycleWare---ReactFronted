@@ -17,7 +17,7 @@ const ResumenProducto = ({ producto }) => {
       </div>
 
       <div className="flex-fill">
-        <h3 className="text-primary mb-3">{producto.titulo}</h3>
+        <h4 className="text-primary mb-3">{producto.titulo}</h4>
         <p className="text-muted lh-base mb-4 small">
             {producto.descripcion}
         </p>

@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import CustomForm from '../CustomForm'; 
+import { Link, useNavigate } from 'react-router-dom';
+import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
+import CustomButton from '../CustomButton';
 
 export default function FormContrasenaOlvidada() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState(false);
     const [resendStatus, setResendStatus] = useState('');
@@ -25,7 +27,7 @@ export default function FormContrasenaOlvidada() {
                 </div>
                 <h3 className="titulo-secundario text-primary mb-3">Revisa tu bandeja de entrada</h3>
                 <p className="text-muted mb-4">
-                    Hemos enviado un enlace de recuperación a <strong>{email}</strong>. 
+                    Hemos enviado un enlace de recuperación a <strong>{email}</strong>.
                 </p>
                 <div className="info-box-action">
                     <button onClick={handleResend} type="button" className="btn btn-link text-secondary fw-bold text-decoration-none p-0">
@@ -48,7 +50,7 @@ export default function FormContrasenaOlvidada() {
             </p>
 
             <CustomForm onSubmit={handleSubmit}>
-                <CustomInput 
+                <CustomInput
                     id="emailRecuperar"
                     label="Correo Electrónico :"
                     type="email"
@@ -60,11 +62,11 @@ export default function FormContrasenaOlvidada() {
                 />
 
                 <div className="text-center mt-4">
-                    <button type="submit" className="btn btn-primary btn w-100 mt-2 rounded-pill">
-                        Enviar enlace de recuperación
-                    </button>
-                    
-                    <p className="text-muted small mt-4">
+                    <CustomButton type="submit" onClick={() => navigate('/login')}>
+                        Iniciar Sesión para Donar
+                    </CustomButton>
+
+                    <p className="text-muted small">
                         ¿Te has acordado? <Link to="/login" className="text-link fw-bold">Inicia sesión aquí</Link>
                     </p>
                 </div>

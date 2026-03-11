@@ -11,18 +11,16 @@ export const CardProducto = ({
 }) => {
   return (
     <div className="col">
-      <div className="card shadow-lg h-100">
-        <img className="card-img-top" src={imagen} alt={titulo} />
-        <div className="card-body d-flex flex-column">
-          <h5 className="card-title fw-bold text-primary">{titulo}</h5>
-          <p className="card-text text-dark">{descripcion}</p>
+      <div className='card shadow-lg h-100'>
+        <img className='card-img-top' src={imagen} alt={titulo} />
+        <div className='card-body d-flex flex-column'>
+          <h5 className='card-title fw-bold text-primary'>{titulo}</h5>
+          <p className='card-text text-dark'>{descripcion}</p>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <span className="text-success fw-bold small">
               <i className="bi bi-check-circle-fill me-1"></i> Buen estado
             </span>
-            <Link to={`/solicitud/${id}`} className="btn btn-outline-secondary">
-              Solicitar
-            </Link>
+            <Link to={`/solicitud/${id}`} className='btn btn-outline-success'>Solicitar</Link>
           </div>
         </div>
       </div>

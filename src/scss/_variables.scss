@@ -73,7 +73,7 @@ $theme-colors: (
     color: $primary;
     font-weight: $weight-titulo;
     text-align: center;
-    padding-bottom: 1rem;
+    padding-bottom: 1.8rem;
 
 }
 
@@ -89,5 +89,9 @@ $box-shadow: 0px 0px 10px 0px $dark;
     padding: 0.5rem 3rem;
 }
 
+// Icono Donacion
 
-
+.icono-lg{
+    color: $primary;
+    font-size: 4rem;
+}
