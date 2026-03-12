@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -14,11 +14,69 @@ import TerminosLegales from '../components/RegistroUsuarios/TerminosLegales';
 
 import CustomButton from '../components/CustomButton';
 
-const Registro = () => {
-    const [tipoPerfil, setTipoPerfil] = useState('particular');
+import { api } from '../services/api';
 
-    const handleSubmit = (event) => {
-        console.log("Formulario válido, enviando datos...");
+const Registro = () => {
+    const navigate = useNavigate();
+    const [tipoPerfil, setTipoPerfil] = useState('particular');
+    const [errorMensaje, setErrorMensaje] = useState(''); // para mostrar los errores del backend
+
+    // aqui guardamos todo lo que el usuario escriba
+    const [formData, setFormData] = useState({
+        nombre: '',
+        personaContacto: '',
+        documento: '',
+        telefono: '',
+        telefonoSecundario: '',
+        direccion: '',
+        cp: '',
+        provincia: '',
+        emailRegistro: '',
+        passwordRegistro: '',
+        confirmPassword: '',
+        terminos: false
+    });
+
+    // funcion para actualizar datos
+    const handleChange = (e) => {
+        const { id, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [id]: type === 'checkbox' ? checked : value
+        });
+    };
+
+    const handleSubmit = async (event) => {
+        // Validación extra de React
+        if (formData.passwordRegistro !== formData.confirmPassword) {
+            setErrorMensaje("Las contraseñas no coinciden.");
+            return;
+        }
+
+        // mapeo para java: Transformamos el formData de React para el User.java
+        const userParaJava = {
+            nombre: formData.nombre,
+            dni: formData.documento, // En react lo tenemos como "documento" y en Java como "dni"
+            telefono: formData.telefono,
+            correo: formData.emailRegistro,
+            password: formData.passwordRegistro,
+            direccion: tipoPerfil === 'empresa' ? formData.direccion : 'No especificada', 
+            provincia: formData.provincia,
+            codigoPostal: formData.cp,
+            razonSocial: tipoPerfil === 'empresa' ? formData.nombre : null,
+            nombreContacto: tipoPerfil === 'empresa' ? formData.personaContacto : null
+        };
+
+        try {
+            // mandamos a SPRING BOOT
+            const respuesta = await api.post('/users', userParaJava);
+            console.log("¡Éxito!", respuesta);
+            // Si todo va bien, lo enviamos a Iniciar Sesión
+            navigate('/login');
+        } catch (error) {
+            // Si Java devuelve un error (ej. Correo ya existe), lo mostramos
+            setErrorMensaje(error.message);
+        }
     };
 
     return (
@@ -33,14 +91,21 @@ const Registro = () => {
                     subtitle="Únete a RecycleWare y dale una segunda vida a la tecnología."
                     colSize="col-lg-8"
                 >
+                    {/* Alerta de errores 
+                    {errorMensaje && (
+                        <div className="alert alert-danger text-center fw-bold">{errorMensaje}</div>
+                    )} */}
+
                     {/* Usamos CustomForm para la validación */}
                     <CustomForm onSubmit={handleSubmit}>
-
+                        
                         <SelectorPerfil tipoPerfil={tipoPerfil} setTipoPerfil={setTipoPerfil} />
-                        <DatosIdentificacion tipoPerfil={tipoPerfil} />
-                        <DatosUbicacion tipoPerfil={tipoPerfil} />
-                        <DatosCuenta />
-                        <TerminosLegales />
+                        
+                        {/* Pasamos formData y handleChange a los hijos (DatosIdentificacion,etc) */}
+                        <DatosIdentificacion tipoPerfil={tipoPerfil} formData={formData} handleChange={handleChange} />
+                        <DatosUbicacion tipoPerfil={tipoPerfil} formData={formData} handleChange={handleChange} />
+                        <DatosCuenta formData={formData} handleChange={handleChange} />
+                        <TerminosLegales formData={formData} handleChange={handleChange} />
 
                         <CustomButton type="submit">
                             Crear Cuenta
@@ -59,70 +124,5 @@ const Registro = () => {
         </div>
     );
 };
-
-
-
-// const Registro = () => {
-//     const [tipoPerfil, setTipoPerfil] = useState('particular');
-//     const [validated, setValidated] = useState(false);
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         const form = event.currentTarget;
-
-//         if (form.checkValidity() === false) {
-//             event.stopPropagation();
-//         } else {
-//             console.log("Formulario válido, enviando datos...");
-//         }
-//         setValidated(true);
-//     };
-
-//     return (
-//         <div className="d-flex flex-column min-vh-100">
-
-//             <Header />
-
-//             <main className='flex-fill container py-5'>
-//                 <div className="row justify-content-center">
-
-//                     <div className="col-12 col-lg-8">
-//                         <div className="bg-white py-5 px-4 px-md-5 rounded-4 border shadow-sm">
-
-//                             <h2 className="mb-4 titulo">Crear una cuenta</h2>
-//                             <p className="text-center text-muted mb-4">Únete a RecycleWare y dale una segunda vida a la tecnología.</p>
-
-//                             <form
-//                                 noValidate
-//                                 onSubmit={handleSubmit}
-//                                 className={`needs-validation ${validated ? 'was-validated' : ''}`}
-//                             >
-//                                 <SelectorPerfil tipoPerfil={tipoPerfil} setTipoPerfil={setTipoPerfil} />
-
-//                                 <DatosIdentificacion tipoPerfil={tipoPerfil} />
-
-//                                 <DatosUbicacion tipoPerfil={tipoPerfil} />
-
-//                                 <DatosCuenta />
-
-//                                 <TerminosLegales />
-
-//                                 <button type="submit" className="btn btn-primary w-100 py-2 mb-3 mt-2">
-//                                     Crear cuenta
-//                                 </button>
-
-//                                 <p className="text-center text-muted small mb-0">
-//                                     ¿Ya tienes una cuenta? <Link to="/login" className="text-secondary text-decoration-none fw-bold">Inicia sesión aquí</Link>
-//                                 </p>
-//                             </form>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </main>
-
-//             <Footer />
-//         </div>
-//     );
-// };
 
 export default Registro;

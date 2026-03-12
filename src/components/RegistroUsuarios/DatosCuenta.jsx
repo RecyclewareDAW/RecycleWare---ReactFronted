@@ -1,6 +1,6 @@
 import CustomInput from '../CustomInput';
 
-export default function DatosCuenta() {
+export default function DatosCuenta({ formData, handleChange }) {
     return (
         <>
             <CustomInput
@@ -11,6 +11,8 @@ export default function DatosCuenta() {
                 required={true}
                 hideLabel={true}
                 errorMessage="Introduce un correo válido."
+                value={formData.emailRegistro}
+                onChange={handleChange}
             />
 
             <div className="row g-3">
@@ -24,6 +26,7 @@ export default function DatosCuenta() {
                         hideLabel={true}
                         errorMessage="Mínimo 8 caracteres."
                         minLength="8" // ¡Aquí funciona el ...props!
+                        value={formData.passwordRegistro} onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-6">
@@ -35,6 +38,8 @@ export default function DatosCuenta() {
                         required={true}
                         hideLabel={true}
                         errorMessage="Debes confirmar tu contraseña."
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                     />
                 </div>
             </div>
