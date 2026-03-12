@@ -1,6 +1,6 @@
 import CustomInput from '../CustomInput';
 
-export default function DatosUbicacion({ tipoPerfil }) {
+export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
     return (
         <>
             {tipoPerfil === 'empresa' && (
@@ -12,6 +12,8 @@ export default function DatosUbicacion({ tipoPerfil }) {
                     required={true}
                     hideLabel={true}
                     errorMessage="La dirección es obligatoria para gestionar recogidas."
+                    value={formData.direccion}
+                    onChange={handleChange}
                 />
             )}
 
@@ -27,6 +29,7 @@ export default function DatosUbicacion({ tipoPerfil }) {
                         errorMessage="CP inválido."
                         pattern="[0-9]{5}" // ¡Aquí funciona el ...props!
                         title="Debe contener 5 números"
+                        value={formData.cp} onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-8">
@@ -38,6 +41,7 @@ export default function DatosUbicacion({ tipoPerfil }) {
                         required={true}
                         hideLabel={true}
                         errorMessage="Indica tu provincia."
+                        value={formData.provincia} onChange={handleChange}
                     />
                 </div>
             </div>
