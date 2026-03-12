@@ -44,6 +44,7 @@ const Registro = () => {
             ...formData,
             [id]: type === 'checkbox' ? checked : value
         });
+        setErrorMensaje('');
     };
 
     const handleSubmit = async (event) => {
@@ -75,7 +76,12 @@ const Registro = () => {
             navigate('/login');
         } catch (error) {
             // Si Java devuelve un error (ej. Correo ya existe), lo mostramos
-            setErrorMensaje(error.message);
+            if (error.message.includes('Duplicate entry') || error.message.includes('DataIntegrityViolationException')) {
+                setErrorMensaje("El correo electrónico o el DNI/CIF ya están registrados en nuestro sistema.");
+            } else{
+                // Si es otro tipo de error, lo mostramos o ponemos uno genérico
+                setErrorMensaje("Ha ocurrido un error al crear la cuenta. Revisa tus datos e inténtalo de nuevo.");
+            }
         }
     };
 
@@ -91,10 +97,10 @@ const Registro = () => {
                     subtitle="Únete a RecycleWare y dale una segunda vida a la tecnología."
                     colSize="col-lg-8"
                 >
-                    {/* Alerta de errores 
+                    {/* Alerta de errores  */}
                     {errorMensaje && (
                         <div className="alert alert-danger text-center fw-bold">{errorMensaje}</div>
-                    )} */}
+                    )}
 
                     {/* Usamos CustomForm para la validación */}
                     <CustomForm onSubmit={handleSubmit}>
