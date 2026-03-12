@@ -1,6 +1,10 @@
 import CustomInput from '../CustomInput';
 
 export default function DatosIdentificacion({ tipoPerfil, formData, handleChange }) {
+    // Expresiones regulares para la validación nativa de HTML5/Bootstrap
+    const regexParticular = "^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$"; // Valida DNI o NIE
+    const regexEmpresa = "^([ABCDEFGHJNPQRSUVWabcdefghjnpqrsuvw][0-9]{7}[0-9A-Ja-j])$"; // Valida CIF
+
     return (
         <>
             <CustomInput
@@ -41,6 +45,8 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                         errorMessage={`Por favor, introduce el ${tipoPerfil === 'particular' ? 'DNI' : 'CIF'}.`}
                         value={formData.documento}
                         onChange={handleChange}
+                        maxLength="9"
+                        pattern={tipoPerfil === 'particular' ? regexParticular : regexEmpresa}
                     />
                 </div>
                 <div className="col-md-6">
@@ -54,6 +60,7 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                         errorMessage="Añade un número de contacto válido."
                         value={formData.telefono}
                         onChange={handleChange}
+                        pattern="[0-9]{9}"
                     />
                 </div>
             </div>
@@ -67,6 +74,7 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                     hideLabel={true}
                     value={formData.telefonoSecundario}
                     onChange={handleChange}
+                    pattern="[0-9]{9}"
                 />
             )}
         </>

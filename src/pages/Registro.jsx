@@ -65,7 +65,8 @@ const Registro = () => {
             provincia: formData.provincia,
             codigoPostal: formData.cp,
             razonSocial: tipoPerfil === 'empresa' ? formData.nombre : null,
-            nombreContacto: tipoPerfil === 'empresa' ? formData.personaContacto : null
+            nombreContacto: tipoPerfil === 'empresa' ? formData.personaContacto : null,
+            rol: tipoPerfil === 'empresa' ? 'EMPRESA' : 'PARTICULAR'
         };
 
         try {
@@ -73,11 +74,13 @@ const Registro = () => {
             const respuesta = await api.post('/users', userParaJava);
             console.log("¡Éxito!", respuesta);
             // Si todo va bien, lo enviamos a Iniciar Sesión
-            navigate('/login');
+            navigate('/login',{
+                state: { mensajeExito: "¡Cuenta creada con éxito! Ya puedes iniciar sesión." }
+            });
         } catch (error) {
             // Si Java devuelve un error (ej. Correo ya existe), lo mostramos
             if (error.message.includes('Duplicate entry') || error.message.includes('DataIntegrityViolationException')) {
-                setErrorMensaje("El correo electrónico o el DNI/CIF ya están registrados en nuestro sistema.");
+                setErrorMensaje("El correo electrónico o el DNI/NIE o CIF ya están registrados en nuestro sistema.");
             } else{
                 // Si es otro tipo de error, lo mostramos o ponemos uno genérico
                 setErrorMensaje("Ha ocurrido un error al crear la cuenta. Revisa tus datos e inténtalo de nuevo.");
