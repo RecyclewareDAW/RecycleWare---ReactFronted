@@ -23,7 +23,7 @@ export default function Hero() {
         </p>
 
         <div className="hero-acciones">
-          <Link to={"/login"} className="btn btn-primary">Donar Equipo</Link>
+          <Link to={"/donar"} className="btn btn-primary">Donar Equipo</Link>
           <Link to={"/productos"} className="btn btn-primary btn-hero-outline">Solicitar Equipo</Link>
         </div>
       </div>
