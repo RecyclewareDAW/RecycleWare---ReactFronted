@@ -158,11 +158,11 @@
 .impact-card-warning { background-color: rgba($warning, 0.1); }
 .insignia-icon { width: 50px; height: 50px; }
 
-// Título secundario con la fuente Alexandria
-.titulo-secundario {
-  font-family: $headings-font-family;
-  font-size: 1.4rem;
-}
+// Título secundario con la fuente Alexandria   --> Innecesario, con un fs-4 se hace pequeño
+// .titulo-secundario {
+//   font-family: $headings-font-family;
+//   font-size: 1.4rem;
+// }
 
 // Fondo sutil para las tarjetas pequeñas (como las donaciones)
 .card-soft-bg {

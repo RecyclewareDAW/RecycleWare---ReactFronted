@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from "./pages/Home";
 import UserConfig from "./pages/UserConfig";
 import Registro from "./pages/Registro";
@@ -18,30 +18,31 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-              <Routes>
-                {/* RUTAS PÚBLICAS */}
+        <Routes>
+          {/* RUTAS PÚBLICAS */}
 
-                <Route path="/" element={<Home/>}></Route>
-                <Route path='/login' element={<Login/>}></Route>
-                <Route path="/registro" element={<Registro />}></Route>
-                <Route path='/productos' element={<ListaProductos/>}></Route>
-                <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
-                <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />}></Route>
-                <Route path="/terminos" element={<PaginaTerminos />} />
-                <Route path="/ranking" element={<RankingEmpresas />} />
+          <Route path="/" element={<Home />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path="/registro" element={<Registro />}></Route>
+          <Route path='/productos' element={<ListaProductos />}></Route>
+          <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
+          <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />}></Route>
+          <Route path="/terminos" element={<PaginaTerminos />} />
+          <Route path="/ranking" element={<RankingEmpresas />} />
 
-                {/* RUTAS QUE CONTROLAN SEGÚN SI ESTAN LOGUEADOS O NO */}
+          {/* RUTAS QUE CONTROLAN SEGÚN SI ESTAN LOGUEADOS O NO */}
 
-                <Route path='/donar' element={<DonateProduct />} />
+          <Route path='/donar' element={<DonateProduct />} />
 
-                {/* RUTAS PRIVADAS */}
+          {/* RUTAS PRIVADAS */}
 
-                <Route path="/perfil" element={<UserConfig />}></Route>
-                <Route path="/solicitud/:id" element={<SolicitudProducto />}></Route>
-                <Route path="/usuarios" element={<CrudUsuarios />} />
-                <Route path="/inventario-productos" element={<CrudProductos />} />
-              </Routes>
-            </BrowserRouter>
+          <Route path="/perfil" element={<Navigate to="/perfil/perfil" replace />} />
+          <Route path="/perfil/:tab" element={<UserConfig />} />
+          <Route path="/solicitud/:id" element={<SolicitudProducto />}></Route>
+          <Route path="/usuarios" element={<CrudUsuarios />} />
+          <Route path="/inventario-productos" element={<CrudProductos />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

@@ -11,7 +11,7 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                         <i className="bi bi-person-vcard me-2"></i> Mi Perfil
                     </button>
                     <button className={`list-group-item list-group-item-action ${activeTab === 'direcciones' ? 'active' : ''}`} onClick={() => setActiveTab('direcciones')}>
-                        <i className="bi bi-geo-alt me-2"></i> Mis Direcciones
+                        <i className="bi bi-geo-alt me-2"></i> Dirección
                     </button>
                     <button className={`list-group-item list-group-item-action ${activeTab === 'seguridad' ? 'active' : ''}`} onClick={() => setActiveTab('seguridad')}>
                         <i className="bi bi-shield-lock me-2"></i> Seguridad

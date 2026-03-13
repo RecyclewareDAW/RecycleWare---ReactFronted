@@ -81,7 +81,7 @@ export default function TabImpacto() {
                                                 {d.cantidadProductos} ud
                                             </span>
                                         </td>
-                                        <td className="text-end pe-4 bg-white border-0 text-success fw-bold">
+                                        <td className="text-end pe-4 bg-white border-0 text-info fw-bold">
                                             +{d.cantidadProductos * 25} kg
                                         </td>
                                     </tr>
