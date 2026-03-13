@@ -10,7 +10,7 @@ export default function DatosCuenta({ formData, handleChange }) {
                 placeholder="Correo electrónico"
                 required={true}
                 hideLabel={true}
-                errorMessage="Introduce un correo válido."
+                rule="email"
                 value={formData.emailRegistro}
                 onChange={handleChange}
             />
@@ -26,7 +26,8 @@ export default function DatosCuenta({ formData, handleChange }) {
                         hideLabel={true}
                         errorMessage="Mínimo 8 caracteres."
                         minLength="8" // ¡Aquí funciona el ...props!
-                        value={formData.passwordRegistro} onChange={handleChange}
+                        value={formData.passwordRegistro}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-6">
