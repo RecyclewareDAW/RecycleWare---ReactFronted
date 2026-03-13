@@ -17,14 +17,19 @@ export default function TabImpacto() {
             const response = await fetch(`http://localhost:8080/api/donations/user/${userId}`);
             const data = await response.json();
 
-            // Calculamos totales
-            const totalEquipos = data.reduce((acc, d) => acc + (d.cantidadProductos || 0), 0);
+            // FILTRO POR ESTADO: Solo IDs 3 (Recibido) y 4 (Procesado)
+            const donacionesValidadas = data.filter(d => d.estado.id === 3 || d.estado.id === 4);
+
+            // Calculamos totales basados solo en lo que ya tenemos o hemos procesado
+            const totalEquipos = donacionesValidadas.reduce((acc, d) => acc + (d.cantidadProductos || 0), 0);
 
             setStats({
                 equipos: totalEquipos,
                 co2: totalEquipos * 25 // 25kg CO2 por equipo
             });
-            setListaDonaciones(data);
+            
+            setListaDonaciones(donacionesValidadas);
+            
         } catch (error) {
             console.error("Error cargando impacto:", error);
         } finally {
