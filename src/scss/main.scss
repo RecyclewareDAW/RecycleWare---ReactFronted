@@ -30,6 +30,7 @@ $utilities: map.merge($utilities,
 @import "formContrasenaOlvidada";
 @import "bootstrap-icons";
 @import "userConfig";
+@import "tablaDonaciones";
 
 /* Reset CSS básico */
 * {
@@ -42,8 +43,4 @@ $utilities: map.merge($utilities,
 body {
     background-color: $fondo-secundario;
     font-family: $font-family-base;
-}
-
-aside {
-    padding-top: 5rem;
 }

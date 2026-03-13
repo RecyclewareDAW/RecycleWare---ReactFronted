@@ -11,7 +11,7 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                         <i className="bi bi-person-vcard me-2"></i> Mi Perfil
                     </button>
                     <button className={`list-group-item list-group-item-action ${activeTab === 'direcciones' ? 'active' : ''}`} onClick={() => setActiveTab('direcciones')}>
-                        <i className="bi bi-geo-alt me-2"></i> Mis Direcciones
+                        <i className="bi bi-geo-alt me-2"></i> Dirección
                     </button>
                     <button className={`list-group-item list-group-item-action ${activeTab === 'seguridad' ? 'active' : ''}`} onClick={() => setActiveTab('seguridad')}>
                         <i className="bi bi-shield-lock me-2"></i> Seguridad
@@ -40,9 +40,6 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                         <>
                             <button className={`list-group-item list-group-item-action ${activeTab === 'donaciones' ? 'active' : ''}`} onClick={() => setActiveTab('donaciones')}>
                                 <i className="bi bi-box2-heart me-2"></i> Mis Donaciones
-                            </button>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'certificados' ? 'active' : ''}`} onClick={() => setActiveTab('certificados')}>
-                                <i className="bi bi-file-earmark-check me-2"></i> Certificados
                             </button>
                             <button className={`list-group-item list-group-item-action ${activeTab === 'impacto' ? 'active' : ''}`} onClick={() => setActiveTab('impacto')}>
                                 <i className="bi bi-globe-europe-africa me-2"></i> Mi Impacto

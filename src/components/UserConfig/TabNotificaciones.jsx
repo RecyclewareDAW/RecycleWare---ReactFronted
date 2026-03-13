@@ -10,7 +10,9 @@ export default function TabNotificaciones() {
                 <input className="form-check-input" type="checkbox" role="switch" id="notifNovedades" />
                 <label className="form-check-label ms-2" htmlFor="notifNovedades">Novedades y boletín</label>
             </div>
-            <button type="button" className="btn btn-primary mt-4">Guardar Preferencias</button>
+            <div className="text-end">
+                <button type="button" className="btn btn-primary mt-4">Guardar Preferencias</button>
+            </div>
         </div>
     );
 }
