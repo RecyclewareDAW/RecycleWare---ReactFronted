@@ -1,10 +1,6 @@
 import CustomInput from '../CustomInput';
 
 export default function DatosIdentificacion({ tipoPerfil, formData, handleChange }) {
-    // Expresiones regulares para la validación nativa de HTML5/Bootstrap
-    const regexParticular = "^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$"; // Valida DNI o NIE
-    const regexEmpresa = "^([ABCDEFGHJNPQRSUVWabcdefghjnpqrsuvw][0-9]{7}[0-9A-Ja-j])$"; // Valida CIF
-
     return (
         <>
             <CustomInput
@@ -42,11 +38,9 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                         placeholder={tipoPerfil === 'particular' ? 'DNI / NIE' : 'CIF'}
                         required={true}
                         hideLabel={true}
-                        errorMessage={`Por favor, introduce el ${tipoPerfil === 'particular' ? 'DNI' : 'CIF'}.`}
+                        rule={tipoPerfil === 'particular' ? 'dni' : 'cif'}
                         value={formData.documento}
                         onChange={handleChange}
-                        maxLength="9"
-                        pattern={tipoPerfil === 'particular' ? regexParticular : regexEmpresa}
                     />
                 </div>
                 <div className="col-md-6">
@@ -57,10 +51,9 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                         placeholder={tipoPerfil === 'particular' ? 'Teléfono' : 'Teléfono principal'}
                         required={true}
                         hideLabel={true}
-                        errorMessage="Añade un número de contacto válido."
+                        rule="telefono"
                         value={formData.telefono}
                         onChange={handleChange}
-                        pattern="[0-9]{9}"
                     />
                 </div>
             </div>
@@ -72,9 +65,9 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                     type="tel"
                     placeholder="Teléfono secundario (Opcional)"
                     hideLabel={true}
+                    rule="telefono"
                     value={formData.telefonoSecundario}
                     onChange={handleChange}
-                    pattern="[0-9]{9}"
                 />
             )}
         </>

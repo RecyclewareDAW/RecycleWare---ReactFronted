@@ -3,7 +3,7 @@ import CustomInput from '../CustomInput';
 export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
 
     const localidadesAlicante = [
-        { value: 'Alicante Capital', label: 'Alicante Capital' },
+        { value: 'Alicante', label: 'Alicante' },
         { value: 'San Vicente del Raspeig', label: 'San Vicente del Raspeig' },
         { value: 'San Juan Playa', label: 'San Juan Playa' },
         { value: 'San Juan Pueblo', label: 'San Juan Pueblo' },
@@ -35,17 +35,14 @@ export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
                         placeholder="C. Postal"
                         required={true}
                         hideLabel={true}
-                        errorMessage="CP inválido."
-                        pattern="[0-9]{5}"
-                        title="Debe contener 5 números"
+                        rule="cp"
                         value={formData.cp}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-8">
-                    {/* Visualmente pedimos Localidad, pero mantenemos el id="provincia" para que encaje con Java */}
                     <CustomInput
-                        id="provincia"
+                        id="localidad"
                         label="Localidad"
                         type="select"
                         placeholder="Selecciona tu localidad..."
@@ -53,7 +50,7 @@ export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
                         hideLabel={true}
                         errorMessage="Selecciona una localidad de la lista."
                         options={localidadesAlicante}
-                        value={formData.provincia} 
+                        value={formData.localidad} 
                         onChange={handleChange}
                     />
                 </div>

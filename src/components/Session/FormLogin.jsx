@@ -19,8 +19,8 @@ const FormLogin = () => {
 
   // Esta funcion solo se ejecuta si esta el formulario 100% válido
   const handleSubmit = async (e) => {
-    setErrorMensaje(''); // limpiamos los errores anteriores que el usuario haya tenido
-    setExitoMensaje(''); // limpiamos el mensaje de éxito
+    setErrorMensaje('');
+    setExitoMensaje('');
 
     try {
         const credenciales = { email, password };
@@ -36,7 +36,6 @@ const FormLogin = () => {
 
     } catch (error) {
         // Si el backend nos devuelve un 401 (Error), lo mostramos en pantalla
-        console.error("Error al iniciar sesión:", error);
         setErrorMensaje(error.message || "Correo o contraseña incorrectos.");
     }
   };
@@ -63,11 +62,11 @@ const FormLogin = () => {
         <CustomInput
           id="email"
           label="Correo Electrónico"
-          type="email"
+          type="text"
           placeholder="Correo electrónico" // Lo cambiamos para que se lea mejor sin label
           required={true}
           hideLabel={true} // Esto oculta el label
-          errorMessage="Introduce un correo válido."
+          rule="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);

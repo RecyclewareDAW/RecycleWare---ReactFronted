@@ -30,7 +30,7 @@ const Registro = () => {
         telefonoSecundario: '',
         direccion: '',
         cp: '',
-        provincia: '',
+        localidad: '',
         emailRegistro: '',
         passwordRegistro: '',
         confirmPassword: '',
@@ -48,7 +48,7 @@ const Registro = () => {
     };
 
     const handleSubmit = async (event) => {
-        // Validación extra de React
+        // Validación extra de React para constraseñas
         if (formData.passwordRegistro !== formData.confirmPassword) {
             setErrorMensaje("Las contraseñas no coinciden.");
             return;
@@ -62,7 +62,7 @@ const Registro = () => {
             correo: formData.emailRegistro,
             password: formData.passwordRegistro,
             direccion: tipoPerfil === 'empresa' ? formData.direccion : 'No especificada', 
-            provincia: formData.provincia,
+            localidad: formData.localidad,
             codigoPostal: formData.cp,
             razonSocial: tipoPerfil === 'empresa' ? formData.nombre : null,
             nombreContacto: tipoPerfil === 'empresa' ? formData.personaContacto : null,
