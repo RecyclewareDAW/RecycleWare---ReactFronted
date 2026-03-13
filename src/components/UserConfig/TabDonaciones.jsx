@@ -46,61 +46,48 @@ export default function TabDonaciones() {
     if (cargando) return <div className="text-center p-5"><div className="spinner-border text-success"></div></div>;
 
     return (
-        <div className="container-fluid py-4 animate-fade-in">
-            <h2 className="titulo">Mis Donaciones</h2>
-            
-            {donaciones.length === 0 ? (
-                <div className="alert alert-light border shadow-sm">No hay donaciones registradas.</div>
-            ) : (
-                <div className="bg-white rounded shadow-sm">
-                    <div className="table-responsive">
-                        <table className="table table-borderless mb-0">
-                            <thead className="border-bottom table-success">
-                                <tr>
-                                    <th className="ps-4 py-3 text-primary fw-bold small text-uppercase">Descripción</th>
-                                    <th className="py-3 text-primary fw-bold small text-uppercase text-center">Cantidad</th>
-                                    <th className="py-3 text-primary fw-bold small text-uppercase text-center">Peso</th>
-                                    <th className="py-3 text-primary fw-bold small text-uppercase text-center">Estado</th>
-                                    {/* <th className="pe-4 py-3 text-primary fw-bold small text-uppercase text-end">Acción</th> */}
+    <div className="container-fluid py-4 animate-fade-in p-0">
+        <h2 className="titulo">Mis Donaciones</h2>
+        
+        {donaciones.length === 0 ? (
+            <div className="alert alert-light border shadow-sm rounded-4 text-dark">No hay donaciones registradas.</div>
+        ) : (
+            <div className="bg-white rounded-4 shadow-sm border overflow-hidden">
+                <div className="table-responsive bg-white">
+                    <table className="table mb-0 bg-white">
+                        <thead className="table-info">
+                            <tr>
+                                <th className="ps-4 py-3 text-dark fw-bold small text-uppercase border-0">Descripción</th>
+                                <th className="py-3 text-dark fw-bold small text-uppercase text-center border-0">Cantidad</th>
+                                <th className="py-3 text-dark fw-bold small text-uppercase text-center border-0">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                            {donaciones.map((d) => (
+                                <tr key={d.id} className="align-middle border-bottom bg-white">
+                                    <td className="ps-4 py-4 text-dark bg-white border-0">{d.descripcion}</td>
+                                    <td className="text-center bg-white border-0">
+                                        <span className="small text-primary px-3 py-2 fw-medium">
+                                            {d.cantidadProductos} ud
+                                        </span>
+                                    </td>
+                                    <td className="text-center bg-white border-0">
+                                        <span className={`badge rounded-pill px-3 py-2 shadow-sm ${
+                                            d.estado.id === 1 ? 'bg-warning text-primary' : 
+                                            d.estado.id === 2 ? 'bg-info text-white' : 
+                                            'bg-success text-white'
+                                        }`}>
+                                            {d.estado.nombre}
+                                        </span>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {donaciones.map((d) => (
-                                    <tr key={d.id} className="align-middle border-bottom">
-                                        <td className="ps-4 py-4 text-dark">{d.descripcion}</td>
-                                        <td className="text-center">
-                                            <span className="badge rounded-pill bg-white text-dark border fw-normal">
-                                                {d.cantidadProductos} ud
-                                            </span>
-                                        </td>
-                                        <td className="text-center text-muted">{d.peso ? `${d.peso} kg` : '-'}</td>
-                                        <td className="text-center">
-                                            <span className={`badge rounded-pill px-3 py-2 ${
-                                                d.estado.id === 1 ? 'bg-warning-subtle text-warning-emphasis border border-warning' : 
-                                                d.estado.id === 2 ? 'bg-info-subtle text-info-emphasis border border-info' : 
-                                                'bg-success-subtle text-success-emphasis border border-success'
-                                            }`}>
-                                                {d.estado.nombre}
-                                            </span>
-                                        </td>
-                                        {/* <td className="pe-4 text-end">
-                                            <select 
-                                                value={d.estado.id} 
-                                                onChange={(e) => cambiarEstado(d.id, e.target.value)}
-                                                className="form-select form-select-sm d-inline-block w-auto bg-white border-info shadow-sm"
-                                            >
-                                                {estados.map(est => (
-                                                    <option key={est.id} value={est.id}>{est.nombre}</option>
-                                                ))}
-                                            </select>
-                                        </td> */}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-            )}
-        </div>
-    );
+            </div>
+        )}
+    </div>
+);
+
 }

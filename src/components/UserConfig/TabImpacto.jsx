@@ -16,10 +16,10 @@ export default function TabImpacto() {
         try {
             const response = await fetch(`http://localhost:8080/api/donations/user/${userId}`);
             const data = await response.json();
-            
+
             // Calculamos totales
             const totalEquipos = data.reduce((acc, d) => acc + (d.cantidadProductos || 0), 0);
-            
+
             setStats({
                 equipos: totalEquipos,
                 co2: totalEquipos * 25 // 25kg CO2 por equipo
@@ -61,37 +61,40 @@ export default function TabImpacto() {
             </div>
 
             {/* Desglose detallado para rellenar el espacio */}
-            <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div className="card-header bg-white border-0 pt-4 px-4">
-                    <h5 className="fw-bold text-primary mb-0">Detalle por contribución</h5>
-                </div>
-                <div className="card-body p-4">
-                    {listaDonaciones.length > 0 ? (
-                        <div className="table-responsive">
-                            <table className="table align-middle">
-                                <thead className="table-light">
-                                    <tr>
-                                        <th className="border-0 text-dark">Descripción del Lote</th>
-                                        <th className="border-0 text-center text-dark">Unidades</th>
-                                        <th className="border-0 text-end text-dark">Ahorro CO₂</th>
+            <div className="bg-white rounded-4 shadow-sm border overflow-hidden">
+                <div className="table-responsive bg-white">
+                    <table className="table mb-0 bg-white">
+                        <thead className="table-info">
+                            <tr>
+                                <th className="ps-4 py-3 text-dark fw-bold small text-uppercase border-0">Descripción del Lote</th>
+                                <th className="py-3 text-dark fw-bold small text-uppercase text-center border-0">Unidades</th>
+                                <th className="py-3 text-dark fw-bold small text-uppercase text-end pe-4 border-0">Ahorro CO₂</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                            {listaDonaciones.length > 0 ? (
+                                listaDonaciones.map((d) => (
+                                    <tr key={d.id} className="align-middle border-bottom bg-white">
+                                        <td className="ps-4 py-4 text-dark bg-white border-0">{d.descripcion}</td>
+                                        <td className="text-center bg-white border-0">
+                                            <span className="small text-primary px-3 py-2 fw-medium">
+                                                {d.cantidadProductos} ud
+                                            </span>
+                                        </td>
+                                        <td className="text-end pe-4 bg-white border-0 text-success fw-bold">
+                                            +{d.cantidadProductos * 25} kg
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {listaDonaciones.map((d) => (
-                                        <tr key={d.id}>
-                                            <td className="text-muted small">{d.descripcion}</td>
-                                            <td className="text-center fw-bold text-primary">{d.cantidadProductos}</td>
-                                            <td className="text-end text-info fw-bold">
-                                                +{d.cantidadProductos * 25} kg
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    ) : (
-                        <p className="text-center text-muted my-4">Aún no hay datos de impacto registrados.</p>
-                    )}
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="3" className="text-center text-muted py-4 bg-white border-0">
+                                        Aún no hay datos de impacto registrados.
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
