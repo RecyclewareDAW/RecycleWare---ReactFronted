@@ -59,7 +59,7 @@ export default function InfoSection() {
               ¿Quieres colaborar?
             </h2>
             <p className="mb-4 text-dark">
-              Tu hardware puede cambiar una vida. Puedes colaborar de distintas formas:
+              Tu hardware puede cambiar una vida. El proceso de donación depende de tu tipo de perfil:
             </p>
 
             <div className="row g-4">
@@ -70,12 +70,8 @@ export default function InfoSection() {
                 </h3>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item px-0 border-0 bg-transparent text-dark">
-                    <strong>Donación Identificada:</strong> Regístrate para llevar un historial
-                    de tus donaciones y solicitudes, y elegir el punto de entrega o recogida.
-                  </li>
-                  <li className="list-group-item px-0 border-0 bg-transparent text-dark">
-                    <strong>Donación Puntual:</strong> Colabora sin registro entregando
-                    tus equipos directamente en nuestros puntos autorizados.
+                    Tanto si estás registrado como si donas de forma anónima, debes
+                    <strong> entregar tus equipos directamente</strong> en nuestro centro IES Doctor Balmis.
                   </li>
                 </ul>
               </div>
@@ -85,12 +81,9 @@ export default function InfoSection() {
                   <i className="bi bi-building me-2"></i>
                   Empresas
                 </h3>
-                <p className="small text-dark">
-                  Las empresas pueden registrarse con un perfil corporativo.
-                  Al hacerlo, <strong>se reconocerán oficialmente sus méritos</strong> y
-                  aportaciones a la economía circular, otorgando visibilidad a su
-                  compromiso social en nuestra plataforma.
-                </p>
+                <p className="text-dark">
+                <strong>Recogida a domicilio:</strong> El registro es clave para medir vuestro impacto social. No hace falta que os desplacéis para entregar los productos, con sólo solicitar la recogida desde vuestro perfil nosotros nos encargamos de la recogida en vuestras oficinas.
+            </p>
               </div>
             </div>
           </article>
