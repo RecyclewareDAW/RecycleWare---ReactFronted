@@ -20,7 +20,7 @@ export default function TabSeguridad() {
 
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4">Seguridad</h2>
+            <h2 className="titulo">Seguridad</h2>
             
             <CustomForm onSubmit={handleActualizarPassword}>
 

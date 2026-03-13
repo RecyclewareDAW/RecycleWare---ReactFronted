@@ -1,0 +1,70 @@
+// Archivo SASS de Recycleware
+.table.tabla-donaciones { // Doble clase para ganar especificidad
+    margin-top: 1.5rem;
+    background-color: transparent;
+    border-collapse: separate; 
+    border-spacing: 0;
+
+    thead {
+        tr {
+            background-color: rgba($gray-100, 0.5); // Un fondo sutil para el header
+        }
+        
+        th {
+            padding: 1rem;
+            font-weight: 700;
+            color: $dark;
+            border-bottom: 2px solid $gray-300 !important;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+    }
+
+    tbody {
+        tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid $gray-200 !important;
+
+            &:hover {
+                background-color: rgba($success, 0.05) !important; // Color temático al pasar el mouse
+            }
+
+            td {
+                padding: 1.2rem 1rem;
+                color: $gray-700;
+            }
+        }
+    }
+}
+
+// Estilos para los badges de estado
+.badge-estado {
+    padding: 0.5em 1em;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+    // Ajusta los colores según tu paleta de Recycleware
+    &.estado-1 { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; } // Pendiente
+    &.estado-2 { background-color: #cfe2ff; color: #084298; border: 1px solid #b6d4fe; } // Procesando
+    &.estado-3 { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; } // Completado
+}
+
+.select-estado {
+    max-width: 160px;
+    border-radius: 10px !important;
+    border: 1px solid $gray-300;
+    padding: 0.4rem !important;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: $success !important;
+        box-shadow: 0 0 0 0.25rem rgba($success, 0.25) !important;
+    }
+}
