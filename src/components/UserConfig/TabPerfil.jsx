@@ -29,7 +29,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
 
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo mb-4">
+            <h2 className="titulo">
                 {userRole === 'individual' ? 'Datos Personales' : 'Datos de la Empresa'}
             </h2>
             

@@ -47,7 +47,7 @@ export default function TabDonaciones() {
 
     return (
         <div className="container-fluid py-4 animate-fade-in">
-            <h2 className="h4 fw-bold mb-4 text-dark border-bottom pb-2">Mis Donaciones</h2>
+            <h2 className="titulo">Mis Donaciones</h2>
             
             {donaciones.length === 0 ? (
                 <div className="alert alert-light border shadow-sm">No hay donaciones registradas.</div>

@@ -16,7 +16,7 @@ export default function TabDirecciones() {
 
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo text-center mb-4">Mis Direcciones</h2>
+            <h2 className="titulo">Mis Direcciones</h2>
             
             <CustomForm onSubmit={handleGuardarDireccion}>
                 
