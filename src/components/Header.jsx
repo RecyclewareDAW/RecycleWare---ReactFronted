@@ -1,22 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState('#inicio');
   const location = useLocation(); // Para saber en qué ruta estamos
+  const navigate = useNavigate(); // Para redirigir
+
+  // Estado para guardar los datos del usuario logueado
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
     // Si la ruta es '/login', forzamos el estado activo a '#login' y evitamos el scroll spy
     if (location.pathname === '/login') {
       setActiveLink('#login');
-      return;
     }
 
-    // 👇 NUEVO: Si estamos en la página de solicitud, iluminamos "Productos"
+    // Si estamos en la página de solicitud, iluminamos "Productos"
     if (location.pathname.startsWith('/solicitud')) {
       setActiveLink('#categorias');
-      return;
+    }
+
+    // Comprobar si hay un usuario logueado cada vez que cambia la ruta
+    const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
+    if (usuarioGuardado) {
+      setUsuario(JSON.parse(usuarioGuardado)); // Convertimos el texto de memoria a un Objeto
+    } else {
+      setUsuario(null); // Si no hay nadie, limpiamos el estado
     }
 
     // Si no estamos en la ruta raíz ('/'), no intentamos calcular el scroll
@@ -24,7 +34,7 @@ export default function Navbar() {
 
     const handleScroll = () => {
       const sections = ['inicio', 'categorias', 'info', 'contacto'];
-      let currentSection = ''; 
+      let currentSection = '';
 
       sections.forEach((id) => {
         const element = document.getElementById(id);
@@ -43,12 +53,19 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     // Ejecutamos una vez al inicio para que detecte dónde estamos al cargar
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]); // Escuchamos cambios en la ruta
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem('usuarioRecycleware'); // Borramos la memoria
+    setUsuario(null); // Limpiamos el estado
+    navigate('/'); // Redirigimos a la página principal
+  };
 
   return (
     <header className='sticky-top'>
@@ -66,10 +83,10 @@ export default function Navbar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              
+
               <li className="nav-item">
-                <Link 
-                  className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} 
+                <Link
+                  className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`}
                   to="/#inicio"
                   onClick={() => setActiveLink('#inicio')}
                 >
@@ -77,8 +94,8 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`} 
+                <Link
+                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`}
                   to="/#categorias"
                   onClick={() => setActiveLink('#categorias')}
                 >
@@ -86,8 +103,8 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} 
+                <Link
+                  className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`}
                   to="/#info"
                   onClick={() => setActiveLink('#info')}
                 >
@@ -95,8 +112,8 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`} 
+                <Link
+                  className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`}
                   to="/#contacto"
                   onClick={() => setActiveLink('#contacto')}
                 >
@@ -113,13 +130,45 @@ export default function Navbar() {
                   <i className="bi bi-search"></i>
                 </button>
               </form>
-              <Link 
-                to="/login" 
-                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-4 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
-                onClick={() => setActiveLink('#login')}
-              >
-                Iniciar Sesión
-              </Link>
+
+              {/* RENDERIZADO CONDICIONAL DEL USUARIO */}
+              {usuario ? (
+                // SI HAY USUARIO
+                <div className="nav-item dropdown ms-lg-2">
+                  <a
+                    className="nav-link dropdown-toggle text-white d-flex align-items-center fw-bold"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="bi bi-person-circle fs-4 me-2 text-success"></i>
+                    Hola, {usuario.nombre}
+                  </a>
+                  <ul className="dropdown-menu dropdown-menu-end mt-2 shadow border-0 rounded-3">
+                    <li>
+                      <Link className="dropdown-item py-2 text-dark" to="/perfil">
+                        <i className="bi bi-gear-fill me-2 text-secondary"></i>Mi Perfil
+                      </Link>
+                    </li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li>
+                      <button className="dropdown-item text-danger py-2 fw-bold" onClick={handleLogout}>
+                        <i className="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                // SI NO HAY USUARIO
+                <Link
+                  to="/login"
+                  className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-4 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
+                  onClick={() => setActiveLink('#login')}
+                >
+                  Iniciar Sesión
+                </Link>
+              )}
             </div>
           </div>
         </div>

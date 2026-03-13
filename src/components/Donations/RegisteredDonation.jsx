@@ -30,7 +30,7 @@ const RegisteredDonation = () => {
         <FormCard 
             title={!enviado ? "Donar Equipo" : ""} 
             subtitle={!enviado ? "Completa los detalles del dispositivo que deseas donar para darle una segunda vida." : ""}
-            colSize="col-lg-8"
+            colSize="col-lg-10"
         >
             {!enviado ? (
                 <CustomForm onSubmit={handleSubmit}>
