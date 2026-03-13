@@ -7,58 +7,59 @@ import Lista from "../components/ListaProductos/Lista"
 //#region Imports de api
 
 import { api } from '../services/api';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //#endregion
 
-//#region UseStates
-const [listaCategorias, setListaCategorias] = useState([]);
-const [listaEstados, setListaEstados] = useState([]);
-const [listaProductos, setlistaProductos] = useState([]);
-//#endregion
 
-//#region Llamadas a la API iniciales para obtener la información del servidor
+
+//#region parametrización de los endpoints necesarios
 const endpointProductos = "/productos/disponibles";
 const endpointCategorias = "/productos/categorias";
 const endpointEstados = "/productos/estados";
 //#endregion
 
-async function getProductosDisponibles() {
-    try {
-        //Lamada de Productos disponibles
-        const respuestaProductos = await api.get(endpointProductos);
-        console.log(respuestaProductos);
-    } catch (error) {
-        alert("Error de conexión con el servidor");
-        console.log(error);
-    }
-}
-async function getCategorias() {
-    try {
-        // Llamada de categorias
-        const respuestaApiCategorias = await api.get(endpointCategorias);
-        console.log(respuestaApiCategorias);
-        return respuestaApiCategorias;
-    } catch (error) {
-        alert("Error de conexión con el servidor");
-        console.log(error);
-    }
 
 
-}
-async function getEstados() {
-    try {
-        const respuestaEstados = await api.get(endpointEstados);
-        console.log(respuestaEstados);
+export default function ListaProductos() {
 
-    } catch (error) {
-        alert("Error de conexión con el servidor");
-        console.log(error);
-    }
-}
+    //Preparacion de las listas de datos
+    const [listaEstados, setListaEstados] = useState([]);
+    const [listaProductos, setListaProductos] = useState([]);
+    const [listaCategorias, setListaCategorias] = useState([]);
 
 
-export default async function ListaProductos() { //Nota preventiva -> Temporalmente se esta probando que sea async este componente para poder hacer llamadas a la API
+    // Contactar con la base de datos
+    useEffect(() => {
+
+        //Descarga de los Estados de la BD
+        api.get(endpointEstados).then((result) => {
+            setListaEstados(result)
+        })
+
+        //Descarga de los Estados de la BD
+        api.get(endpointProductos).then((result) => {
+            setListaProductos(result)
+        })
+
+        //Descarga de las Categorias de la BD
+        api.get(endpointCategorias).then((result) => {
+            setListaCategorias(result)
+        })
+    }, [])
+
+    
+    //Creación de componentes
+
+    let componentesCategorias = [];
+    listaCategorias.forEach(element => {
+        componentesCategorias.push(<div className="list-group-item list-group-item-action">{element}</div>)
+    });
+
+    let componentesEstados = [];
+    listaEstados.forEach(estado => {
+        componentesEstados.push(<div className="list-group-item list-group-item-action">{estado}</div>)
+    });
 
 
 
@@ -90,10 +91,7 @@ export default async function ListaProductos() { //Nota preventiva -> Temporalme
                             <div className="list-group">
                                 <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>
                                 <div className="collapse" id="categorias">
-                                    <div className="list-group-item list-group-item-action">Periféricos</div>
-                                    <div className="list-group-item list-group-item-action">Sobremesa</div>
-                                    <div className="list-group-item list-group-item-action">Portátiles</div>
-                                    <div className="list-group-item list-group-item-action">Componentes</div>
+                                    {componentesCategorias}
                                 </div>
                             </div>
 
@@ -102,9 +100,7 @@ export default async function ListaProductos() { //Nota preventiva -> Temporalme
                                     data-bs-toggle="collapse"
                                     data-bs-target="#estado">Por estado del producto</div>
                                 <div className="collapse" id="estado">
-                                    <div className="list-group-item list-group-item-action">Bueno</div>
-                                    <div className="list-group-item list-group-item-action">Aceptable</div>
-                                    <div className="list-group-item list-group-item-action">Perjudicado</div>
+                                    {componentesEstados}
                                 </div>
                             </div>
                         </div>
