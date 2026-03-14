@@ -3,19 +3,31 @@ import { CardProducto } from "./CardProductos";
 
 export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNombre }) {
 
-
+    function ComprobarNombre(nombreProd) {
+        /*let encontrado = String(nombreProd).search(".*" + filtroNombre + ".*");
+        if (encontrado != 0 && filtroNombre == "")
+            return true;
+        else
+            return false;*/
+        return true;
+    }
 
     let componentesProductos = [];
 
     datos.forEach(p => {
 
+        if ((filtroCategoria == "" || p.categoria.nombre == filtroCategoria) &&
+            (filtroEstado == "" || p.estado.nombre == filtroEstado) &&
+            ComprobarNombre(p.nombre)) {
 
-        componentesProductos.push(
-            <CardProducto
-                id={p.id} // id={producto.id}
-                imagen={p.imagenUrl} //imagen={producto.imagen}
-                titulo={p.nombre} //titulo={producto.titulo} y descripcion={producto.descripcion}
-                descripcion={p.descripcion}></CardProducto>)
+            componentesProductos.push(
+                <CardProducto
+                    id={p.id} // id={producto.id}
+                    imagen={p.imagenUrl} //imagen={producto.imagen}
+                    titulo={p.nombre} //titulo={producto.titulo} y descripcion={producto.descripcion}
+                    descripcion={p.descripcion}></CardProducto>)
+
+        }
 
     });
 

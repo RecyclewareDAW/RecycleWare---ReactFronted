@@ -68,13 +68,26 @@ export default function ListaProductos() {
     //Creación de componentes
 
     let componentesCategorias = [];
-    listaCategorias.forEach(element => {
-        componentesCategorias.push(<div className="list-group-item list-group-item-action">{element}</div>)
+    listaCategorias.forEach(categoria => {
+        componentesCategorias.push(<div className="list-group-item list-group-item-action" onClick={() => {
+            if (filtroCategoria == "")
+                setFiltroCategoria(categoria)
+            else
+                setFiltroCategoria("")    
+            
+        }}>{categoria}</div>)
     });
 
     let componentesEstados = [];
     listaEstados.forEach(estado => {
-        componentesEstados.push(<div className="list-group-item list-group-item-action">{estado}</div>)
+        componentesEstados.push(<div className="list-group-item list-group-item-action" onClick={() => {
+            if (filtroEstado == "")
+                setFiltroEstado(estado)
+            else
+                setFiltroEstado("")  
+            console.log(estado) 
+            
+        }}>{estado}</div>)
     });
 
 
@@ -93,7 +106,7 @@ export default function ListaProductos() {
             <main className="pt-4 d-flex flex-column">
                 <h1 className="titulo">Productos</h1>
                 <div className="d-flex flex-lg-row flex-column p-3 justify-content-evenly">
-                    <aside className="p-4 bg-white border rounded-4 shadow-sm flex-fill m-3 h-100">
+                    <aside className="p-4 bg-white border rounded-4 shadow-sm w-25 m-3 h-100">
                         <div>
                             <span className="h3 titulo">Filtros</span>
                             <hr></hr>
@@ -120,7 +133,7 @@ export default function ListaProductos() {
                             </div>
                         </div>
                     </aside>
-                    <div className="p-4 m-3 bg-white border rounded-4 shadow-sm">
+                    <div className="p-4 m-3 bg-white border rounded-4 shadow-sm flex-fill">
                         <Lista datos={listaProductos}
                             filtroCategoria={filtroCategoria}
                             filtroEstado={filtroEstado}
