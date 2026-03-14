@@ -82,17 +82,60 @@ const RegisteredDonation = () => {
     // --- VISTA PARTICULAR ---
     if (userRole === 'individual' || userRole === 'particular') {
         return (
-            <FormCard title="¿Cómo donar tu equipo?" colSize="col-lg-12">
-                <div className="text-center p-4 animate-fade-in">
-                    <div className="bg-primary bg-opacity-10 p-4 rounded-circle d-inline-block mb-4">
-                        <i className="bi bi-geo-alt-fill fs-1 text-primary"></i>
+            <FormCard
+                title="¿Cómo donar tu equipo?"
+                subtitle="Para colaborar con nosotros, puedes entregar los productos directamente en nuestra sede sin cita previa."
+                colSize="col-lg-10"
+            >
+                <div className="animate-fade-in">
+                    
+                    <div className="row g-4 mt-2">
+
+                        {/* Tarjeta de Dirección */}
+                        <div className="col-md-6">
+                            <div className="h-100 p-4 bg-light border-0 rounded-4 shadow-sm text-center">
+                                <div className="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm icon-circle">
+                                    <i className="bi bi-geo-alt-fill text-warning fs-4"></i>
+                                </div>
+                                <h3 className="h6 fw-bold text-uppercase text-info mb-3">Punto de Entrega</h3>
+                                <p className="mb-1 text-dark">Calle Cerámica 24</p>
+                                <p className="text-muted small mb-0">CP: 03010, Alicante/Alicante (España)</p>
+                            </div>
+                        </div>
+
+                        {/* Tarjeta de Horarios */}
+                        <div className="col-md-6">
+                            <div className="h-100 p-4 bg-light border-0 rounded-4 shadow-sm text-center">
+                                <div className="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm icon-circle">
+                                    <i className="bi bi-clock-fill text-warning fs-4"></i>
+                                </div>
+                                <h3 className="h6 fw-bold text-uppercase text-info mb-3">Horario</h3>
+                                <p className="mb-1 text-dark">Lunes a Viernes</p>
+                                <p className="text-muted small mb-0">09:00h - 14:00h</p>
+                            </div>
+                        </div>
+
+                        {/* Banner Informativo Inferior */}
+                        <div className="col-12">
+                            <div className="p-3 rounded-4 border-start border-4 border-success bg-success bg-opacity-10 d-flex align-items-center">
+                                <i className="bi bi-info-circle-fill text-success fs-4 me-3"></i>
+                                <p className="small mb-0 text-dark">
+                                    <strong>Nota:</strong> No es necesario realizar un registro previo de los productos. Nuestro equipo los catalogará en el momento de la entrega.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <h2 className="titulo mb-3">Punto de Entrega</h2>
-                    <div className="bg-light p-4 rounded-4 mb-4 border mx-2">
-                        <p className="mb-1 fw-bold fs-5 text-dark">Calle de la Tecnología, 42, Alicante</p>
-                        <p className="mb-0 text-muted">Lunes a Viernes: 09:00 - 18:00</p>
+
+                    {/* Botón de acción final fuera de las columnas */}
+                    <div className="text-center mt-4">
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => navigate('/')}
+                        >
+                            <i className="bi bi-house-door me-2"></i>
+                            Volver al Inicio
+                        </button>
                     </div>
-                    <CustomButton onClick={() => navigate('/')}>Volver al Inicio</CustomButton>
                 </div>
             </FormCard>
         );
@@ -132,18 +175,18 @@ const RegisteredDonation = () => {
                 {/* BLOQUE PASOS 1-2-3 */}
                 <div className="row g-0 mb-5 text-center bg-light py-4 rounded-4 border mx-0 shadow-sm">
                     <div className="col-4 border-end">
-                        <i className="bi bi-1-circle text-primary fs-3"></i>
-                        <h6 className="fw-bold mt-2">Registro</h6>
+                        <i className="bi bi-1-circle text-warning fs-3"></i>
+                        <h6 className="fw-bold mt-2 text-primary">Registro</h6>
                         <p className="small text-muted mb-0">Qué se dona</p>
                     </div>
                     <div className="col-4 border-end">
-                        <i className="bi bi-2-circle text-primary fs-3"></i>
-                        <h6 className="fw-bold mt-2">Logística</h6>
+                        <i className="bi bi-2-circle text-warning fs-3"></i>
+                        <h6 className="fw-bold mt-2 text-primary">Logística</h6>
                         <p className="small text-muted mb-0">Cálculo transporte</p>
                     </div>
                     <div className="col-4">
-                        <i className="bi bi-truck text-primary fs-3"></i>
-                        <h6 className="fw-bold mt-2">Recogida</h6>
+                        <i className="bi bi-truck text-warning fs-3"></i>
+                        <h6 className="fw-bold mt-2 text-primary">Recogida</h6>
                         <p className="small text-muted mb-0">En vuestra sede</p>
                     </div>
                 </div>
@@ -153,9 +196,9 @@ const RegisteredDonation = () => {
                     <div className="mb-4">
                         <CustomInput
                             id="descripcion"
-                            label="Descripción de los productos que se donan"
+                            label={<span className="fw-bold">Descripción de los productos que se donan</span>}
                             type="textarea"
-                            placeholder="Indica qué equipos donas y su estado..."
+                            placeholder="Indica qué equipos donas, su estado, información relevante..."
                             rows="3"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
@@ -173,6 +216,7 @@ const RegisteredDonation = () => {
                                 value={cantidadProductos}
                                 onChange={(e) => setCantidadProductos(e.target.value)}
                                 required
+                                min="1"
                             />
                         </div>
                         <div className="col-md-6">
