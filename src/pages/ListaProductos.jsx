@@ -23,10 +23,26 @@ const endpointEstados = "/productos/estados";
 
 export default function ListaProductos() {
 
+    //Preparación para los filtros de la lista
+
+    const [filtroEstado, setFiltroEstado] = useState("");
+    const [filtroCategoria, setFiltroCategoria] = useState("");
+    const [filtroNombre, setFiltroNombre] = useState("");
+
+
+    // Manejo de eventos de inputs de filtrado
+
+    function filtrarNombre(value){
+        setFiltroNombre(value);
+    }
+
+
     //Preparacion de las listas de datos
     const [listaEstados, setListaEstados] = useState([]);
     const [listaProductos, setListaProductos] = useState([]);
     const [listaCategorias, setListaCategorias] = useState([]);
+
+
 
 
     // Contactar con la base de datos
@@ -48,7 +64,7 @@ export default function ListaProductos() {
         })
     }, [])
 
-    
+
     //Creación de componentes
 
     let componentesCategorias = [];
@@ -60,7 +76,6 @@ export default function ListaProductos() {
     listaEstados.forEach(estado => {
         componentesEstados.push(<div className="list-group-item list-group-item-action">{estado}</div>)
     });
-
 
 
 
@@ -86,7 +101,7 @@ export default function ListaProductos() {
                         <div className="d-flex flex-column gap-3">
                             <div>
                                 <label className="form-label" htmlFor="busquedaPorNombre">Búsqueda por nombre</label>
-                                <input className="form-control" type="text" id="busquedaPorNombre"></input>
+                                <input className="form-control" type="text" id="busquedaPorNombre" onChange={() => filtrarNombre(busquedaPorNombre.value)}></input>
                             </div>
                             <div className="list-group">
                                 <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>
@@ -106,7 +121,10 @@ export default function ListaProductos() {
                         </div>
                     </aside>
                     <div className="p-4 m-3 bg-white border rounded-4 shadow-sm">
-                        <Lista ></Lista>
+                        <Lista datos={listaProductos}
+                            filtroCategoria={filtroCategoria}
+                            filtroEstado={filtroEstado}
+                            filtroNombre={filtroNombre}></Lista>
                     </div>
                 </div>
             </main>
