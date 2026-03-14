@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/UserConfig/Sidebar';
-import Footer from '../components/Footer'; 
+import Footer from '../components/Footer';
 
 // Importación de todas las pestañas
 import TabPerfil from '../components/UserConfig/TabPerfil';
@@ -21,8 +21,9 @@ export default function UserConfig() {
     const navigate = useNavigate();
     const activeTab = tab || 'perfil';
 
-    const [userRole, setUserRole] = useState(null); 
+    const [userRole, setUserRole] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userName, setUserName] = useState('');
 
     useEffect(() => {
         const session = JSON.parse(localStorage.getItem('usuarioRecycleware'));
@@ -33,11 +34,16 @@ export default function UserConfig() {
         }
 
         const rolNormalizado = session.rol === 'PARTICULAR' ? 'individual' : 'empresa';
-        
+
         setUserRole(rolNormalizado);
+        
+        const nombreAMostrar = session.nombre || 'Usuario';
+        setUserName(nombreAMostrar);
+        
         setLoading(false);
     }, [navigate]);
 
+    // Función para gestionar el cambio de pestañas vía URL
     const handleTabChange = (tabName) => {
         navigate(`/perfil/${tabName}`);
     };
@@ -58,7 +64,6 @@ export default function UserConfig() {
         }
     };
 
-    // Estructura de carga consistente con el resto de la app
     if (loading) {
         return (
             <div className="d-flex flex-column min-vh-100">
@@ -77,20 +82,19 @@ export default function UserConfig() {
         <div className="d-flex flex-column min-vh-100">
             <Header />
 
-            {/* Cambiamos mt-5 pt-5 por algo más ligero como tus otras páginas */}
             <main className="flex-fill container-fluid container-xl user-config-container py-5">
-                
+
                 <div className="d-flex align-items-center mb-4 ps-2">
                     <h1 className="fw-bold mb-0 text-primary animate-fade-in">
-                        ¡Hola, {userRole === 'individual' ? 'Usuario' : 'Empresa'}!
+                        ¡Hola, {userName}!
                     </h1>
                 </div>
 
                 <div className="row g-4 align-items-start">
-                    <Sidebar 
-                        activeTab={activeTab} 
-                        setActiveTab={handleTabChange} 
-                        userRole={userRole} 
+                    <Sidebar
+                        activeTab={activeTab}
+                        setActiveTab={handleTabChange}
+                        userRole={userRole}
                     />
 
                     <section className="col-12 col-lg-9">

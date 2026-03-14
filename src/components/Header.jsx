@@ -143,7 +143,7 @@ export default function Navbar() {
                     aria-expanded="false"
                   >
                     <i className="bi bi-person-circle fs-4 me-2 text-success"></i>
-                    Hola, {usuario.nombre}
+                    {usuario.nombre}
                   </a>
                   <ul className="dropdown-menu dropdown-menu-end mt-2 shadow border-0 rounded-3">
                     <li>
