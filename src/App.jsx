@@ -29,6 +29,7 @@ export default function App() {
           <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />}></Route>
           <Route path="/terminos" element={<PaginaTerminos />} />
           <Route path="/ranking" element={<RankingEmpresas />} />
+          <Route path="/solicitar/:id" element={<SolicitudProducto />} />
 
           {/* RUTAS QUE CONTROLAN SEGÚN SI ESTAN LOGUEADOS O NO */}
 
