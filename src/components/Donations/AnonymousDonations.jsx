@@ -1,21 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import FormCard from "../FormCard";
 import CustomButton from "../CustomButton";
+import { Link } from 'react-router-dom';
 
 const AnonymousDonation = () => {
     const navigate = useNavigate();
 
     return (
-        <FormCard title="¿Cómo quieres colaborar?" colSize="col-lg-12">
+        <FormCard title="¿Cómo colaborar?" colSize="col-lg-12">
             <div className="animate-fade-in">
                 <div className="row g-4 mb-5">
                     {/* COLUMNA PARTICULARES */}
                     <div className="col-md-6 border-md-end pe-md-4">
                         <div className="d-flex align-items-center mb-3">
-                            <div className="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
-                                <i className="bi bi-person-heart text-primary fs-4"></i>
-                            </div>
-                            <h4 className="mb-0 fw-bold text-dark">Particulares</h4>
+                            
+                                <i className="bi bi-person-heart text-success fs-4 me-2"></i>
+                            
+                            <h4 className="mb-0 fw-bold text-primary">Particulares</h4>
                         </div>
                         <p className="text-muted">
                             No necesitas registro ni cuenta de usuario. Si tienes equipos para donar, solo tienes que traerlos a nuestro punto de recepción oficial.
@@ -25,14 +26,14 @@ const AnonymousDonation = () => {
                             <div className="d-flex align-items-start mb-3">
                                 <i className="bi bi-geo-alt-fill text-primary me-3 fs-5"></i>
                                 <div>
-                                    <p className="mb-0 fw-bold text-dark">IES Doctor Balmis</p>
+                                    <p className="mb-0 fw-bold text-primary">IES Doctor Balmis</p>
                                     <p className="small text-muted mb-0">Calle Cerámica, 24, Alicante 03010</p>
                                 </div>
                             </div>
                             <div className="d-flex align-items-start">
                                 <i className="bi bi-clock-fill text-primary me-3 fs-5"></i>
                                 <div>
-                                    <p className="mb-0 fw-bold text-dark">Horario de recepción</p>
+                                    <p className="mb-0 fw-bold text-primary">Horario de recepción</p>
                                     <p className="small text-muted mb-0">Lunes a Viernes: 09:00 - 14:00</p>
                                 </div>
                             </div>
@@ -42,10 +43,10 @@ const AnonymousDonation = () => {
                     {/* COLUMNA EMPRESAS */}
                     <div className="col-md-6 ps-md-4">
                         <div className="d-flex align-items-center mb-3">
-                            <div className="bg-success bg-opacity-10 p-2 rounded-3 me-3">
-                                <i className="bi bi-building-fill text-success fs-4"></i>
-                            </div>
-                            <h4 className="mb-0 fw-bold text-dark">Empresas e Instituciones</h4>
+                            
+                                <i className="bi bi-building-fill text-success fs-4 me-2"></i>
+                            
+                            <h4 className="mb-0 fw-bold text-primary">Empresas e Instituciones</h4>
                         </div>
                         <p className="text-muted">
                             Si sois una empresa con lotes de material, gestionamos la <strong>recogida gratuita</strong> en vuestra sede. Es necesario acceder con vuestra cuenta para solicitar la logística.
@@ -59,20 +60,15 @@ const AnonymousDonation = () => {
                         </div>
                         <div className="d-grid gap-2">
                             <CustomButton onClick={() => navigate('/login')}>
-                                <i className="bi bi-box-arrow-in-right me-2"></i> Acceso Empresas
+                                <i className="bi bi-box-arrow-in-right me-2"></i> Iniciar sesión
                             </CustomButton>
-                            <button 
-                                className="btn btn-link btn-sm text-muted text-decoration-none"
-                                onClick={() => navigate('/registro')}
-                            >
-                                ¿Aún no tenéis cuenta? Registrad la empresa aquí
-                            </button>
+                            <Link to="/registro" className="text-muted btn btn-sm text-link">¿Aún no tienes cuenta? Registra la empresa aquí</Link>
                         </div>
                     </div>
                 </div>
 
                 <div className="text-center border-top pt-4">
-                    <button className="btn btn-outline-secondary px-4 rounded-pill btn-sm" onClick={() => navigate('/')}>
+                    <button className="btn btn-outline-secondary px-4 rounded-pill" onClick={() => navigate('/')}>
                         Volver al inicio
                     </button>
                 </div>

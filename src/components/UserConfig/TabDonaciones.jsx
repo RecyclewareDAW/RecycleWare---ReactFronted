@@ -56,7 +56,7 @@ export default function TabDonaciones() {
                                 {donaciones.map((d) => (
                                     <tr key={d.id} className="align-middle border-bottom bg-white">
                                         <td className="ps-4 py-4 text-primary bg-white">{d.descripcion}</td>
-                                        <td className="text-center bg-white border-0 text-muted small">
+                                        <td className="text-center bg-white border-0 text-muted small text-nowrap">
                                             <i className="bi bi-calendar3 me-2"></i>
                                             {new Date(d.fechaDonacion).toLocaleDateString('es-ES', {
                                                 day: '2-digit',
@@ -64,7 +64,7 @@ export default function TabDonaciones() {
                                                 year: 'numeric'
                                             })}
                                         </td>
-                                        <td className="text-center bg-white border-0">
+                                        <td className="text-center bg-white border-0 text-nowrap">
                                             <span className="small text-primary px-3 py-2 fw-medium">
                                                 {d.cantidadProductos} ud
                                             </span>

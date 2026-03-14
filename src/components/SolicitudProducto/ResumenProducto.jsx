@@ -4,20 +4,23 @@ const ResumenProducto = ({ producto }) => {
   return (
     <div className="animate-fade-in h-100 d-flex flex-column">
       <div className="position-relative mb-4">
+        {/* Actualizado a imagen_url */}
         <img 
-          src={producto.imagen} 
+          src={producto.imagen_url || "https://picsum.photos/id/231/800/600"} 
           className="img-fluid rounded-4 shadow-sm w-100" 
-          alt={producto.titulo} 
+          alt={producto.nombre} 
         />
         <div className="position-absolute top-0 start-0 m-3">
           <span className="badge bg-success shadow-sm px-3 py-2">
-            <i className="bi bi-check-circle-fill me-1"></i> {producto.estado}
+            {/* Accedemos al nombre dentro del objeto estado */}
+            <i className="bi bi-check-circle-fill me-1"></i> {producto.estado?.nombre || "Disponible"}
           </span>
         </div>
       </div>
 
       <div className="flex-fill">
-        <h4 className="text-primary mb-3">{producto.titulo}</h4>
+        {/* Actualizado el .titulo a nombre para que matchee con la base de datos */}
+        <h4 className="text-primary mb-3">{producto.nombre}</h4>
         <p className="text-muted lh-base mb-4 small">
             {producto.descripcion}
         </p>
@@ -30,7 +33,7 @@ const ResumenProducto = ({ producto }) => {
             <p className="small fw-bold text-uppercase mb-0 text-secondary">
                 Punto de recogida
             </p>
-            <p className="mb-0 text-dark fw-medium small">{producto.centroRecogida}</p>
+            <p className="mb-0 text-dark fw-medium small">IES Doctor Balmis - Alicante</p>
           </div>
         </div>
       </div>
