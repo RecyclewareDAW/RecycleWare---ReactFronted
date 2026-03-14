@@ -32,9 +32,7 @@ export default function ListaProductos() {
 
     // Manejo de eventos de inputs de filtrado
 
-    function filtrarNombre(value){
-        setFiltroNombre(value);
-    }
+
 
 
     //Preparacion de las listas de datos
@@ -70,28 +68,25 @@ export default function ListaProductos() {
     let componentesCategorias = [];
     listaCategorias.forEach(categoria => {
         componentesCategorias.push(<div className="list-group-item list-group-item-action" onClick={() => {
-            if (filtroCategoria == "")
-                setFiltroCategoria(categoria)
+            if (filtroCategoria == categoria)
+                setFiltroCategoria("")
             else
-                setFiltroCategoria("")    
-            
+                setFiltroCategoria(categoria)
         }}>{categoria}</div>)
     });
 
     let componentesEstados = [];
     listaEstados.forEach(estado => {
         componentesEstados.push(<div className="list-group-item list-group-item-action" onClick={() => {
-            if (filtroEstado == "")
-                setFiltroEstado(estado)
+            if (filtroEstado == estado)
+                setFiltroEstado("")
             else
-                setFiltroEstado("")  
-            console.log(estado) 
-            
+                setFiltroEstado(estado)
         }}>{estado}</div>)
     });
 
 
-
+    
 
     return <>
         <div
@@ -114,7 +109,9 @@ export default function ListaProductos() {
                         <div className="d-flex flex-column gap-3">
                             <div>
                                 <label className="form-label" htmlFor="busquedaPorNombre">Búsqueda por nombre</label>
-                                <input className="form-control" type="text" id="busquedaPorNombre" onChange={() => filtrarNombre(busquedaPorNombre.value)}></input>
+                                <input className="form-control" type="text" id="busquedaPorNombre" onInput={() => {
+                                    setFiltroNombre(busquedaPorNombre.value);
+                                }}></input>
                             </div>
                             <div className="list-group">
                                 <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>

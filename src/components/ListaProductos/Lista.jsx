@@ -4,12 +4,10 @@ import { CardProducto } from "./CardProductos";
 export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNombre }) {
 
     function ComprobarNombre(nombreProd) {
-        /*let encontrado = String(nombreProd).search(".*" + filtroNombre + ".*");
-        if (encontrado != 0 && filtroNombre == "")
-            return true;
-        else
-            return false;*/
-        return true;
+        if (filtroNombre == "" || nombreProd.includes(filtroNombre)) {
+            return true
+        } else
+            return false
     }
 
     let componentesProductos = [];
