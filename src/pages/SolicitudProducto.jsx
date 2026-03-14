@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // 1. Importamos useNavigate
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ResumenProducto from '../components/SolicitudProducto/ResumenProducto';
@@ -8,31 +8,31 @@ import MensajeExito from '../components/SolicitudProducto/MensajeExito';
 import { api } from '../services/api'; 
 
 export default function SolicitudProducto() {
-    // Leemos el ID que viene en la URL (ej: /solicitar/5 -> id será "5")
     const { id } = useParams();
+    const navigate = useNavigate(); // 2. Inicializamos el navegador
 
     const [enviadoConExito, setEnviadoConExito] = useState(false);
     const [usuarioSesion, setUsuarioSesion] = useState(null);
-    
-    // 2. Nuevos estados para el producto dinámico
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState('');
 
-    // Efecto para cargar el usuario 
+    // 3. La puerta del login
     useEffect(() => {
         const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
         if (usuarioGuardado) {
             setUsuarioSesion(JSON.parse(usuarioGuardado));
+        } else {
+            // Si no hay usuario, lo mandamos al login inmediatamente
+            navigate('/login');
         }
-    }, []);
+    }, [navigate]); // Añadimos navigate a las dependencias por buenas prácticas
 
-    // 3. Efecto para cargar el producto desde Spring Boot
+    // Efecto para cargar el producto desde Spring Boot
     useEffect(() => {
         const cargarProducto = async () => {
             try {
                 setCargando(true);
-                // Llamo al backend para traer los datos del portátil
                 const datosProducto = await api.get(`/productos/${id}`);
                 setProducto(datosProducto);
             } catch (err) {
@@ -48,12 +48,14 @@ export default function SolicitudProducto() {
         }
     }, [id]);
 
+    // Si no hay usuario en sesión, devolvemos null para no pintar nada mientras redirige
+    if (!usuarioSesion) return null;
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
             <main className="flex-fill container py-5 pt-header align-content-center">
                 
-                {/* 4. Gestionamos los estados de carga y error antes de pintar la pantalla */}
                 {cargando && (
                     <div className="text-center py-5">
                         <div className="spinner-border text-primary" role="status">
@@ -79,23 +81,16 @@ export default function SolicitudProducto() {
                                 
                                 <div className="row g-5 align-items-start">
                                     <div className="col-lg-5">
-                                        {/* Pasamos el producto REAL a la tarjeta */}
                                         <ResumenProducto producto={producto} />
                                     </div>
 
                                     <div className="col-lg-7">
-                                        {!usuarioSesion ? (
-                                            <div className="alert alert-warning text-center fw-bold">
-                                                Inicia sesión para poder realizar una solicitud.
-                                            </div>
-                                        ) : (
-                                            /* Pasamos el producto REAL al formulario (para sacar su ID al hacer POST) */
-                                            <FormularioSolicitud 
-                                                producto={producto} 
-                                                usuario={usuarioSesion} 
-                                                onSuccess={() => setEnviadoConExito(true)} 
-                                            />
-                                        )}
+                                        {/* 4. Pasamos el usuario directamente */}
+                                        <FormularioSolicitud 
+                                            producto={producto} 
+                                            usuario={usuarioSesion} 
+                                            onSuccess={() => setEnviadoConExito(true)} 
+                                        />
                                     </div>
                                 </div>
                             </div>
