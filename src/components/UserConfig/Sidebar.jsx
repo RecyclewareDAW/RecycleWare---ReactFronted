@@ -1,4 +1,5 @@
-import React from 'react';
+import ButtonSidebar from './ButtonSidebar';
+import ButtonLogout from '../Session/ButtonLogout';
 
 export default function Sidebar({ activeTab, setActiveTab, userRole }) {
     return (
@@ -7,57 +8,37 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                 
                 <div className="list-group list-group-flush custom-list-group flex-grow-1">
                     {/* Opciones Globales */}
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'perfil' ? 'active' : ''}`} onClick={() => setActiveTab('perfil')}>
-                        <i className="bi bi-person-vcard me-2"></i> Mi Perfil
-                    </button>
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'direcciones' ? 'active' : ''}`} onClick={() => setActiveTab('direcciones')}>
-                        <i className="bi bi-geo-alt me-2"></i> Dirección
-                    </button>
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'seguridad' ? 'active' : ''}`} onClick={() => setActiveTab('seguridad')}>
-                        <i className="bi bi-shield-lock me-2"></i> Seguridad
-                    </button>
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'notificaciones' ? 'active' : ''}`} onClick={() => setActiveTab('notificaciones')}>
-                        <i className="bi bi-bell me-2"></i> Notificaciones
-                    </button>
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'privacidad' ? 'active' : ''}`} onClick={() => setActiveTab('privacidad')}>
-                        <i className="bi bi-incognito me-2"></i> Privacidad
-                    </button>
+                    <ButtonSidebar tabId="perfil" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-person-vcard" label="Mi Perfil" />
+                    <ButtonSidebar tabId="direcciones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-geo-alt" label="Dirección" />
+                    <ButtonSidebar tabId="seguridad" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-shield-lock" label="Seguridad" />
+                    <ButtonSidebar tabId="notificaciones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-bell" label="Notificaciones" />
+                    <ButtonSidebar tabId="privacidad" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-incognito" label="Privacidad" />
 
                     {/* Opciones Particulares */}
                     {userRole === 'individual' && (
                         <>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'peticiones' ? 'active' : ''}`} onClick={() => setActiveTab('peticiones')}>
-                                <i className="bi bi-box-seam me-2"></i> Peticiones Activas
-                            </button>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'historial' ? 'active' : ''}`} onClick={() => setActiveTab('historial')}>
-                                <i className="bi bi-clock-history me-2"></i> Historial
-                            </button>
+                            <ButtonSidebar tabId="peticiones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-box-seam" label="Peticiones Activas" />
+                            <ButtonSidebar tabId="historial" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-clock-history" label="Historial" />
                         </>
                     )}
 
                     {/* Opciones Empresas */}
                     {userRole === 'empresa' && (
                         <>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'donaciones' ? 'active' : ''}`} onClick={() => setActiveTab('donaciones')}>
-                                <i className="bi bi-box2-heart me-2"></i> Mis Donaciones
-                            </button>
-                            <button className={`list-group-item list-group-item-action ${activeTab === 'impacto' ? 'active' : ''}`} onClick={() => setActiveTab('impacto')}>
-                                <i className="bi bi-globe-europe-africa me-2"></i> Mi Impacto
-                            </button>
+                            <ButtonSidebar tabId="donaciones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-box2-heart" label="Mis Donaciones" />
+                            <ButtonSidebar tabId="impacto" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-globe-europe-africa" label="Mi Impacto" />
                         </>
                     )}
 
                     {/* Ayuda Global */}
                     <hr className="my-2 text-muted opacity-25" />
-                    <button className={`list-group-item list-group-item-action ${activeTab === 'ayuda' ? 'active' : ''}`} onClick={() => setActiveTab('ayuda')}>
-                        <i className="bi bi-life-preserver me-2"></i> Ayuda y Soporte
-                    </button>
+                    <ButtonSidebar tabId="ayuda" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-life-preserver" label="Ayuda y Soporte" />
                 </div>
 
                 <div className="mt-auto pt-4 border-top">
-                    <button className="btn btn-outline-danger w-100 d-flex justify-content-center align-items-center">
+                    <ButtonLogout className="btn btn-outline-danger w-100 d-flex justify-content-center align-items-center">
                         <i className="bi bi-box-arrow-left me-2"></i> Cerrar Sesión
-                    </button>
+                    </ButtonLogout>
                 </div>
             </div>
         </aside>

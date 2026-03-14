@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
+import ButtonLogout from './Session/ButtonLogout';
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState('#inicio');
@@ -59,13 +60,6 @@ export default function Navbar() {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]); // Escuchamos cambios en la ruta
-
-  // Función para cerrar sesión
-  const handleLogout = () => {
-    localStorage.removeItem('usuarioRecycleware'); // Borramos la memoria
-    setUsuario(null); // Limpiamos el estado
-    navigate('/'); // Redirigimos a la página principal
-  };
 
   return (
     <header className='sticky-top'>
@@ -153,9 +147,11 @@ export default function Navbar() {
                     </li>
                     <li><hr className="dropdown-divider" /></li>
                     <li>
-                      <button className="dropdown-item text-danger py-2 fw-bold" onClick={handleLogout}>
+                      <ButtonLogout 
+                        className="dropdown-item text-danger py-2 fw-bold"
+                        onLogout={() => setUsuario(null)}>
                         <i className="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
-                      </button>
+                      </ButtonLogout>
                     </li>
                   </ul>
                 </div>
