@@ -20,12 +20,12 @@ export default function TabImpacto() {
             // FILTRO POR ESTADO: Solo IDs 3 (Recibido) y 4 (Procesado)
             const donacionesValidadas = data.filter(d => d.estado.id === 3 || d.estado.id === 4);
 
-            // Calculamos totales basados solo en lo que ya tenemos o hemos procesado
+            // Calculamos totales basados solo en lo que YA RECIBIMOS O HEMOS PROCESADO
             const totalEquipos = donacionesValidadas.reduce((acc, d) => acc + (d.cantidadProductos || 0), 0);
 
             setStats({
                 equipos: totalEquipos,
-                co2: totalEquipos * 25 // 25kg CO2 por equipo
+                co2: totalEquipos * 25
             });
             
             setListaDonaciones(donacionesValidadas);
@@ -81,12 +81,12 @@ export default function TabImpacto() {
                                 listaDonaciones.map((d) => (
                                     <tr key={d.id} className="align-middle border-bottom bg-white">
                                         <td className="ps-4 py-4 text-dark bg-white border-0">{d.descripcion}</td>
-                                        <td className="text-center bg-white border-0">
+                                        <td className="text-center bg-white border-0 text-nowrap">
                                             <span className="small text-primary px-3 py-2 fw-medium">
                                                 {d.cantidadProductos} ud
                                             </span>
                                         </td>
-                                        <td className="text-end pe-4 bg-white border-0 text-info fw-bold">
+                                        <td className="text-end pe-4 bg-white border-0 text-info fw-bold text-nowrap">
                                             +{d.cantidadProductos * 25} kg
                                         </td>
                                     </tr>
