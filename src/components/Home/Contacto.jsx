@@ -1,34 +1,53 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CustomForm from '../CustomForm'; 
 import CustomInput from '../CustomInput'; 
 import FormCard from '../FormCard';
-import { api } from '../../services/api';
+import { api } from '../../services/api'; 
 
 export default function Contacto() {
   const [enviadoConExito, setEnviadoConExito] = useState(false);
+  
+  // 1. Estados para controlar lo que escribimos o autocompletamos
+  const [nombreInput, setNombreInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [usuarioId, setUsuarioId] = useState(null); // Guardaremos el ID si está logueado
+
+  // 2. Buscamos al usuario al cargar la página
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
+    if (usuarioGuardado) {
+        const user = JSON.parse(usuarioGuardado);
+        // Autocompletamos los campos
+        setNombreInput(user.nombre || '');
+        setEmailInput(user.correo || user.email || '');
+        setUsuarioId(user.id);
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
-    // 1. Evitamos que la página se recargue al enviar el formulario
     event.preventDefault();
 
-    // 2. Extraemos los datos gracias a los atributos 'name' de los inputs
     const formData = new FormData(event.target);
     const datosFormulario = Object.fromEntries(formData.entries());
 
-    try {
-      // 3. Enviamos la petición POST usando la API centralizada de tu equipo
-      await api.post('/contacto', {
+    // 3. Preparamos el paquete de datos
+    const paqueteDatos = {
         nombre: datosFormulario.nombre,
         correo: datosFormulario.email,   
         mensaje: datosFormulario.asunto  
-      });
-      
-      // 4. Si la petición es exitosa (código 200/201), mostramos el mensaje de éxito
+    };
+
+    if (usuarioId) {
+        paqueteDatos.usuario = { id: usuarioId };
+    }
+
+    try {
+      await api.post('/contacto', paqueteDatos);
       setEnviadoConExito(true);
       
     } catch (error) {
-      console.error("No se pudo conectar con el servidor backend o hubo un error al guardar:", error);
+      console.error("No se pudo conectar con el servidor o hubo un error al guardar:", error);
     }
   };
 
@@ -54,6 +73,8 @@ export default function Contacto() {
                   required={true}
                   hideLabel={true}
                   errorMessage="Por favor, escribe tu nombre."
+                  value={nombreInput}
+                  onChange={(e) => setNombreInput(e.target.value)}
                 />
               </div>
 
@@ -67,6 +88,8 @@ export default function Contacto() {
                   required={true}
                   hideLabel={true}
                   errorMessage="Introduce un correo válido."
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
                 />
               </div>
             </div>
@@ -121,7 +144,10 @@ export default function Contacto() {
             </p>
             <button 
               className="btn btn-outline-success" 
-              onClick={() => setEnviadoConExito(false)} 
+              onClick={() => {
+                setEnviadoConExito(false);
+                // Limpiamos el asunto en caso de querer mandar otro mensaje
+              }} 
             >
               Enviar otro mensaje
             </button>
