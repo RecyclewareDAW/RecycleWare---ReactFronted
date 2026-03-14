@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CustomForm from '../CustomForm'; 
 import CustomInput from '../CustomInput'; 
 import FormCard from '../FormCard';
+import { api } from '../../services/api';
 
 export default function Contacto() {
   const [enviadoConExito, setEnviadoConExito] = useState(false);
@@ -16,28 +17,18 @@ export default function Contacto() {
     const datosFormulario = Object.fromEntries(formData.entries());
 
     try {
-      // 3. Enviamos la petición POST a nuestro backend en Spring
-      const respuesta = await fetch('http://localhost:8080/api/contacto', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' 
-        },
-        body: JSON.stringify({
-          nombre: datosFormulario.nombre,
-          correo: datosFormulario.email,   
-          mensaje: datosFormulario.asunto  
-        })
+      // 3. Enviamos la petición POST usando la API centralizada de tu equipo
+      await api.post('/contacto', {
+        nombre: datosFormulario.nombre,
+        correo: datosFormulario.email,   
+        mensaje: datosFormulario.asunto  
       });
       
-      // 4. Si Spring nos devuelve un OK (201 Created), mostramos el mensaje de éxito
-      if (respuesta.ok) {
-        setEnviadoConExito(true);
-      } else {
-        console.error("El servidor devolvió un error al intentar guardar el mensaje.");
-      }
+      // 4. Si la petición es exitosa (código 200/201), mostramos el mensaje de éxito
+      setEnviadoConExito(true);
       
     } catch (error) {
-      console.error("No se pudo conectar con el servidor backend:", error);
+      console.error("No se pudo conectar con el servidor backend o hubo un error al guardar:", error);
     }
   };
 
