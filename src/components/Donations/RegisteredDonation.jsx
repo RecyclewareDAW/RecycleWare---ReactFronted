@@ -98,8 +98,8 @@ const RegisteredDonation = () => {
                                     <i className="bi bi-geo-alt-fill text-warning fs-4"></i>
                                 </div>
                                 <h3 className="h6 fw-bold text-uppercase text-info mb-3">Punto de Entrega</h3>
-                                <p className="mb-1 text-dark">Calle Cerámica 24</p>
-                                <p className="text-muted small mb-0">CP: 03010, Alicante/Alicante (España)</p>
+                                <p className="mb-1 text-dark">IES Doctor Balmis</p>
+                                <p className="text-muted small mb-0">Calle Cerámica 24, Alicante (España)</p>
                             </div>
                         </div>
 

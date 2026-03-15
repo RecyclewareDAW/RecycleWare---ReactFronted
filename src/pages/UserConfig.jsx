@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // <--- IMPORTANTE
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/UserConfig/Sidebar';
-import Footer from '../components/Footer'; 
+import Footer from '../components/Footer';
 
 // Importación de todas las pestañas
 import TabPerfil from '../components/UserConfig/TabPerfil';
@@ -17,10 +17,8 @@ import TabDonaciones from '../components/UserConfig/TabDonaciones';
 import TabImpacto from '../components/UserConfig/TabImpacto';
 
 export default function UserConfig() {
-    const { tab } = useParams(); // Lee el parámetro de la URL
+    const { tab } = useParams();
     const navigate = useNavigate();
-    
-    // Sincronizamos el estado con la URL
     const activeTab = tab || 'perfil';
 
     const [userRole, setUserRole] = useState('');
@@ -41,12 +39,11 @@ export default function UserConfig() {
         }
     }, [navigate]);
 
-    // Función para cambiar de pestaña navegando (esto actualiza la URL)
+    // Función para gestionar el cambio de pestañas vía URL
     const handleTabChange = (tabName) => {
         navigate(`/perfil/${tabName}`);
     };
 
-    // Gestor de contenido dinámico basado en la pestaña activa
     const renderContent = () => {
         switch (activeTab) {
             case 'perfil': return <TabPerfil userRole={userRole} setActiveTab={handleTabChange} />;
@@ -54,7 +51,7 @@ export default function UserConfig() {
             case 'seguridad': return <TabSeguridad />;
             case 'notificaciones': return <TabNotificaciones />;
             case 'privacidad': return <TabPrivacidad />;
-            case 'ayuda': return <TabAyuda />;
+            case 'ayuda': return <TabAyuda userRole={userRole} />;
             case 'peticiones': return <TabPeticiones />;
             case 'historial': return <TabHistorial />;
             case 'donaciones': return <TabDonaciones />;
@@ -84,7 +81,7 @@ export default function UserConfig() {
                     />
 
                     <section className="col-12 col-lg-9">
-                        <div className="config-content bg-white p-4 p-md-5 h-100 shadow-sm rounded-4">
+                        <div className="config-content bg-white p-4 p-md-5 h-100 shadow-sm rounded-4 animate-fade-in border">
                             {renderContent()}
                         </div>
                     </section>
