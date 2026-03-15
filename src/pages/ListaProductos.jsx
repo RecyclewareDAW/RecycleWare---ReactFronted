@@ -8,6 +8,7 @@ import Lista from "../components/ListaProductos/Lista"
 
 import { api } from '../services/api';
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 //#endregion
 
@@ -23,14 +24,14 @@ const endpointEstados = "/productos/estados";
 
 export default function ListaProductos() {
 
+    const { nombreProducto } = useParams();
+
+
     //Preparación para los filtros de la lista
 
     const [filtroEstado, setFiltroEstado] = useState("");
     const [filtroCategoria, setFiltroCategoria] = useState("");
-    const [filtroNombre, setFiltroNombre] = useState("");
-
-
-    // Manejo de eventos de inputs de filtrado
+    const [filtroNombre, setFiltroNombre] = useState(nombreProducto == undefined ? "" : nombreProducto);
 
 
 
@@ -45,6 +46,10 @@ export default function ListaProductos() {
 
     // Contactar con la base de datos
     useEffect(() => {
+
+        // Asignar el posible valor del parametro de la página al 
+
+        
 
         //Descarga de los Estados de la BD
         api.get(endpointEstados).then((result) => {
@@ -86,7 +91,7 @@ export default function ListaProductos() {
     });
 
 
-    
+
 
     return <>
         <div
@@ -109,7 +114,7 @@ export default function ListaProductos() {
                         <div className="d-flex flex-column gap-3">
                             <div>
                                 <label className="form-label" htmlFor="busquedaPorNombre">Búsqueda por nombre</label>
-                                <input className="form-control" type="text" id="busquedaPorNombre" onInput={() => {
+                                <input className="form-control" type="text" value={filtroNombre} id="busquedaPorNombre" onInput={() => {
                                     setFiltroNombre(busquedaPorNombre.value);
                                 }}></input>
                             </div>

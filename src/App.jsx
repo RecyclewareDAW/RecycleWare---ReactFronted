@@ -25,6 +25,7 @@ export default function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path="/registro" element={<Registro />}></Route>
           <Route path='/productos' element={<ListaProductos />}></Route>
+          <Route path='/productos/:nombreProducto' element={<ListaProductos />}></Route>
           <Route path="/recuperar-contrasena" element={<RecuperarContrasena />}></Route>
           <Route path="/olvide-contrasena" element={<ContrasenaOlvidada />}></Route>
           <Route path="/terminos" element={<PaginaTerminos />} />
