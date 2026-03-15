@@ -14,7 +14,7 @@ export const api = {
         }
     },
 
-    // 2. Método para enviar datos (POST)
+    // Método para enviar datos (POST)
     post: async (endpoint, data) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -41,6 +41,31 @@ export const api = {
         } catch (error) {
             console.error(`Error POST en ${endpoint}:`, error);
             throw error; // Lanzamos el error para que el componente (como Registro.jsx) lo capture y lo muestre
+        }
+    },
+
+    // Método para actualizar datos (PUT)
+    put: async (endpoint, data) => {
+        try {
+            const response = await fetch(`${BASE_URL}${endpoint}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify(data) 
+            });
+
+            const responseData = await response.json();
+
+            if (!response.ok) {
+                throw new Error(responseData.error || responseData.message || 'Error en la petición PUT');
+            }
+
+            return responseData;
+            
+        } catch (error) {
+            console.error(`Error PUT en ${endpoint}:`, error);
+            throw error;
         }
     }
 };

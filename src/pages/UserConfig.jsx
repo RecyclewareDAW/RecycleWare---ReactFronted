@@ -22,7 +22,24 @@ export default function UserConfig() {
     
     // Sincronizamos el estado con la URL
     const activeTab = tab || 'perfil';
-    const [userRole, setUserRole] = useState('empresa'); 
+
+    const [userRole, setUserRole] = useState('');
+    const [nombreUsuario, setNombreUsuario] = useState('');
+
+    // Leemos la sesión real del usuario al cargar la página
+    useEffect(() => {
+        const session = localStorage.getItem('usuarioRecycleware');
+        if (session) {
+            const userData = JSON.parse(session);
+            // Si el rol en BD es EMPRESA, le pasamos 'empresa', sino 'individual'
+            setUserRole(userData.rol === 'EMPRESA' ? 'empresa' : 'individual');
+            // Sacamos el nombre (o la razón social si es empresa) para el saludo
+            setNombreUsuario(userData.rol === 'EMPRESA' ? userData.razonSocial : userData.nombre);
+        } else {
+            // Si alguien intenta entrar aquí sin estar logueado, lo echamos al login
+            navigate('/login');
+        }
+    }, [navigate]);
 
     // Función para cambiar de pestaña navegando (esto actualiza la URL)
     const handleTabChange = (tabName) => {
@@ -46,33 +63,23 @@ export default function UserConfig() {
         }
     };
 
+    if (!userRole) return null;
+
     return (
         <>
             <Header />
             <main className="container-fluid container-xl user-config-container mt-5 pt-5 mb-5">
-                <div className="alert alert-info d-flex justify-content-between align-items-center mb-4">
-                    <span>Estás viendo la interfaz como: <strong>{userRole === 'individual' ? 'Usuario Particular' : 'Empresa'}</strong></span>
-                    <button
-                        className="btn btn-sm btn-outline-dark"
-                        onClick={() => {
-                            setUserRole(userRole === 'individual' ? 'empresa' : 'individual');
-                            handleTabChange('perfil'); // Navegamos a perfil al cambiar rol
-                        }}
-                    >
-                        Cambiar Rol (Prueba)
-                    </button>
-                </div>
-
+                
                 <div className="d-flex align-items-center mb-4">
                     <h1 className="fw-bold mb-0 text-primary">
-                        ¡Hola, {userRole === 'individual' ? 'Usuario' : 'Empresa'}!
+                        ¡Hola, {nombreUsuario}!
                     </h1>
                 </div>
 
                 <div className="row g-4 align-items-start">
                     <Sidebar 
                         activeTab={activeTab} 
-                        setActiveTab={handleTabChange} // Pasamos la función de navegación
+                        setActiveTab={handleTabChange} 
                         userRole={userRole} 
                     />
 

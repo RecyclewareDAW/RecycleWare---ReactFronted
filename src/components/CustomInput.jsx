@@ -1,6 +1,6 @@
 const validationRules = {
   email: {
-    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    pattern: "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+[.][a-zA-Z]{2,}$",
     maxLength: 80,
     defaultError: "Introduce un correo válido (ej: usuario@dominio.com)."
   },
