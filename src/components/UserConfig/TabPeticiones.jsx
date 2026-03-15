@@ -16,10 +16,7 @@ export default function TabPeticiones() {
     const obtenerDatos = async () => {
         try {
             const data = await api.get(`/solicitudes/usuario/${userId}`);
-            
-            // Filtramos SOLO las activas (1 = Pendiente, 2 = En Recogida)
             const activas = data.filter(r => r.state?.id === 1 || r.state?.id === 2);
-            
             activas.sort((a, b) => new Date(b.requestDate) - new Date(a.requestDate));
             setPeticiones(activas);
         } catch (error) {
@@ -29,11 +26,10 @@ export default function TabPeticiones() {
         }
     };
 
-    // Diccionario visual para los estados activos
     const getEstadoInfo = (estado) => {
-        if (estado?.id === 1) return { texto: 'Pendiente', clase: 'bg-warning bg-opacity-10 text-warning border-warning' };
-        if (estado?.id === 2) return { texto: 'En Recogida', clase: 'bg-info bg-opacity-10 text-info border-info' };
-        return { texto: estado?.nombre || 'Desconocido', clase: 'bg-secondary bg-opacity-10 text-secondary border-secondary' };
+        if (estado?.id === 1) return { texto: 'Pendiente', clase: 'badge-estado badge-pendiente' };
+        if (estado?.id === 2) return { texto: 'En Recogida', clase: 'badge-estado badge-recogida' };
+        return { texto: estado?.nombre || 'Desconocido', clase: 'badge-estado badge-desconocido' };
     };
 
     if (cargando) return <div className="text-center p-5"><div className="spinner-border text-primary"></div></div>;
@@ -48,7 +44,7 @@ export default function TabPeticiones() {
                 <div className="bg-white rounded-4 shadow-sm border overflow-hidden">
                     <div className="table-responsive bg-white">
                         <table className="table mb-0 bg-white">
-                            <thead className="table-light">
+                            <thead className="table-info">
                                 <tr>
                                     <th className="ps-4 py-3 text-dark fw-bold small text-uppercase border-0">Equipo Solicitado</th>
                                     <th className="py-3 text-dark fw-bold small text-uppercase text-center border-0">Fecha</th>
@@ -60,14 +56,16 @@ export default function TabPeticiones() {
                                     const estadoInfo = getEstadoInfo(p.state);
                                     return (
                                         <tr key={p.id} className="align-middle border-bottom bg-white">
-                                            <td className="ps-4 py-4 text-primary fw-medium bg-white">
+                                            <td className="ps-4 py-4 text-dark bg-white border-0">
                                                 {p.product?.nombre || 'Producto Desconocido'}
                                             </td>
-                                            <td className="text-center bg-white border-0 text-muted small text-nowrap">
-                                                <i className="bi bi-calendar3 me-2"></i>
-                                                {new Date(p.requestDate).toLocaleDateString('es-ES')}
+                                            <td className="text-center bg-white border-0 text-nowrap">
+                                                <span className="small text-dark fw-medium">
+                                                    <i className="bi bi-calendar3 me-2 text-muted"></i>
+                                                    {new Date(p.requestDate).toLocaleDateString('es-ES')}
+                                                </span>
                                             </td>
-                                            <td className="text-center bg-white border-0">
+                                            <td className="text-center bg-white border-0 text-nowrap">
                                                 <span className={`badge rounded-pill px-3 py-2 border border-opacity-25 ${estadoInfo.clase}`}>
                                                     {estadoInfo.texto}
                                                 </span>
