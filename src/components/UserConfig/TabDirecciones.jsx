@@ -15,7 +15,7 @@ export default function TabDirecciones() {
     const [mensaje, setMensaje] = useState({ tipo: '', texto: '' });
 
     const localidadesAlicante = [
-        { value: 'Alicante Capital', label: 'Alicante Capital' },
+        { value: 'Alicante', label: 'Alicante' },
         { value: 'San Vicente del Raspeig', label: 'San Vicente del Raspeig' },
         { value: 'San Juan Playa', label: 'San Juan Playa' },
         { value: 'San Juan Pueblo', label: 'San Juan Pueblo' },
