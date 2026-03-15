@@ -49,7 +49,7 @@ export default function ListaProductos() {
 
         // Asignar el posible valor del parametro de la página al 
 
-        
+
 
         //Descarga de los Estados de la BD
         api.get(endpointEstados).then((result) => {
@@ -72,22 +72,12 @@ export default function ListaProductos() {
 
     let componentesCategorias = [];
     listaCategorias.forEach(categoria => {
-        componentesCategorias.push(<div className="list-group-item list-group-item-action" onClick={() => {
-            if (filtroCategoria == categoria)
-                setFiltroCategoria("")
-            else
-                setFiltroCategoria(categoria)
-        }}>{categoria}</div>)
+        componentesCategorias.push(<a data-bs-toggle="list" role="compCat" className="list-group-item list-group-item-action list-group-item-light " onClick={() => { setFiltroCategoria(categoria)}}>{categoria}</a>)
     });
 
     let componentesEstados = [];
     listaEstados.forEach(estado => {
-        componentesEstados.push(<div className="list-group-item list-group-item-action" onClick={() => {
-            if (filtroEstado == estado)
-                setFiltroEstado("")
-            else
-                setFiltroEstado(estado)
-        }}>{estado}</div>)
+        componentesEstados.push(<a data-bs-toggle="list" role="compEst" className="list-group-item list-group-item-action list-group-item-light" onClick={() => {setFiltroEstado(estado)}}>{estado}</a>)
     });
 
 
@@ -119,8 +109,12 @@ export default function ListaProductos() {
                                 }}></input>
                             </div>
                             <div className="list-group">
-                                <div className="fw-bold list-group-item list-group-item-action list-group-item-primary bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>
+                                <div className="fw-bold list-group-item list-group-item-action bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>
                                 <div className="collapse" id="categorias">
+                                    <a href="#" data-bs-toggle="list"
+                                     role="compCat" className="list-group-item list-group-item-action list-group-item-light"
+                                      onClick={() => {setFiltroCategoria("")}}
+                                      >Cualquiera</a>
                                     {componentesCategorias}
                                 </div>
                             </div>
@@ -130,6 +124,10 @@ export default function ListaProductos() {
                                     data-bs-toggle="collapse"
                                     data-bs-target="#estado">Por estado del producto</div>
                                 <div className="collapse" id="estado">
+                                    <a href="#" data-bs-toggle="list"
+                                     role="compEst" className="list-group-item list-group-item-action list-group-item-light"
+                                      onClick={() => {setFiltroEstado("")}}
+                                      >Cualquiera</a>
                                     {componentesEstados}
                                 </div>
                             </div>
