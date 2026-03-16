@@ -30,9 +30,9 @@ export default function TabHistorial() {
     // Función que solo asigna clases de nuestro Bootstrap con texto blanco para añadir contraste
     const getEstadoClase = (id) => {
         const clases = {
-            3: 'bg-primary text-white', // Aprobada
-            4: 'bg-danger text-white',  // Denegada
-            5: 'bg-success text-white'  // Entregada
+            3: 'bg-success bg-opacity-10 text-success border border-success border-opacity-25', // Aprobada
+            4: 'bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25',  // Denegada
+            5: 'bg-info bg-opacity-10 text-info border border-info border-opacity-25'  // Entregada
         };
         return clases[id] || 'bg-secondary text-white';
     };

@@ -30,8 +30,8 @@ export default function TabPeticiones() {
     // Función que solo asigna clases de nuestro Bootstrap con texto blanco para añadir contraste
     const getEstadoClase = (id) => {
         const clases = {
-            1: 'bg-warning text-dark', // Pendiente
-            2: 'bg-info text-dark'     // En Revisión
+            1: 'bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25', // Pendiente
+            2: 'bg-info bg-opacity-10 text-info border border-info border-opacity-25'     // En Revisión
         };
         return clases[id] || 'bg-secondary text-white';
     };
