@@ -6,7 +6,7 @@ const ResumenProducto = ({ producto }) => {
       <div className="position-relative mb-4">
         {/* Actualizado a imagen_url */}
         <img 
-          src={producto.imagen_url || "https://picsum.photos/id/231/800/600"} 
+          src={producto.imagenUrl} // --> producto.imagen_url || producto.imagen esto no porque en spring se pasa json y entra imagenUrl
           className="img-fluid rounded-4 shadow-sm w-100" 
           alt={producto.nombre} 
         />
