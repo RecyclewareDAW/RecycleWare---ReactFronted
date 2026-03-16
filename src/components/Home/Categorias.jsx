@@ -3,7 +3,7 @@ import Card from "../Card";
 const Categorias = () => {
     return (
         <section className="container" id="categorias">
-            <h2 className="titulo py-5">Productos y Categorías</h2>
+            <h2 className="titulo">Productos y Categorías</h2>
             <div className="row g-4">
                 <div className="col-12 col-md-6 col-lg-3">
                     <Card
