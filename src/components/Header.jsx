@@ -12,15 +12,14 @@ export default function Navbar() {
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
-
-    // Si la ruta es '/login', forzamos el estado activo a '#login' y evitamos el scroll spy
     if (location.pathname === '/login') {
       setActiveLink('#login');
-    }
-
-    // Si estamos en la página de solicitud, iluminamos "Productos"
-    if (location.pathname.startsWith('/solicitud')) {
+    } else if (location.pathname.startsWith('/solicitud')) {
       setActiveLink('#categorias');
+    } else if (location.pathname === '/ranking') {
+      setActiveLink('/ranking');
+    } else if (location.pathname === '/') {
+      setActiveLink(location.hash || '#inicio');
     }
 
     // Comprobar si hay un usuario logueado cada vez que cambia la ruta
@@ -117,7 +116,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${activeLink === 'ranking' ? 'active' : ''}`}
+                  className={`nav-link ${activeLink === '/ranking' ? 'active' : ''}`}
                   to="/ranking"
                   onClick={() => setActiveLink('/ranking')}
                 >
