@@ -44,3 +44,9 @@ body {
     background-color: $fondo-secundario;
     font-family: $font-family-base;
 }
+
+.card-img-top{
+    width: 100%;
+    height: 30vh;
+    object-fit:cover;
+}

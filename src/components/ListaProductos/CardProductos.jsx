@@ -13,7 +13,7 @@ export const CardProducto = ({
     <div className="col">
       <div className='card shadow-sm p-0 h-100'>
         <img className='card-img-top' src={imagen} alt={titulo} />
-        <div className='card-body d-flex flex-column'>
+        <div className='card-body flex-column'>
           <h5 className='card-title fw-bold text-primary'>{titulo}</h5>
           <p className='card-text text-dark'>{descripcion}</p>
           
