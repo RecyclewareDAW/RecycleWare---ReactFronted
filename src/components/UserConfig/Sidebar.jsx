@@ -11,8 +11,7 @@ export default function Sidebar({ activeTab, setActiveTab, userRole }) {
                     <ButtonSidebar tabId="perfil" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-person-vcard" label="Mi Perfil" />
                     <ButtonSidebar tabId="direcciones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-geo-alt" label="Dirección" />
                     <ButtonSidebar tabId="seguridad" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-shield-lock" label="Seguridad" />
-                    <ButtonSidebar tabId="notificaciones" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-bell" label="Notificaciones" />
-                    <ButtonSidebar tabId="privacidad" activeTab={activeTab} setActiveTab={setActiveTab} icon="bi-incognito" label="Privacidad" />
+                   
 
                     {/* Opciones Particulares */}
                     {userRole === 'individual' && (
