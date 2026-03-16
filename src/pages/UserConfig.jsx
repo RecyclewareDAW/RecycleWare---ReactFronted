@@ -8,8 +8,6 @@ import Footer from '../components/Footer';
 import TabPerfil from '../components/UserConfig/TabPerfil';
 import TabDirecciones from '../components/UserConfig/TabDirecciones';
 import TabSeguridad from '../components/UserConfig/TabSeguridad';
-import TabNotificaciones from '../components/UserConfig/TabNotificaciones';
-import TabPrivacidad from '../components/UserConfig/TabPrivacidad';
 import TabAyuda from '../components/UserConfig/TabAyuda';
 import TabPeticiones from '../components/UserConfig/TabPeticiones';
 import TabHistorial from '../components/UserConfig/TabHistorial';
@@ -49,8 +47,6 @@ export default function UserConfig() {
             case 'perfil': return <TabPerfil userRole={userRole} setActiveTab={handleTabChange} />;
             case 'direcciones': return <TabDirecciones />;
             case 'seguridad': return <TabSeguridad />;
-            case 'notificaciones': return <TabNotificaciones />;
-            case 'privacidad': return <TabPrivacidad />;
             case 'ayuda': return <TabAyuda userRole={userRole} />;
             case 'peticiones': return <TabPeticiones />;
             case 'historial': return <TabHistorial />;
@@ -65,7 +61,7 @@ export default function UserConfig() {
     return (
         <>
             <Header />
-            <main className="container-fluid container-xl user-config-container mt-5 pt-5 mb-5">
+            <main className="container-fluid container-xl user-config-container mt-5 mb-5">
                 
                 <div className="d-flex align-items-center mb-4">
                     <h1 className="fw-bold mb-0 text-primary">
