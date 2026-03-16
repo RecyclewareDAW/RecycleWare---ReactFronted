@@ -98,7 +98,7 @@ const Registro = () => {
                 <FormCard
                     title="Crear una cuenta"
                     subtitle="Únete a RecycleWare y dale una segunda vida a la tecnología."
-                    colSize="col-lg-8"
+                    colSize="col-12"
                 >
                     {/* Alerta de errores  */}
                     {errorMensaje && (
