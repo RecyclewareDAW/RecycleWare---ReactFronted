@@ -41,9 +41,9 @@ export default function Home() {
             <Hero />
 
             <main>
+                <Info />
                 <Categorias />
                 <Comunidad />
-                <Info />
                 <hr />
                 <Contacto />
             </main>

@@ -53,7 +53,7 @@ export default function RankingEmpresas() {
     };
 
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div id="ranking" className="d-flex flex-column min-vh-100">
             <Header />
             
             <main className="flex-fill container py-5">

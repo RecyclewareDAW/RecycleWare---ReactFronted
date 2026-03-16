@@ -12,6 +12,7 @@ export default function Navbar() {
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+
     // Si la ruta es '/login', forzamos el estado activo a '#login' y evitamos el scroll spy
     if (location.pathname === '/login') {
       setActiveLink('#login');
@@ -59,14 +60,7 @@ export default function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]); // Escuchamos cambios en la ruta
-
-
-  // función ejecutada al enviar confirmar una búsqueda en la barra
-  function buscarProducto(formData) {
-    const searchBar = formData.get("searchBar");
-    navigate("/productos/"+searchBar, replace);
-  }
+  }, [location.pathname, location.hash]); // Escuchamos cambios en la ruta
 
   return (
     <header className='sticky-top'>
@@ -96,20 +90,20 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`}
-                  to="/#categorias"
-                  onClick={() => setActiveLink('#categorias')}
-                >
-                  Productos
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
                   className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`}
                   to="/#info"
                   onClick={() => setActiveLink('#info')}
                 >
                   ¿Cómo funciona?
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`}
+                  to="/#categorias"
+                  onClick={() => setActiveLink('#categorias')}
+                >
+                  Productos
                 </Link>
               </li>
               <li className="nav-item">
@@ -121,16 +115,19 @@ export default function Navbar() {
                   Contacto
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  className={`nav-link ${activeLink === 'ranking' ? 'active' : ''}`}
+                  to="/ranking"
+                  onClick={() => setActiveLink('/ranking')}
+                >
+                  Colaboradores
+                </Link>
+              </li>
 
             </ul>
 
             <div className="d-flex flex-column flex-lg-row align-items-lg-center">
-              <form className="d-flex mb-3 mb-lg-0 me-lg-3" role="search" action={buscarProducto}>
-                <input name='searchBar' className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                <button className="btn btn-primary px-3 d-flex align-items-center justify-content-center" type="submit">
-                  <i className="bi bi-search"></i>
-                </button>
-              </form>
 
               {/* RENDERIZADO CONDICIONAL DEL USUARIO */}
               {usuario ? (
