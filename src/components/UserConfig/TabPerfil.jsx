@@ -167,7 +167,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                             </div>
                         ) : ultimasDonaciones.length > 0 ? (
                             ultimasDonaciones.map((d) => (
-                                <div key={d.id} className="p-3 rounded-3 d-flex justify-content-between align-items-center card-soft-bg shadow-sm bg-white border">
+                                <div key={d.id} className="p-3 rounded-3 d-flex justify-content-between align-items-center shadow-sm bg-white border">
                                     <div>
                                         <h6 className="text-primary">{d.descripcion}</h6>
                                         <small className="text-muted d-block">
