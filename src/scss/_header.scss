@@ -1,14 +1,25 @@
-
 .navbar {
-    position: relative;
 
-    .container-fluid {
-        position: relative;
+    // Ajuste para PC
+    @media (min-width: 992px) {
+        .container-fluid {
+            position: relative; // Para que el absolute se base en este contenedor
+        }
+
+        .navbar-collapse {
+            // Subimos el menú a la misma línea que el logo y el usuario
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            z-index: 1000;
+        }
     }
 
     .logo {
         // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
-        height: clamp(2rem, 4vw, 3.2rem);
+        height: clamp(2rem, 3vw, 3rem);
         width: auto;
         object-fit: contain; // Mantiene la proporción sin deformarse
     }
@@ -47,7 +58,7 @@
         color: $light;
         font-family: $headings-font-family;
         font-size: 1.2rem;
-        
+
 
         &.active {
             color: $secondary;
