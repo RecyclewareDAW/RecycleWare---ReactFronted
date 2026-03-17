@@ -64,25 +64,25 @@ export default function Navbar() {
   }, [location.pathname, location.hash]); // Quitamos activeLink de las dependencias para evitar bucles
   return (
     <header className='sticky-top'>
-      <nav className="navbar navbar-expand-lg bg-dark">
+      <nav className="navbar navbar-expand-xl bg-dark">
         <div className="container-fluid d-block"> {/* Permite el despliegue vertical en móvil */}
 
           {/* FILA PRINCIPAL */}
-          <div className="row align-items-center m-0 g-0 w-100 position-relative" style={{ minHeight: '60px' }}>
+          <div className="row align-items-center m-0 g-0 w-100 position-relative">
 
             {/* Logo */}
-            <div className="col-6 col-lg-3 d-flex justify-content-start">
+            <div className="col-6 col-xl-3 d-flex justify-content-start">
               <Link className="navbar-brand m-0" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
                 <img src={logo} alt="RecycleWare logo" className="logo" />
               </Link>
             </div>
 
             {/* Espacio para el Nav en Escritorio (Invisible pero reserva el hueco central) */}
-            <div className="col-lg-8 d-none d-lg-block"></div>
+            <div className="col-xl-8 d-none d-xl-block"></div>
 
             {/* Derecha: Perfil en PC / Hamburguesa en móvil */}
-            <div className="col-6 col-lg-1 d-flex justify-content-end align-items-center">
-              <div className="d-none d-lg-block">
+            <div className="col-6 col-xl-1 d-flex justify-content-end align-items-center">
+              <div className="d-none d-xl-block">
                 {usuario ? (
                   <div className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle text-white d-flex align-items-center fw-bold"
@@ -114,7 +114,7 @@ export default function Navbar() {
 
           {/* MENÚ DESPLEGABLE */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center text-center">
+            <ul className="navbar-nav mx-auto mb-2 mb-xl-0 align-items-center text-center">
               <li className="nav-item">
                 <Link className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} to="/#inicio" onClick={() => setActiveLink('#inicio')}>Inicio</Link>
               </li>
@@ -138,7 +138,7 @@ export default function Navbar() {
               </li>
 
               {/* Solo visible en hamburguesa móvil */}
-              <li className="nav-item d-lg-none border-top mt-2 pt-2 w-100">
+              <li className="nav-item d-xl-none border-top mt-2 pt-2 w-100">
                 {usuario ? (
                   <>
                     <div className="text-success fw-bold py-2">Hola, {usuario.nombre}</div>
