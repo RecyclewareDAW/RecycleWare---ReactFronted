@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, replace, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 import ButtonLogout from './Session/ButtonLogout';
 
@@ -65,7 +65,7 @@ export default function Navbar() {
     <header className='sticky-top'>
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand d-flex align-items-center ps-4" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
+          <Link className="navbar-brand d-flex align-items-center" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
             <img src={logo} alt="RecycleWare logo" className="logo" />
           </Link>
 
@@ -76,7 +76,7 @@ export default function Navbar() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
 
               <li className="nav-item">
                 <Link
