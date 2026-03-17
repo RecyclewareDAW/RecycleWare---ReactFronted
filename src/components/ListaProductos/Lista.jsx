@@ -31,7 +31,7 @@ export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNomb
 
     return <>
         <div className="container-fluid">
-            <div className="row row-cols-1 row-cols-lg-4 g-5">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-5">
                 {componentesProductos}
             </div>
         </div>
