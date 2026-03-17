@@ -1,3 +1,7 @@
+import React, { useEffect } from 'react';
+
+import { api } from './services/api';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from "./pages/Home";
 import UserConfig from "./pages/UserConfig";
@@ -14,6 +18,20 @@ import CrudUsuarios from './pages/CrudUsuarios';
 import CrudProductos from './pages/CrudProductos';
 
 export default function App() {
+
+  useEffect(() => {
+    // Al cargar la web, preguntamos al servidor: ¿quién soy?
+    const checkSession = async () => {
+      try {
+       const user = await api.get('/auth/user');
+      console.log("RESPUESTA DEL SERVIDOR:", user); // Mira qué sale aquí
+    } catch (err) {
+      console.error("ERROR AL VALIDAR:", err.message);
+      // Si entra aquí, es que el servidor ha devuelto 401 o 403
+      }
+    };
+    checkSession();
+  }, []);
 
   return (
     <>

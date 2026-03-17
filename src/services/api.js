@@ -5,7 +5,9 @@ export const api = {
     // Método para pedir datos (GET)
     get: async (endpoint) => {
         try {
-            const response = await fetch(`${BASE_URL}${endpoint}`);
+            const response = await fetch(`${BASE_URL}${endpoint}`, {
+                credentials: 'include'
+            });
             if (!response.ok) throw new Error('Error en la petición de red');
             return await response.json();
         } catch (error) {
@@ -23,6 +25,7 @@ export const api = {
                     // Le decimos a Java que le estamos mandando un JSON
                     'Content-Type': 'application/json', 
                 },
+                credentials: 'include',
                 // Convertimos el objeto de React a un texto JSON para mandarlo
                 body: JSON.stringify(data) 
             });
@@ -52,6 +55,7 @@ export const api = {
                 headers: {
                     'Content-Type': 'application/json', 
                 },
+                credentials: 'include',
                 body: JSON.stringify(data) 
             });
 

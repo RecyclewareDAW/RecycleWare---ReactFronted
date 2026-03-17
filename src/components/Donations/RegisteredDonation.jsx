@@ -21,7 +21,7 @@ const RegisteredDonation = () => {
     useEffect(() => {
         const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
         if (usuarioGuardado) {
-            const user = JSON.parse(usuarioGuardado);
+            const user = JSON.parse(usuarioGuardado || '{}');
             setUserId(user.id);
             const rol = (user.rol || user.role || 'individual').toLowerCase();
             setUserRole(rol);
@@ -39,17 +39,9 @@ const RegisteredDonation = () => {
         setCargando(true);
         setError(false);
 
-        // ESTRUCTURA EXACTA PARA TU CLASE JAVA
         const nuevaDonacion = {
-            // En Java tienes "private User donante", espera un objeto con su id
-            donante: {
-                id: userId
-            },
-            // En Java tienes "private DonationState estado" y es NOT NULL
-            // Enviamos el ID 1 (que suele ser 'Pendiente')
-            estado: {
-                id: 1
-            },
+            donante: { id: userId },
+            estado: { id: 1 },
             descripcion: descripcion,
             cantidadProductos: parseInt(cantidadProductos),
             peso: peso ? parseFloat(peso) : null
@@ -58,20 +50,25 @@ const RegisteredDonation = () => {
         try {
             const response = await fetch('http://localhost:8080/api/donations', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // IMPORTANTE: Esto permite que el navegador envíe la cookie de sesión (JSESSIONID)
+                // Si no pones esto, Spring Security te dará error 401/403 aunque estés logueado.
+                credentials: 'include',
                 body: JSON.stringify(nuevaDonacion)
             });
 
             if (response.ok) {
                 setEnviado(true);
             } else {
-                // Esto nos dirá en la consola del navegador si sigue habiendo problemas
-                const errorText = await response.text();
-                console.error("Error del servidor:", errorText);
+                // Si el servidor responde con error (400, 401, 500...)
+                const errorData = await response.json().catch(() => ({}));
+                console.error("Error del servidor:", errorData);
                 setError(true);
             }
         } catch (err) {
-            console.error("Error de red:", err);
+            console.error("Error de red o conexión:", err);
             setError(true);
         } finally {
             setCargando(false);
@@ -88,7 +85,7 @@ const RegisteredDonation = () => {
                 colSize="col-lg-10"
             >
                 <div className="animate-fade-in">
-                    
+
                     <div className="row g-4 mt-2">
 
                         {/* Tarjeta de Dirección */}

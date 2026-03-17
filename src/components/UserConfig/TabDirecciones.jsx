@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CustomForm from '../CustomForm'; 
+import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
 import { api } from '../../services/api';
 
@@ -36,11 +36,11 @@ export default function TabDirecciones() {
         try {
             // Enviamos a Java
             await api.put('/usuario', datosActualizados);
-            
+
             // Actualizamos memoria
             localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));
             setMensaje({ tipo: 'success', texto: '¡Tu dirección se ha actualizado correctamente!' });
-            
+
         } catch (error) {
             setMensaje({ tipo: 'danger', texto: error.message || 'Error al guardar la dirección.' });
         }
@@ -57,7 +57,7 @@ export default function TabDirecciones() {
                 </div>
             )}
             <CustomForm onSubmit={handleGuardarDireccion}>
-                
+
                 <CustomInput
                     id="direccionCompleta"
                     label="Dirección Completa"
@@ -66,7 +66,7 @@ export default function TabDirecciones() {
                     required={true}
                     errorMessage="Por favor, introduce tu dirección completa."
                     value={direccion}
-                    onChange={(e) => { setDireccion(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                    onChange={(e) => { setDireccion(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                 />
 
                 <div className="row">
@@ -80,11 +80,11 @@ export default function TabDirecciones() {
                             required={true}
                             errorMessage="Selecciona una localidad de la lista."
                             options={localidadesAlicante}
-                            value={localidad || ""} 
-                            onChange={(e) => { setLocalidad(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                            value={localidad || ""}
+                            onChange={(e) => { setLocalidad(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
-                    
+
                     <div className="col-md-6">
 
                         <CustomInput
@@ -95,7 +95,7 @@ export default function TabDirecciones() {
                             required={true}
                             rule="cp"
                             value={codigoPostal}
-                            onChange={(e) => { setCodigoPostal(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                            onChange={(e) => { setCodigoPostal(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
                 </div>
@@ -105,7 +105,7 @@ export default function TabDirecciones() {
                         Guardar Dirección
                     </button>
                 </div>
-                
+
             </CustomForm>
         </div>
     );

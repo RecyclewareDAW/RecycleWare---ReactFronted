@@ -67,6 +67,21 @@ export default function Footer({ colaboradores }) {
     //     { nombre: "Org C" }
     // ];
 
+    // const datosBrutos = localStorage.getItem('usuarioRecycleware');
+
+    // // 2. Creamos la variable usuario con seguridad total
+    // let usuario = {};
+
+    // // 3. Solo intentamos parsear si hay algo y NO es la palabra "undefined"
+    // if (datosBrutos && datosBrutos !== "undefined") {
+    //     try {
+    //         usuario = JSON.parse(datosBrutos);
+    //     } catch (e) {
+    //         console.error("Error al parsear el usuario, limpiando...", e);
+    //         usuario = {};
+    //     }
+    // }
+
     return (
         <footer className="text-center text-light bg-dark">
             <div className="container p-4 pb-0">
