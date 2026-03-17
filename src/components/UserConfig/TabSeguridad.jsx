@@ -38,7 +38,7 @@ export default function TabSeguridad() {
 
         try {
             // Mandamos el PUT a Java
-            await api.put('/users', datosActualizados);
+            await api.put('/usuario', datosActualizados);
             
             // Actualizamos el localStorage para que la próxima vez que intente cambiarla, pida la nueva
             localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));

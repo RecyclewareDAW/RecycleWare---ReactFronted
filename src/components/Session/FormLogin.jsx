@@ -26,7 +26,7 @@ const FormLogin = () => {
         const credenciales = { email, password };
         
         // Lo enviamos al endpoint de Spring Boot
-        const respuesta = await api.post('/users/login', credenciales);
+        const respuesta = await api.post('/usuario/login', credenciales);
 
         // Guardamos la sesion del usuario en la memoria del navegador
         localStorage.setItem('usuarioRecycleware', JSON.stringify(respuesta.usuario));

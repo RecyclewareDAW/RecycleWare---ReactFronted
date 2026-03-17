@@ -35,7 +35,7 @@ export default function TabDirecciones() {
 
         try {
             // Enviamos a Java
-            await api.put('/users', datosActualizados);
+            await api.put('/usuario', datosActualizados);
             
             // Actualizamos memoria
             localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));

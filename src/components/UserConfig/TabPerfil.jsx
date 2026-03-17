@@ -29,7 +29,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     useEffect(() => {
         // Solo hacemos la petición si es empresa y tenemos el ID del usuario
         if (userRole === 'empresa' && userId) {
-            fetch(`http://localhost:8080/api/donations/user/${userId}`)
+            fetch(`http://localhost:8080/api/donations/usuario/${userId}`)
                 .then(res => res.json())
                 .then(data => {
                     // ORDENACIÓN POR FECHA (MÁS PRECISO)
@@ -64,7 +64,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
             nombreContacto: userRole === 'empresa' ? personaContacto : null
         };
         try {
-            await api.put('/users', datosActualizados);
+            await api.put('/usuario', datosActualizados);
             localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));
             setMensaje({ tipo: 'success', texto: '¡Tus datos se han actualizado correctamente!' });
             

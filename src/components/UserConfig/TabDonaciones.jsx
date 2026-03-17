@@ -16,7 +16,7 @@ export default function TabDonaciones() {
     const obtenerDatos = async () => {
         try {
             const [resDonaciones, resEstados] = await Promise.all([
-                fetch(`http://localhost:8080/api/donations/user/${userId}`),
+                fetch(`http://localhost:8080/api/donations/usuario/${userId}`),
                 fetch(`http://localhost:8080/api/donation-states`)
             ]);
             if (!resDonaciones.ok || !resEstados.ok) throw new Error("Error");

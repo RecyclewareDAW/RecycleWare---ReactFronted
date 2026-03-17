@@ -14,7 +14,7 @@ export default function TabImpacto() {
 
     const fetchDatosImpacto = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/donations/user/${userId}`);
+            const response = await fetch(`http://localhost:8080/api/donations/usuario/${userId}`);
             const data = await response.json();
 
             // FILTRO POR ESTADO: Solo IDs 3 (Recibido) y 4 (Procesado)
