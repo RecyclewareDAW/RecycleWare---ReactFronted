@@ -12,6 +12,21 @@ export default function Navbar() {
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+    const medirNavbar = () => {
+      const header = document.querySelector('header');
+      if (header) {
+        // offsetHeight captura el tamaño REAL (incluyendo padding/bordes)
+        document.documentElement.style.setProperty('--nav-height', `${header.offsetHeight}px`);
+      }
+    };
+
+    medirNavbar();
+    window.addEventListener('resize', medirNavbar); // Re-medir si cambian el tamaño de la ventana
+
+    return () => window.removeEventListener('resize', medirNavbar);
+  }, []); // Solo se ejecuta una vez al montar el componente
+
+  useEffect(() => {
     // 1. Lógica de Rutas
     if (location.pathname === '/login') {
       setActiveLink('#login');
