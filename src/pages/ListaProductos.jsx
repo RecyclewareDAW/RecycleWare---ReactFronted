@@ -94,14 +94,14 @@ export default function ListaProductos() {
 
 
             <main className="pt-4 d-flex flex-column">
-                <h1 className="titulo">Productos</h1>
-                <div className="d-flex flex-lg-row flex-column p-3 justify-content-evenly">
-                    <aside className="p-4 bg-white border rounded-4 shadow-sm w-25 m-3 h-100">
+                <h1 className="titulo p-0">Productos</h1>
+                <div className="d-flex flex-lg-row flex-column p-3 justify-content-between">
+                    <aside className="p-3 bg-white border rounded-4 shadow-sm m-2 h-100">
                         <div>
                             <span className="h3 titulo">Filtros</span>
                             <hr></hr>
                         </div>
-                        <div className="d-flex flex-column gap-3">
+                        <div className="d-flex flex-column gap-4">
                             <div>
                                 <label className="form-label" htmlFor="busquedaPorNombre">Búsqueda por nombre</label>
                                 <input className="form-control" type="text" value={filtroNombre} id="busquedaPorNombre" onInput={() => {
@@ -112,9 +112,9 @@ export default function ListaProductos() {
                                 <div className="fw-bold list-group-item list-group-item-action bg-primary text-light" data-bs-toggle="collapse" data-bs-target="#categorias">Por categoria</div>
                                 <div className="collapse" id="categorias">
                                     <a href="#" data-bs-toggle="list"
-                                     role="compCat" className="list-group-item list-group-item-action list-group-item-light"
+                                     role="compCat" className="list-group-item list-group-item-action list-group-item-light active"
                                       onClick={() => {setFiltroCategoria("")}}
-                                      >Cualquiera</a>
+                                      >Todos</a>
                                     {componentesCategorias}
                                 </div>
                             </div>
@@ -125,15 +125,15 @@ export default function ListaProductos() {
                                     data-bs-target="#estado">Por estado del producto</div>
                                 <div className="collapse" id="estado">
                                     <a href="#" data-bs-toggle="list"
-                                     role="compEst" className="list-group-item list-group-item-action list-group-item-light"
+                                     role="compEst" className="list-group-item list-group-item-action list-group-item-light active"
                                       onClick={() => {setFiltroEstado("")}}
-                                      >Cualquiera</a>
+                                      >Todos</a>
                                     {componentesEstados}
                                 </div>
                             </div>
                         </div>
                     </aside>
-                    <div className="p-4 m-3 bg-white border rounded-4 shadow-sm flex-fill">
+                    <div className="p-3 m-2 w-100 bg-white border rounded-4 shadow-sm">
                         <Lista datos={listaProductos}
                             filtroCategoria={filtroCategoria}
                             filtroEstado={filtroEstado}

@@ -31,8 +31,11 @@ const FormLogin = () => {
         // Guardamos la sesion del usuario en la memoria del navegador
         localStorage.setItem('usuarioRecycleware', JSON.stringify(respuesta.usuario));
 
+        // Buscamos si en la mochila (state) venía una ruta de origen. Si no venía nada, usamos '/' por defecto.
+        const rutaDestino = location.state?.from || '/';
+
         // Redirigimos al usuario a la pagina principal
-        navigate('/');
+        navigate(rutaDestino);
 
     } catch (error) {
         // Si el backend nos devuelve un 401 (Error), lo mostramos en pantalla

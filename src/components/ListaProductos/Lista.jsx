@@ -4,7 +4,7 @@ import { CardProducto } from "./CardProductos";
 export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNombre }) {
 
     function ComprobarNombre(nombreProd) {
-        if (filtroNombre == "" || nombreProd.includes(filtroNombre)) {
+        if (filtroNombre == "" || String(nombreProd).toLocaleLowerCase().includes(String(filtroNombre).toLocaleLowerCase())) {
             return true
         } else
             return false
@@ -30,8 +30,8 @@ export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNomb
     });
 
     return <>
-        <div className="container">
-            <div className="row row-cols-1 row-cols-lg-3 g-5">
+        <div className="container-fluid">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-5">
                 {componentesProductos}
             </div>
         </div>
