@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // 1. Importamos useNavigate
+import { useParams, useNavigate, useLocation } from 'react-router-dom'; // 1. Importamos useNavigate
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ResumenProducto from '../components/SolicitudProducto/ResumenProducto';
@@ -10,6 +10,7 @@ import { api } from '../services/api';
 export default function SolicitudProducto() {
     const { id } = useParams();
     const navigate = useNavigate(); // 2. Inicializamos el navegador
+    const location = useLocation();
 
     const [enviadoConExito, setEnviadoConExito] = useState(false);
     const [usuarioSesion, setUsuarioSesion] = useState(null);
@@ -24,9 +25,9 @@ export default function SolicitudProducto() {
             setUsuarioSesion(JSON.parse(usuarioGuardado));
         } else {
             // Si no hay usuario, lo mandamos al login inmediatamente
-            navigate('/login');
+            navigate('/login', { state: { from: location.pathname } });
         }
-    }, [navigate]); // Añadimos navigate a las dependencias por buenas prácticas
+    }, [navigate, location]); // Añadimos navigate a las dependencias por buenas prácticas
 
     // Efecto para cargar el producto desde Spring Boot
     useEffect(() => {
