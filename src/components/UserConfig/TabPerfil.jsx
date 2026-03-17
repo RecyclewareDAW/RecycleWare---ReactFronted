@@ -98,7 +98,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <CustomInput id="dni" label="DNI / NIE" type="text" placeholder="Ej: 12345678A" required={true} rule="dni" value={dni} onChange={(e) => { setDni(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="dni" label="DNI / NIE" type="text" placeholder="Ej: 12345678A" required={true} rule="dni" value={dni} disabled={true} onChange={(e) => { setDni(e.target.value); setMensaje({tipo:'', texto:''}); }} />
                             </div>
                             <div className="col-md-6">
                                 <CustomInput id="telefonoIndividual" label="Teléfono de contacto" type="tel" placeholder="Tu número de teléfono" required={true} rule="telefono" value={telefonoIndividual} onChange={(e) => { setTelefonoIndividual(e.target.value); setMensaje({tipo:'', texto:''}); }} />
@@ -122,7 +122,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <CustomInput id="cif" label="CIF" type="text" placeholder="B12345678" required={true} rule="cif" value={cif} onChange={(e) => { setCif(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="cif" label="CIF" type="text" placeholder="B12345678" required={true} rule="cif" value={cif} disabled={true} onChange={(e) => { setCif(e.target.value); setMensaje({tipo:'', texto:''}); }} />
                             </div>
                             <div className="col-md-6">
                                 <CustomInput id="personaContacto" label="Persona de contacto" type="text" placeholder="Nombre de la persona encargada" required={true} value={personaContacto} onChange={(e) => { setPersonaContacto(e.target.value); setMensaje({tipo:'', texto:''}); }} />
@@ -167,7 +167,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                             </div>
                         ) : ultimasDonaciones.length > 0 ? (
                             ultimasDonaciones.map((d) => (
-                                <div key={d.id} className="p-3 rounded-3 d-flex justify-content-between align-items-center card-soft-bg shadow-sm bg-white border">
+                                <div key={d.id} className="p-3 rounded-3 d-flex justify-content-between align-items-center shadow-sm bg-white border">
                                     <div>
                                         <h6 className="text-primary">{d.descripcion}</h6>
                                         <small className="text-muted d-block">

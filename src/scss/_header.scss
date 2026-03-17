@@ -8,7 +8,7 @@
 
     .logo {
         // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
-        height: clamp(32px, 6vw, 50px);
+        height: clamp(2rem, 4vw, 3.2rem);
         width: auto;
         object-fit: contain; // Mantiene la proporción sin deformarse
     }

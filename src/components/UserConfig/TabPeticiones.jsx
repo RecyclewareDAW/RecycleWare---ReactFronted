@@ -16,6 +16,7 @@ export default function TabPeticiones() {
     const obtenerDatos = async () => {
         try {
             const data = await api.get(`/solicitudes/usuario/${userId}`);
+            // Accedemos a la base de datos y filtramos por IDs 1 y 2 "Pendiente y En Revisión"
             const activas = data.filter(r => r.state?.id === 1 || r.state?.id === 2);
             activas.sort((a, b) => new Date(b.requestDate) - new Date(a.requestDate));
             setPeticiones(activas);
@@ -26,10 +27,13 @@ export default function TabPeticiones() {
         }
     };
 
-    const getEstadoInfo = (estado) => {
-        if (estado?.id === 1) return { texto: 'Pendiente', clase: 'badge-estado badge-pendiente' };
-        if (estado?.id === 2) return { texto: 'En Recogida', clase: 'badge-estado badge-recogida' };
-        return { texto: estado?.nombre || 'Desconocido', clase: 'badge-estado badge-desconocido' };
+    // Función que solo asigna clases de nuestro Bootstrap con texto blanco para añadir contraste
+    const getEstadoClase = (id) => {
+        const clases = {
+            1: 'bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25', // Pendiente
+            2: 'bg-info bg-opacity-10 text-info border border-info border-opacity-25'     // En Revisión
+        };
+        return clases[id] || 'bg-secondary text-white';
     };
 
     if (cargando) return <div className="text-center p-5"><div className="spinner-border text-primary"></div></div>;
@@ -52,27 +56,25 @@ export default function TabPeticiones() {
                                 </tr>
                             </thead>
                             <tbody className="bg-white">
-                                {peticiones.map((p) => {
-                                    const estadoInfo = getEstadoInfo(p.state);
-                                    return (
-                                        <tr key={p.id} className="align-middle border-bottom bg-white">
-                                            <td className="ps-4 py-4 text-dark bg-white border-0">
-                                                {p.product?.nombre || 'Producto Desconocido'}
-                                            </td>
-                                            <td className="text-center bg-white border-0 text-nowrap">
-                                                <span className="small text-dark fw-medium">
-                                                    <i className="bi bi-calendar3 me-2 text-muted"></i>
-                                                    {new Date(p.requestDate).toLocaleDateString('es-ES')}
-                                                </span>
-                                            </td>
-                                            <td className="text-center bg-white border-0 text-nowrap">
-                                                <span className={`badge rounded-pill px-3 py-2 border border-opacity-25 ${estadoInfo.clase}`}>
-                                                    {estadoInfo.texto}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                {peticiones.map((p) => (
+                                    <tr key={p.id} className="align-middle border-bottom bg-white">
+                                        <td className="ps-4 py-4 text-dark bg-white border-0">
+                                            {p.product?.nombre || 'Producto Desconocido'}
+                                        </td>
+                                        <td className="text-center bg-white border-0 text-nowrap">
+                                            <span className="small text-dark fw-medium">
+                                                <i className="bi bi-calendar3 me-2 text-muted"></i>
+                                                {new Date(p.requestDate).toLocaleDateString('es-ES')}
+                                            </span>
+                                        </td>
+                                        <td className="text-center bg-white border-0 text-nowrap">
+                                            {/* Inyectamos la clase y el nombre directamente de la base de datos */}
+                                            <span className={`badge rounded-pill px-3 py-2 border border-opacity-25 ${getEstadoClase(p.state?.id)}`}>
+                                                {p.state?.nombre || p.state?.name || p.state?.estado || 'Estado ' + p.state?.id}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

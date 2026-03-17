@@ -44,7 +44,6 @@ export default function Home() {
                 <Info />
                 <Categorias />
                 <Comunidad />
-                <hr />
                 <Contacto />
             </main>
 
