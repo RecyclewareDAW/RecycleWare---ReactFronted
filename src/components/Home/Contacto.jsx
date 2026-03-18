@@ -16,12 +16,21 @@ export default function Contacto() {
   // 2. Buscamos al usuario al cargar la página
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
-    if (usuarioGuardado) {
-      const user = JSON.parse(usuarioGuardado || '{}');
-      // Autocompletamos los campos
-      setNombreInput(user.nombre || '');
-      setEmailInput(user.correo || user.email || '');
+
+    // Si no hay nada, o es el texto "undefined", ni lo intentamos
+    if (!usuarioGuardado || usuarioGuardado === "undefined") {
+      setUsuarioId(null);
+      return;
+    }
+
+    try {
+      const user = JSON.parse(usuarioGuardado);
+      setNombreInput(user.nombre ?? '');
+      setEmailInput(user.correo ?? user.email ?? '');
       setUsuarioId(user.id);
+    } catch (error) {
+      console.error("Error al parsear:", error);
+      localStorage.removeItem('usuarioRecycleware');
     }
   }, []);
 
