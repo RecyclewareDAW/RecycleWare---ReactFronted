@@ -12,7 +12,6 @@ export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
 
     return (
         <>
-            {tipoPerfil === 'empresa' && (
                 <CustomInput
                     id="direccion"
                     label="Dirección"
@@ -24,7 +23,6 @@ export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
                     value={formData.direccion}
                     onChange={handleChange}
                 />
-            )}
 
             <div className="row g-3">
                 <div className="col-md-4">

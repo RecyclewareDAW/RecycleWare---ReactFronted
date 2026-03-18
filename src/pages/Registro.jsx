@@ -61,7 +61,7 @@ const Registro = () => {
             telefono: formData.telefono,
             correo: formData.emailRegistro,
             password: formData.passwordRegistro,
-            direccion: tipoPerfil === 'empresa' ? formData.direccion : 'No especificada', 
+            direccion: formData.direccion || 'No especificada', 
             localidad: formData.localidad,
             codigoPostal: formData.cp,
             razonSocial: tipoPerfil === 'empresa' ? formData.nombre : null,
