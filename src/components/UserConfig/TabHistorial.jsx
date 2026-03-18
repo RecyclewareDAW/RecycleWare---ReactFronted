@@ -40,7 +40,7 @@ export default function TabHistorial() {
     if (cargando) return <div className="text-center p-5"><div className="spinner-border text-secondary"></div></div>;
 
     return (
-        <div className="container-fluid py-4 animate-fade-in p-0">
+        <div className="container-fluid animate-fade-in p-0">
             <h2 className="titulo">Historial de Peticiones</h2>
 
             {historial.length === 0 ? (
