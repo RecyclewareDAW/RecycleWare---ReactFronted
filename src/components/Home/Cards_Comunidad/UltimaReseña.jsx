@@ -12,14 +12,17 @@ export default function UltimaReseña() {
             try {
                 // Aquí llamaremos al backend cuando el endpoint esté listo
                 const data = await api.get('/comunidad/resenas');
-                setResenas(data);
+                if (data && data.length > 0) {
+                    setResenas(data);
+                }
             } catch (error) {
                 // DATOS DE RESPALDO (Mientras haces el backend, verás esto funcionando)
-                setResenas([
-                    { texto: "Gracias a RecycleWare pude conseguir un portátil para terminar mi curso de programación. Funciona genial.", autor: "Juan R.", rol: "Beneficiario", estrellas: 5 },
-                    { texto: "Renovamos la oficina y donar los equipos antiguos fue un proceso rápido, transparente y muy gratificante.", autor: "TechCorp", rol: "Empresa", estrellas: 5 },
-                    { texto: "Una iniciativa increíble para reducir la brecha digital y cuidar el medio ambiente al mismo tiempo.", autor: "María L.", rol: "Colaboradora", estrellas: 4 }
-                ]);
+                // setResenas([
+                //     { texto: "Gracias a RecycleWare pude conseguir un portátil para terminar mi curso de programación. Funciona genial.", autor: "Juan R.", rol: "Beneficiario", estrellas: 5 },
+                //     { texto: "Renovamos la oficina y donar los equipos antiguos fue un proceso rápido, transparente y muy gratificante.", autor: "TechCorp", rol: "Empresa", estrellas: 5 },
+                //     { texto: "Una iniciativa increíble para reducir la brecha digital y cuidar el medio ambiente al mismo tiempo.", autor: "María L.", rol: "Colaboradora", estrellas: 4 }
+                // ]);
+                console.error("Error al cargar las reseñas de la base de datos:", error);
             }
         };
         fetchResenas();
@@ -47,9 +50,25 @@ export default function UltimaReseña() {
 
 
     // Si aún está cargando o no hay reseñas, no mostramos nada
-    if (resenas.length === 0) return null;
+    if (resenas.length === 0) {
+        return (
+            <div className="card h-100 border-warning bg-white text-dark">
+                <div className="card-body d-flex align-items-center justify-content-center">
+                    <div className="spinner-border text-warning" role="status">
+                        <span className="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
     const resena = resenas[indiceActual];
+
+    const formatearRol = (rol) => {
+        if (rol === 'EMPRESA') return 'Empresa Donante';
+        if (rol === 'PARTICULAR') return 'Beneficiario';
+        return rol;
+    };
 
     return (
         <div className="card h-100 border-warning bg-white text-dark ">
@@ -57,7 +76,7 @@ export default function UltimaReseña() {
 
                 {/* Estrellas dinámicas */}
                 <div className="mb-3 text-warning">
-                    {[...Array(resena.estrellas)].map((_, i) => (
+                    {[...Array(resena.estrellas || 5)].map((_, i) => (
                         <i key={i} className="bi bi-star-fill"></i>
                     ))}
                 </div>
@@ -66,7 +85,7 @@ export default function UltimaReseña() {
                 <div style={{ transition: 'opacity 0.5s ease-in-out', opacity: fade ? 1 : 0 }}>
                     <p className="card-text fs-5"><em>"{resena.texto}"</em></p>
                     <p className="fw-bold mb-0">
-                        - {resena.autor} <span className="text-muted fw-normal">({resena.rol})</span>
+                        - {resena.autor} <span className="text-muted fw-normal">({formatearRol(resena.rol)})</span>
                     </p>
                 </div>
 
