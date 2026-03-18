@@ -5,76 +5,93 @@ import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
 import CustomButton from '../CustomButton';
 
-// usamos la api creada
-import { api } from '../../services/api';
-
 const FormLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMensaje, setErrorMensaje] = useState('');
 
-  const navigate = useNavigate(); // para redirigir al usuario
-  const location = useLocation(); // iniciamos el useLocation para ller si nos mandaron algo  
-  const [exitoMensaje, setExitoMensaje] = useState(location.state?.mensajeExito || ''); // Metemos el mensaje del router dentro de un useState para poder borrarlo cuando el usuario inicie sesion
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [exitoMensaje, setExitoMensaje] = useState(location.state?.mensajeExito || '');
 
-  // Esta funcion solo se ejecuta si esta el formulario 100% válido
   const handleSubmit = async (e) => {
+    // Evitamos que el formulario recargue la página por defecto
+    if (e && e.preventDefault) e.preventDefault();
+    
     setErrorMensaje('');
     setExitoMensaje('');
 
     try {
-        const credenciales = { email, password };
+      // Usamos FETCH directamente para tener control total de las credenciales de Spring Security
+      const respuesta = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // ESTO ES VITAL PARA SPRING SECURITY: Permite que el navegador guarde la Cookie de sesión
+        credentials: 'include', 
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await respuesta.json();
+
+      if (respuesta.ok && data) {
+        // 1. Limpiamos basura previa
+        localStorage.removeItem('usuarioRecycleware');
+
+        // 2. Verificamos que 'data' sea un objeto válido antes de guardar
+        // Si el backend devuelve el usuario, lo guardamos. 
+        // Si no, guardamos un objeto con el email al menos.
+        const usuarioAGuardar = data.id ? data : { email: email, nombre: data.nombre || 'Usuario' };
         
-        // Lo enviamos al endpoint de Spring Boot
-        const respuesta = await api.post('/users/login', credenciales);
+        localStorage.setItem('usuarioRecycleware', JSON.stringify(usuarioAGuardar));
 
-        // Guardamos la sesion del usuario en la memoria del navegador
-        localStorage.setItem('usuarioRecycleware', JSON.stringify(respuesta.usuario));
-
-        // Buscamos si en la mochila (state) venía una ruta de origen. Si no venía nada, usamos '/' por defecto.
+        // 3. Redirección
         const rutaDestino = location.state?.from || '/';
+        
+        // Usamos window.location para forzar una carga limpia de todos los componentes (Header, Footer, etc.)
+        // Esto evita que React intente renderizar con datos viejos o corruptos
+        window.location.href = rutaDestino;
 
-        // Redirigimos al usuario a la pagina principal
-        navigate(rutaDestino);
+      } else {
+        setErrorMensaje(data.error || "Correo o contraseña incorrectos.");
+      }
 
     } catch (error) {
-        // Si el backend nos devuelve un 401 (Error), lo mostramos en pantalla
-        setErrorMensaje(error.message || "Correo o contraseña incorrectos.");
+      console.error("Error en login:", error);
+      setErrorMensaje("No se pudo conectar con el servidor.");
     }
   };
 
   return (
     <FormCard title="Iniciar sesión" colSize="col-lg-6">
-
-      {/* mostramos el mensaje de exito en verde si existe */}
       {exitoMensaje && (
         <div className="alert alert-success text-center fw-bold shadow-sm">
-            <i className="bi bi-check-circle-fill me-2"></i>
-            {exitoMensaje}
+          <i className="bi bi-check-circle-fill me-2"></i>
+          {exitoMensaje}
         </div>
       )}
 
-      {/* mostramos el error en rojo si existe */}
       {errorMensaje && (
         <div className="alert alert-danger text-center fw-bold">
-            <i className="bi bi-exclamation-triangle-fill me-2"></i>
-            {errorMensaje}
+          <i className="bi bi-exclamation-triangle-fill me-2"></i>
+          {errorMensaje}
         </div>
       )}
+
       <CustomForm onSubmit={handleSubmit}>
         <CustomInput
           id="email"
           label="Correo Electrónico"
           type="text"
-          placeholder="Correo electrónico" // Lo cambiamos para que se lea mejor sin label
+          placeholder="Correo electrónico"
           required={true}
-          hideLabel={true} // Esto oculta el label
+          hideLabel={true}
           rule="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            setErrorMensaje(''); // borramos el mensaje al escribir
-            setExitoMensaje('');
+            setErrorMensaje('');
           }}
         />
 
@@ -82,33 +99,26 @@ const FormLogin = () => {
           id="password"
           label="Contraseña"
           type="password"
-          placeholder="Contraseña" // Lo cambiamos para que se lea mejor sin label
+          placeholder="Contraseña"
           required={true}
-          hideLabel={true} // Esto oculta el label
-          errorMessage="La contraseña es obligatoria."
+          hideLabel={true}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
             setErrorMensaje('');
-            setExitoMensaje('');
           }}
         />
 
         <CustomButton type="submit">
-                    Iniciar Sesión
+          Iniciar Sesión
         </CustomButton>
-
       </CustomForm>
-      <p className="text-center text-muted small mb-0">
+
+      <p className="text-center text-muted small mb-0 mt-3">
         ¿No tienes cuenta? <Link to="/registro" className="text-link fw-bold">Regístrate aquí</Link>
       </p>
-      <p className="text-center text-muted small mb-0">
-        ¿Olvidaste tu contraseña? <Link to="/olvide-contrasena" className="text-link fw-bold">
-          Recuperar contraseña
-        </Link>
-      </p>
     </FormCard>
-  )
+  );
 }
 
 export default FormLogin;

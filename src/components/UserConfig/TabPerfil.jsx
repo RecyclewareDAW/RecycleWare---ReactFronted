@@ -16,7 +16,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
 
     // ESTADOS PARA EMPRESAS
     const [razonSocial, setRazonSocial] = useState(userRole === 'empresa' ? (userSession.razonSocial || '') : '');
-    const [nombreComercial, setNombreComercial] = useState(userRole === 'empresa' ? (userSession.nombre || '') : ''); 
+    const [nombreComercial, setNombreComercial] = useState(userRole === 'empresa' ? (userSession.nombre || '') : '');
     const [cif, setCif] = useState(userRole === 'empresa' ? (userSession.dni || '') : '');
     const [personaContacto, setPersonaContacto] = useState(userRole === 'empresa' ? (userSession.nombreContacto || '') : '');
     const [correoEmpresa, setCorreoEmpresa] = useState(userRole === 'empresa' ? (userSession.correo || '') : '');
@@ -29,7 +29,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     useEffect(() => {
         // Solo hacemos la petición si es empresa y tenemos el ID del usuario
         if (userRole === 'empresa' && userId) {
-            fetch(`http://localhost:8080/api/donations/user/${userId}`)
+            fetch(`http://localhost:8080/api/donations/usuario/${userId}`)
                 .then(res => res.json())
                 .then(data => {
                     // ORDENACIÓN POR FECHA (MÁS PRECISO)
@@ -53,8 +53,10 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     const handleGuardarPerfil = async () => {
         setMensaje({ tipo: '', texto: '' });
 
+        const antiguoCorreo = userSession.correo;
+
         const datosActualizados = {
-            ...userSession, 
+            ...userSession,
             // "nombre" (o nombre comercial si es empresa)
             nombre: userRole === 'individual' ? nombre : nombreComercial,
             dni: userRole === 'individual' ? dni : cif,
@@ -64,14 +66,39 @@ export default function TabPerfil({ userRole, setActiveTab }) {
             nombreContacto: userRole === 'empresa' ? personaContacto : null
         };
         try {
-            await api.put('/users', datosActualizados);
+            await api.put('/usuario', datosActualizados);
+
+            // CASO A: El correo ha cambiado
+            if (datosActualizados.correo !== antiguoCorreo) {
+                setMensaje({
+                    tipo: 'success',
+                    texto: 'Correo actualizado. Por seguridad, debes iniciar sesión con tu nuevo email.'
+                });
+
+                // Esperamos 2 segundos para que el usuario lea el mensaje y cerramos sesión
+                setTimeout(async () => {
+                    try {
+                        await api.post('/auth/logout');
+                    } finally {
+                        localStorage.removeItem('usuarioRecycleware');
+                        window.location.href = '/login';
+                    }
+                }, 4000);
+                return;
+            }
+
+            // CASO B: El correo es el mismo, solo actualizamos datos normales
             localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));
             setMensaje({ tipo: 'success', texto: '¡Tus datos se han actualizado correctamente!' });
-            
-            // Actualizamos la sesión para que el "Hola, Usuario" del Header se entere
-            window.dispatchEvent(new Event("storage")); 
+
+            // Notificar al resto de la aplicación (Header/Navbar)
+            window.dispatchEvent(new Event("storage"));
+
         } catch (error) {
-            setMensaje({ tipo: 'danger', texto: error.message || 'Error al guardar los cambios.' });
+            setMensaje({
+                tipo: 'danger',
+                texto: error.response?.data?.error || 'Error al guardar los cambios.'
+            });
         }
     };
 
@@ -93,20 +120,20 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                     <>
                         <div className="row">
                             <div className="col-12">
-                                <CustomInput id="nombre" label="Nombre Completo" type="text" placeholder="Tu nombre completo" required={true} value={nombre} onChange={(e) => { setNombre(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="nombre" label="Nombre Completo" type="text" placeholder="Tu nombre completo" required={true} value={nombre} onChange={(e) => { setNombre(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <CustomInput id="dni" label="DNI / NIE" type="text" placeholder="Ej: 12345678A" required={true} rule="dni" value={dni} disabled={true} onChange={(e) => { setDni(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="dni" label="DNI / NIE" type="text" placeholder="Ej: 12345678A" required={true} rule="dni" value={dni} disabled={true} onChange={(e) => { setDni(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                             <div className="col-md-6">
-                                <CustomInput id="telefonoIndividual" label="Teléfono de contacto" type="tel" placeholder="Tu número de teléfono" required={true} rule="telefono" value={telefonoIndividual} onChange={(e) => { setTelefonoIndividual(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="telefonoIndividual" label="Teléfono de contacto" type="tel" placeholder="Tu número de teléfono" required={true} rule="telefono" value={telefonoIndividual} onChange={(e) => { setTelefonoIndividual(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-12">
-                                <CustomInput id="correoIndividual" label="Correo Electrónico" type="text" inputMode="email" placeholder="tucorreo@ejemplo.com" required={true} rule="email" value={correoIndividual} onChange={(e) => { setCorreoIndividual(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="correoIndividual" label="Correo Electrónico" type="text" inputMode="email" placeholder="tucorreo@ejemplo.com" required={true} rule="email" value={correoIndividual} onChange={(e) => { setCorreoIndividual(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                         </div>
                     </>
@@ -114,26 +141,26 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                     <>
                         <div className="row">
                             <div className="col-md-6">
-                                <CustomInput id="razonSocial" label="Razón Social" type="text" placeholder="Nombre legal de la empresa" required={true} value={razonSocial} onChange={(e) => { setRazonSocial(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="razonSocial" label="Razón Social" type="text" placeholder="Nombre legal de la empresa" required={true} value={razonSocial} onChange={(e) => { setRazonSocial(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                             <div className="col-md-6">
-                                <CustomInput id="nombreComercial" label="Nombre Comercial" type="text" placeholder="¿Cómo se conoce tu empresa?" required={true} value={nombreComercial} onChange={(e) => { setNombreComercial(e.target.value); setMensaje({tipo:'', texto:''}); }} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <CustomInput id="cif" label="CIF" type="text" placeholder="B12345678" required={true} rule="cif" value={cif} disabled={true} onChange={(e) => { setCif(e.target.value); setMensaje({tipo:'', texto:''}); }} />
-                            </div>
-                            <div className="col-md-6">
-                                <CustomInput id="personaContacto" label="Persona de contacto" type="text" placeholder="Nombre de la persona encargada" required={true} value={personaContacto} onChange={(e) => { setPersonaContacto(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="nombreComercial" label="Nombre Comercial" type="text" placeholder="¿Cómo se conoce tu empresa?" required={true} value={nombreComercial} onChange={(e) => { setNombreComercial(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <CustomInput id="correoEmpresa" label="Correo Electrónico" type="text" inputMode="email" placeholder="correo@empresa.com" required={true} rule="email" value={correoEmpresa} onChange={(e) => { setCorreoEmpresa(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="cif" label="CIF" type="text" placeholder="B12345678" required={true} rule="cif" value={cif} disabled={true} onChange={(e) => { setCif(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                             <div className="col-md-6">
-                                <CustomInput id="telefonoPrincipal" label="Teléfono principal" type="tel" placeholder="Teléfono principal" required={true} rule="telefono" value={telefonoPrincipal} onChange={(e) => { setTelefonoPrincipal(e.target.value); setMensaje({tipo:'', texto:''}); }} />
+                                <CustomInput id="personaContacto" label="Persona de contacto" type="text" placeholder="Nombre de la persona encargada" required={true} value={personaContacto} onChange={(e) => { setPersonaContacto(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <CustomInput id="correoEmpresa" label="Correo Electrónico" type="text" inputMode="email" placeholder="correo@empresa.com" required={true} rule="email" value={correoEmpresa} onChange={(e) => { setCorreoEmpresa(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
+                            </div>
+                            <div className="col-md-6">
+                                <CustomInput id="telefonoPrincipal" label="Teléfono principal" type="tel" placeholder="Teléfono principal" required={true} rule="telefono" value={telefonoPrincipal} onChange={(e) => { setTelefonoPrincipal(e.target.value); setMensaje({ tipo: '', texto: '' }); }} />
                             </div>
                         </div>
                     </>
@@ -176,10 +203,10 @@ export default function TabPerfil({ userRole, setActiveTab }) {
                                         </small>
                                     </div>
                                     <span className={`badge rounded-pill px-3 py-1 ${d.estado?.id === 1
-                                            ? 'bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25'
-                                            : d.estado?.id === 2
-                                                ? 'bg-info bg-opacity-10 text-info border border-info border-opacity-25'
-                                                : 'bg-success bg-opacity-10 text-success border border-success border-opacity-25'
+                                        ? 'bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25'
+                                        : d.estado?.id === 2
+                                            ? 'bg-info bg-opacity-10 text-info border border-info border-opacity-25'
+                                            : 'bg-success bg-opacity-10 text-success border border-success border-opacity-25'
                                         }`}>
                                         {d.estado?.nombre || 'Pendiente'}
                                     </span>

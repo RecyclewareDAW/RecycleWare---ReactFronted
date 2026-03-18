@@ -26,7 +26,7 @@ export default function UserConfig() {
     useEffect(() => {
         const session = localStorage.getItem('usuarioRecycleware');
         if (session) {
-            const userData = JSON.parse(session);
+            const userData = JSON.parse(session || '{}');
             // Si el rol en BD es EMPRESA, le pasamos 'empresa', sino 'individual'
             setUserRole(userData.rol === 'EMPRESA' ? 'empresa' : 'individual');
             // Sacamos el nombre (o la razón social si es empresa) para el saludo

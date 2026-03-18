@@ -71,7 +71,7 @@ const Registro = () => {
 
         try {
             // mandamos a SPRING BOOT
-            const respuesta = await api.post('/users', userParaJava);
+            const respuesta = await api.post('/usuario', userParaJava);
             console.log("¡Éxito!", respuesta);
             // Si todo va bien, lo enviamos a Iniciar Sesión
             navigate('/login',{

@@ -4,62 +4,65 @@ import CustomInput from '../CustomInput';
 import { api } from '../../services/api';
 
 export default function TabSeguridad() {
-
     const userSession = JSON.parse(localStorage.getItem('usuarioRecycleware') || '{}');
 
     const [formKey, setFormKey] = useState(0);
     const [passwordActual, setPasswordActual] = useState('');
     const [nuevaPassword, setNuevaPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
-
     const [mensaje, setMensaje] = useState({ tipo: '', texto: '' });
 
     const handleActualizarPassword = async () => {
         setMensaje({ tipo: '', texto: '' });
 
-        const passwordGuardada = userSession.password;
-        
-        if (passwordActual !== passwordGuardada) {
-            setMensaje({ tipo: 'danger', texto: 'La contraseña actual no es correcta.' });
-            return;
-        }
-
-        // Comprobamos que las nuevas contraseñas coincidan
+        // 1. Validación de coincidencia en cliente
         if (nuevaPassword !== confirmarPassword) {
-            setMensaje({ tipo: 'danger', texto: 'Las contraseñas nuevas no coinciden. Revisa lo que has escrito.' });
+            setMensaje({ tipo: 'danger', texto: 'Las contraseñas nuevas no coinciden.' });
             return;
         }
 
-        // Preparamos los datos con la nueva contraseña
-        const datosActualizados = {
-            ...userSession,
-            password: nuevaPassword
+        const paqueteCambio = {
+            id: userSession.id,
+            passwordActual: passwordActual, 
+            nuevaPassword: nuevaPassword
         };
 
         try {
-            // Mandamos el PUT a Java
-            await api.put('/users', datosActualizados);
-            
-            // Actualizamos el localStorage para que la próxima vez que intente cambiarla, pida la nueva
-            localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));
-            
-            setMensaje({ tipo: 'success', texto: '¡Tu contraseña se ha actualizado de forma segura!' });
-            
-            // Limpiamos las cajas de texto por seguridad
-            setPasswordActual('');
-            setNuevaPassword('');
-            setConfirmarPassword('');
-            setFormKey(prevKey => prevKey + 1);
-            
+            const respuesta = await fetch('http://localhost:8080/api/usuario/cambiar-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(paqueteCambio)
+            });
+
+            // Solo llamamos a .json() UNA vez
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+                setMensaje({ tipo: 'success', texto: '¡Contraseña actualizada con éxito!' });
+
+                // Limpiamos el formulario
+                setPasswordActual('');
+                setNuevaPassword('');
+                setConfirmarPassword('');
+                setFormKey(prev => prev + 1);
+            } else {
+                // Aquí usamos 'data' que ya tiene el JSON parseado
+                setMensaje({
+                    tipo: 'danger',
+                    texto: data.error || 'La contraseña actual no es correcta.'
+                });
+            }
         } catch (error) {
-            setMensaje({ tipo: 'danger', texto: error.message || 'Error al actualizar la contraseña.' });
+            setMensaje({ tipo: 'danger', texto: 'Error de conexión con el servidor.' });
         }
     };
+
 
     return (
         <div className="animate-fade-in">
             <h2 className="titulo">Seguridad</h2>
-            
+
             {/* Cartel de éxito o error */}
             {mensaje.texto && (
                 <div className={`alert alert-${mensaje.tipo} fw-bold`}>
@@ -72,7 +75,7 @@ export default function TabSeguridad() {
 
                 <div className="row mb-4">
                     <div className="col-md-6">
-                        <CustomInput 
+                        <CustomInput
                             id="passwordActual"
                             label="Contraseña Actual"
                             type="password"
@@ -80,7 +83,7 @@ export default function TabSeguridad() {
                             required={true}
                             errorMessage="Por favor, introduce tu contraseña actual."
                             value={passwordActual}
-                            onChange={(e) => { setPasswordActual(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                            onChange={(e) => { setPasswordActual(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
                 </div>
@@ -89,7 +92,7 @@ export default function TabSeguridad() {
 
                 <div className="row">
                     <div className="col-md-6">
-                        <CustomInput 
+                        <CustomInput
                             id="nuevaPassword"
                             label="Nueva Contraseña"
                             type="password"
@@ -98,13 +101,13 @@ export default function TabSeguridad() {
                             minLength="8"
                             errorMessage="La nueva contraseña debe tener al menos 8 caracteres."
                             value={nuevaPassword}
-                            onChange={(e) => { setNuevaPassword(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                            onChange={(e) => { setNuevaPassword(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
-                    
+
                     <div className="col-md-6">
-                        {/* ✨ El input para confirmar la contraseña */}
-                        <CustomInput 
+                        {/*  El input para confirmar la contraseña */}
+                        <CustomInput
                             id="confirmarPassword"
                             label="Repetir Nueva Contraseña"
                             type="password"
@@ -113,7 +116,7 @@ export default function TabSeguridad() {
                             minLength="8"
                             errorMessage="Por favor, repite tu nueva contraseña."
                             value={confirmarPassword}
-                            onChange={(e) => { setConfirmarPassword(e.target.value); setMensaje({tipo:'', texto:''}); }}
+                            onChange={(e) => { setConfirmarPassword(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
                 </div>
