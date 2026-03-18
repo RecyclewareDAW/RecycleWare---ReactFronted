@@ -26,7 +26,7 @@ const ResumenProducto = ({ producto }) => {
       <div className="position-relative mb-4">
         <img 
           src={producto.imagenUrl} 
-          className="img-fluid rounded-4 shadow-sm w-100" 
+          className="img-fluid rounded-4 shadow-sm w-100 vh-30 object-fit-cover" 
           alt={producto.nombre} 
         />
         <div className="position-absolute top-0 start-0 m-3">

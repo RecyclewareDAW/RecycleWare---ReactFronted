@@ -48,7 +48,7 @@ const RegisteredDonation = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/donations', {
+            const response = await fetch('http://localhost:8080/api/donaciones', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

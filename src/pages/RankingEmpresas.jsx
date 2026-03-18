@@ -11,7 +11,7 @@ export default function RankingEmpresas() {
     useEffect(() => {
         const obtenerRanking = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/donations/ranking');
+                const response = await fetch('http://localhost:8080/api/donaciones/ranking');
                 const data = await response.json();
                 
                 const formateados = data.map(item => ({
