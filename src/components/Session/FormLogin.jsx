@@ -17,7 +17,7 @@ const FormLogin = () => {
   const handleSubmit = async (e) => {
     // Evitamos que el formulario recargue la página por defecto
     if (e && e.preventDefault) e.preventDefault();
-    
+
     setErrorMensaje('');
     setExitoMensaje('');
 
@@ -29,7 +29,7 @@ const FormLogin = () => {
           'Content-Type': 'application/json',
         },
         // ESTO ES VITAL PARA SPRING SECURITY: Permite que el navegador guarde la Cookie de sesión
-        credentials: 'include', 
+        credentials: 'include',
         body: JSON.stringify({ email, password })
       });
 
@@ -43,12 +43,12 @@ const FormLogin = () => {
         // Si el backend devuelve el usuario, lo guardamos. 
         // Si no, guardamos un objeto con el email al menos.
         const usuarioAGuardar = data.id ? data : { email: email, nombre: data.nombre || 'Usuario' };
-        
+
         localStorage.setItem('usuarioRecycleware', JSON.stringify(usuarioAGuardar));
 
         // 3. Redirección
         const rutaDestino = location.state?.from || '/';
-        
+
         // Usamos window.location para forzar una carga limpia de todos los componentes (Header, Footer, etc.)
         // Esto evita que React intente renderizar con datos viejos o corruptos
         window.location.href = rutaDestino;
@@ -114,9 +114,14 @@ const FormLogin = () => {
         </CustomButton>
       </CustomForm>
 
-      <p className="text-center text-muted small mb-0 mt-3">
-        ¿No tienes cuenta? <Link to="/registro" className="text-link fw-bold">Regístrate aquí</Link>
-      </p>
+      <div className="text-center mt-3">
+        <p className="text-muted small mb-1">
+          ¿No tienes cuenta? <Link to="/registro" className="text-link fw-bold">Regístrate aquí</Link>
+        </p>
+        <p className="text-muted small">
+         <Link to="/olvide-contrasena" className="text-link fw-bold">No recuerdo la contraseña</Link>
+        </p>
+      </div>
     </FormCard>
   );
 }
