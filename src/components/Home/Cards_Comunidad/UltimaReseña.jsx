@@ -82,7 +82,7 @@ export default function UltimaReseña() {
                 </div>
 
                 {/* Contenedor con transición de opacidad */}
-                <div style={{ transition: 'opacity 0.5s ease-in-out', opacity: fade ? 1 : 0 }}>
+                <div className={`resena-fade-container ${fade ? 'fade-in' : 'fade-out'}`}>
                     <p className="card-text fs-5"><em>"{resena.texto}"</em></p>
                     <p className="fw-bold mb-0">
                         - {resena.autor} <span className="text-muted fw-normal">({formatearRol(resena.rol)})</span>
