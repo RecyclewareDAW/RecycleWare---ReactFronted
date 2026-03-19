@@ -175,7 +175,7 @@ export default function TabPerfil({ userRole, setActiveTab }) {
             {userRole === 'empresa' && (
                 <div className="mt-5 pt-2 border-top">
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-4">
-                        <h3 className="mb-0 fw-bold text-primary fs-4">Últimas Donaciones</h3>
+                        <h3 className="mb-0 fw-bold text-primary fs-4">Mis últimas donaciones</h3>
                         <button
                             type="button"
                             className="btn btn-sm btn-link text-danger text-decoration-none fw-bold p-0"

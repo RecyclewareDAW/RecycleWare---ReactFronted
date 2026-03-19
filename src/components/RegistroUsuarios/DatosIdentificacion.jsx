@@ -46,9 +46,9 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                 <div className="col-md-6">
                     <CustomInput
                         id="telefono"
-                        label={tipoPerfil === 'particular' ? 'Teléfono' : 'Teléfono principal'}
+                        label={'Teléfono'}
                         type="tel"
-                        placeholder={tipoPerfil === 'particular' ? 'Teléfono' : 'Teléfono principal'}
+                        placeholder={'Teléfono'}
                         required={true}
                         hideLabel={true}
                         rule="telefono"
@@ -57,19 +57,6 @@ export default function DatosIdentificacion({ tipoPerfil, formData, handleChange
                     />
                 </div>
             </div>
-
-            {tipoPerfil === 'empresa' && (
-                <CustomInput
-                    id="telefonoSecundario"
-                    label="Teléfono secundario"
-                    type="tel"
-                    placeholder="Teléfono secundario (Opcional)"
-                    hideLabel={true}
-                    rule="telefono"
-                    value={formData.telefonoSecundario}
-                    onChange={handleChange}
-                />
-            )}
         </>
     );
 }
