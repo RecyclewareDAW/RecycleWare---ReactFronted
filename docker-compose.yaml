@@ -1,0 +1,21 @@
+services:
+  react:
+    image: recycleware-frontend
+    ports:
+      - 80:80
+      - 3000:3000
+    networks:
+      - red
+  spring:
+    image: recycleware-backend
+    ports:
+      - 8080:8080
+    networks:
+      - red
+    volumes:
+      - data:/data
+volumes:
+  data:
+networks:
+  red:
+    
