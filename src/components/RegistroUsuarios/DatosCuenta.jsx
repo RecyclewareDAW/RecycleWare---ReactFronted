@@ -25,7 +25,7 @@ export default function DatosCuenta({ formData, handleChange }) {
                         required={true}
                         hideLabel={true}
                         errorMessage="Mínimo 8 caracteres."
-                        minLength="8" // ¡Aquí funciona el ...props!
+                        minLength="8" 
                         value={formData.passwordRegistro}
                         onChange={handleChange}
                     />

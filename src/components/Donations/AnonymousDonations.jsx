@@ -10,7 +10,6 @@ const AnonymousDonation = () => {
         <FormCard title="¿Cómo colaborar?" colSize="col-lg-12">
             <div className="animate-fade-in">
                 <div className="row g-4 mb-5">
-                    {/* COLUMNA PARTICULARES */}
                     <div className="col-md-6 border-md-end pe-md-4">
                         <div className="d-flex align-items-center mb-3">
                             
@@ -39,8 +38,6 @@ const AnonymousDonation = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* COLUMNA EMPRESAS */}
                     <div className="col-md-6 ps-md-4">
                         <div className="d-flex align-items-center mb-3">
                             

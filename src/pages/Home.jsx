@@ -12,22 +12,21 @@ export default function Home() {
     const location = useLocation();
     useEffect(() => {
         if (location.hash) {
-            // Buscamos el elemento (quitando el '#' de la cadena)
+            
             const id = location.hash.replace('#', '');
             const element = document.getElementById(id);
 
             if (element) {
-                // Hacemos scroll suave. El setTimeout es necesario a veces 
-                // para darle a React unos milisegundos para renderizar la página antes de moverla
+                
                 setTimeout(() => {
                     element.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
             }
         } else {
-            // Si la URL no tiene '#', nos aseguramos de estar arriba del todo
+           
             window.scrollTo(0, 0);
         }
-    }, [location]); // Se ejecuta cada vez que cambia la URL
+    }, [location]); 
 
     return <>
 

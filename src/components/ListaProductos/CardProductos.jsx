@@ -4,16 +4,16 @@ export const CardProducto = ({ producto }) => {
   if (!producto) return null;
   const { id, imagenUrl, nombre, descripcion, estado } = producto;
 
-  // Mapeo dinámico basado en los estados de la base de datos de estados_producto
+
   const obtenerEstilo = (idEstado) => {
     switch (idEstado) {
-      case 1: // Excelente
+      case 1: 
         return { color: "text-success", icono: "bi-stars" };
-      case 2: // Funcional
+      case 2: 
         return { color: "text-info", icono: "bi-check-circle-fill" };
-      case 3: // Dañado
+      case 3: 
         return { color: "text-warning", icono: "bi-exclamation-triangle-fill" };
-      case 4: // Para Piezas
+      case 4:
         return { color: "text-danger", icono: "bi-tools" };
       default:
         return { color: "text-secondary", icono: "bi-question-circle" };
@@ -37,7 +37,7 @@ export const CardProducto = ({ producto }) => {
         </div>
 
         <div className="card-footer d-flex flex-row align-items-center justify-content-between bg-white border-top-0 pb-3">
-          {/* Aplicamos el color y el icono según el ID del estado */}
+          
           <span className={`${estilo.color} fw-bold small`}>
             <i className={`bi ${estilo.icono} me-1`}></i> 
             {estado?.nombre}

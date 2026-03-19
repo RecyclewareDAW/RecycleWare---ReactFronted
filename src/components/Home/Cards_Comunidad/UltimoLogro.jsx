@@ -6,7 +6,7 @@ export default function UltimoLogro() {
     const [contadorAnimado, setContadorAnimado] = useState(0);
     const [cargando, setCargando] = useState(true);
 
-    // Para saber si se esta viendo la pantalla para activar el efecto
+   
     const elementoRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -16,10 +16,10 @@ export default function UltimoLogro() {
                 const data = await api.get('/solicitudes/entregadas/count');
                 setTotalEntregados(data.total || 0);
             } catch (error) {
-                // Si hay error, lo dejamos en 0 (sin datos falsos)
+                
                 setTotalEntregados(0); 
             } finally {
-                // quitamos el spinner al terminar
+                
                 setCargando(false);
             }
         };
@@ -31,12 +31,12 @@ export default function UltimoLogro() {
             ([entry])=>{
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect(); // Desconectamos para que solo se ejecute una vez la animación
+                    observer.disconnect(); 
                 }
             },
-            {threshold: 0.5} // para que lo haga cuando esta a la mitad de la tarjeta visible
+            {threshold: 0.5} 
         );
-        // le decimos que vigile nuestro elemento
+        
         if (elementoRef.current) {
             observer.observe(elementoRef.current);
         }
@@ -45,9 +45,9 @@ export default function UltimoLogro() {
         };
     }, []);
 
-    // Efecto visual de "Conteo"
+   
     useEffect(() => {
-        // Si es 0, simplemente lo mostramos sin animar
+       
         if (totalEntregados === 0 || !isVisible) {
             setContadorAnimado(0);
             return;
@@ -55,20 +55,20 @@ export default function UltimoLogro() {
 
         let inicio = 0;
         const duracionAnimacion = 1000;
-        const fps = 16; // Aproximadamente 60 frames por segundo
+        const fps = 16; 
         
-        // Cuánto tiene que subir el número en cada frame
+       
         const incremento = totalEntregados / (duracionAnimacion / fps);
 
         const temporizador = setInterval(() => {
             inicio += incremento;
             
-            // Si ya hemos llegado o superado el total, paramos
+           
             if (inicio >= totalEntregados) {
                 setContadorAnimado(totalEntregados);
                 clearInterval(temporizador);
             } else {
-                // Redondeamos para que no salgan decimales
+               
                 setContadorAnimado(Math.floor(inicio));
             }
         }, fps);
@@ -79,14 +79,14 @@ export default function UltimoLogro() {
     return (
         <div ref={elementoRef} className="card h-100 border-primary bg-white text-dark">
             {cargando ? (
-                // Muestra esto mientras carga
+                
                 <div className="card-body d-flex align-items-center justify-content-center">
                     <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Cargando...</span>
                     </div>
                 </div>
             ) : (
-                // Muestra esto cuando ya tenemos los datos
+                
                 <div className="card-body text-center d-flex flex-column justify-content-center">
                     <div className="mb-2">
                         <span className="badge bg-primary px-3 py-2">Nuestro Impacto</span>

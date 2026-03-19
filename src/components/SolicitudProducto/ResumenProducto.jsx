@@ -3,7 +3,6 @@ import React from 'react';
 const ResumenProducto = ({ producto }) => {
   if (!producto) return null;
 
-  // Mapeo dinámico basado en tus 4 estados de la base de datos
   const obtenerConfiguracionEstado = (idEstado) => {
     switch (idEstado) {
       case 1: // Excelente
@@ -30,7 +29,6 @@ const ResumenProducto = ({ producto }) => {
           alt={producto.nombre} 
         />
         <div className="position-absolute top-0 start-0 m-3">
-          {/* Aplicamos la clase de fondo y el icono dinámicamente */}
           <span className={`badge ${config.claseBg} shadow-sm px-3 py-2`}>
             <i className={`bi ${config.icono} me-1`}></i> 
             {producto.estado?.nombre || "Disponible"}

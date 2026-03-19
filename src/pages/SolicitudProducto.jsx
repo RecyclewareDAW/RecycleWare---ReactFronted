@@ -9,7 +9,7 @@ import { api } from '../services/api';
 
 export default function SolicitudProducto() {
     const { id } = useParams();
-    const navigate = useNavigate(); // 2. Inicializamos el navegador
+    const navigate = useNavigate();
     const location = useLocation();
 
     const [enviadoConExito, setEnviadoConExito] = useState(false);
@@ -18,18 +18,18 @@ export default function SolicitudProducto() {
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState('');
 
-    // 3. La puerta del login
+   
     useEffect(() => {
         const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
         if (usuarioGuardado) {
             setUsuarioSesion(JSON.parse(usuarioGuardado));
         } else {
-            // Si no hay usuario, lo mandamos al login inmediatamente
+            
             navigate('/login', { state: { from: location.pathname } });
         }
-    }, [navigate, location]); // Añadimos navigate a las dependencias por buenas prácticas
+    }, [navigate, location]); 
 
-    // Efecto para cargar el producto desde Spring Boot
+    
     useEffect(() => {
         const cargarProducto = async () => {
             try {
@@ -49,7 +49,6 @@ export default function SolicitudProducto() {
         }
     }, [id]);
 
-    // Si no hay usuario en sesión, devolvemos null para no pintar nada mientras redirige
     if (!usuarioSesion) return null;
 
     return (
@@ -73,7 +72,7 @@ export default function SolicitudProducto() {
                     </div>
                 )}
 
-                {/* Si no está cargando, no hay error y TENEMOS producto, pintamos la página normal */}
+               
                 {!cargando && !error && producto && !enviadoConExito && (
                     <div className="row justify-content-center">
                         <div className="col-12 col-xl-11 col-xxl-10">
@@ -86,7 +85,7 @@ export default function SolicitudProducto() {
                                     </div>
 
                                     <div className="col-lg-7">
-                                        {/* 4. Pasamos el usuario directamente */}
+                
                                         <FormularioSolicitud 
                                             producto={producto} 
                                             usuario={usuarioSesion} 

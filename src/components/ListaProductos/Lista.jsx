@@ -17,7 +17,7 @@ export default function Lista({ datos, filtroCategoria, filtroEstado, filtroNomb
             componentesProductos.push(
                 <CardProducto
                     key={p.id} 
-                    producto={p} // Pasamos el objeto entero p
+                    producto={p} 
                 />
             );
         }

@@ -1,24 +1,14 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Lista from "../components/ListaProductos/Lista"
-// Autor -> Luis Ginés
-// https://getbootstrap.com/docs/5.3/components/list-group/
-
-//#region Imports de api
 
 import { api } from '../services/api';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-//#endregion
-
-
-
-//#region parametrización de los endpoints necesarios
 const endpointProductos = "/productos/disponibles";
 const endpointCategorias = "/productos/categorias";
 const endpointEstados = "/productos/estados";
-//#endregion
 
 
 
@@ -26,49 +16,29 @@ export default function ListaProductos() {
 
     const { nombreProducto } = useParams();
 
-
-    //Preparación para los filtros de la lista
-
     const [filtroEstado, setFiltroEstado] = useState("");
     const [filtroCategoria, setFiltroCategoria] = useState("");
     const [filtroNombre, setFiltroNombre] = useState(nombreProducto == undefined ? "" : nombreProducto);
 
-
-
-
-    //Preparacion de las listas de datos
     const [listaEstados, setListaEstados] = useState([]);
     const [listaProductos, setListaProductos] = useState([]);
     const [listaCategorias, setListaCategorias] = useState([]);
 
-
-
-
-    // Contactar con la base de datos
     useEffect(() => {
 
-        // Asignar el posible valor del parametro de la página al 
-
-
-
-        //Descarga de los Estados de la BD
         api.get(endpointEstados).then((result) => {
             setListaEstados(result)
         })
-
-        //Descarga de los Estados de la BD
+       
         api.get(endpointProductos).then((result) => {
             setListaProductos(result)
         })
 
-        //Descarga de las Categorias de la BD
         api.get(endpointCategorias).then((result) => {
             setListaCategorias(result)
         })
     }, [])
 
-
-    //Creación de componentes
 
     let componentesCategorias = [];
     listaCategorias.forEach(categoria => {

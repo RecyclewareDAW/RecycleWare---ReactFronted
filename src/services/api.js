@@ -1,8 +1,8 @@
-// URL base de la API (usando variables de entorno)
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const api = {
-    // Método para pedir datos (GET)
+    
     get: async (endpoint) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -20,7 +20,7 @@ export const api = {
         }
     },
 
-    // Método para enviar datos (POST)
+  
     post: async (endpoint, data) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -47,7 +47,7 @@ export const api = {
         }
     },
 
-    // Método para actualizar datos (PUT)
+   
     put: async (endpoint, data) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`, {

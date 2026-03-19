@@ -7,11 +7,11 @@ export default function UltimaDonacion() {
     useEffect(() => {
         const fetchDonacion = async () => {
             try {
-                // Pedimos a Java la última donación de una empresa
+             
                 const data = await api.get('/donaciones/ultima');
                 setUltimaDonacion(data);
             } catch (error) {
-                // Respaldo visual mientras conectas
+          
                 setUltimaDonacion({
                     donante: "TechCorp",
                     cantidad: 25,
