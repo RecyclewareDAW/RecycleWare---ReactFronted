@@ -1,25 +1,63 @@
 import { useState } from 'react';
-import CustomForm from '../CustomForm'; 
+import CustomForm from '../CustomForm';
 import CustomInput from '../CustomInput';
+import { api } from '../../services/api';
 
 export default function TabDirecciones() {
+    const userSession = JSON.parse(localStorage.getItem('usuarioRecycleware') || '{}');
 
-    const [direccion, setDireccion] = useState('');
-    const [ciudad, setCiudad] = useState('');
-    const [codigoPostal, setCodigoPostal] = useState('');
+    // Inicializamos con los datos de la base de datos
+    const [direccion, setDireccion] = useState(userSession.direccion || '');
+    const [localidad, setLocalidad] = useState(userSession.localidad || '');
+    const [codigoPostal, setCodigoPostal] = useState(userSession.codigoPostal || '');
 
-    const handleGuardarDireccion = (e) => {
+    // Estado para los mensajes de éxito/error
+    const [mensaje, setMensaje] = useState({ tipo: '', texto: '' });
 
-        console.log('Dirección guardada:', { direccion, ciudad, codigoPostal });
+    const localidadesAlicante = [
+        { value: 'Alicante', label: 'Alicante' },
+        { value: 'San Vicente del Raspeig', label: 'San Vicente del Raspeig' },
+        { value: 'San Juan Playa', label: 'San Juan Playa' },
+        { value: 'San Juan Pueblo', label: 'San Juan Pueblo' },
+        { value: 'Mutxamel', label: 'Mutxamel (Muxamiel)' }
+    ];
+
+    const handleGuardarDireccion = async () => {
+
+        setMensaje({ tipo: '', texto: '' });
+
+        const datosActualizados = {
+            ...userSession,
+            direccion: direccion,
+            localidad: localidad,
+            codigoPostal: codigoPostal
+        };
+
+        try {
+            // Enviamos a Java
+            await api.put('/usuario', datosActualizados);
+
+            // Actualizamos memoria
+            localStorage.setItem('usuarioRecycleware', JSON.stringify(datosActualizados));
+            setMensaje({ tipo: 'success', texto: '¡Tu dirección se ha actualizado correctamente!' });
+
+        } catch (error) {
+            setMensaje({ tipo: 'danger', texto: error.message || 'Error al guardar la dirección.' });
+        }
 
     };
 
     return (
         <div className="animate-fade-in">
-            <h2 className="titulo text-center mb-4">Mis Direcciones</h2>
-            
+            <h2 className="titulo">Mi Direccion</h2>
+            {mensaje.texto && (
+                <div className={`alert alert-${mensaje.tipo} fw-bold`}>
+                    {mensaje.tipo === 'success' ? <i className="bi bi-check-circle-fill me-2"></i> : <i className="bi bi-exclamation-triangle-fill me-2"></i>}
+                    {mensaje.texto}
+                </div>
+            )}
             <CustomForm onSubmit={handleGuardarDireccion}>
-                
+
                 <CustomInput
                     id="direccionCompleta"
                     label="Dirección Completa"
@@ -28,36 +66,36 @@ export default function TabDirecciones() {
                     required={true}
                     errorMessage="Por favor, introduce tu dirección completa."
                     value={direccion}
-                    onChange={(e) => setDireccion(e.target.value)}
+                    onChange={(e) => { setDireccion(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                 />
 
                 <div className="row">
                     <div className="col-md-6">
 
                         <CustomInput
-                            id="ciudad"
-                            label="Provincia / Ciudad"
-                            type="text"
-                            placeholder="Ej: Madrid"
+                            id="localidad"
+                            label="Localidad"
+                            type="select"
+                            placeholder="Selecciona tu localidad..."
                             required={true}
-                            errorMessage="La ciudad es obligatoria."
-                            value={ciudad}
-                            onChange={(e) => setCiudad(e.target.value)}
+                            errorMessage="Selecciona una localidad de la lista."
+                            options={localidadesAlicante}
+                            value={localidad || ""}
+                            onChange={(e) => { setLocalidad(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
-                    
+
                     <div className="col-md-6">
 
                         <CustomInput
                             id="codigoPostal"
                             label="Código Postal"
                             type="text"
-                            placeholder="Ej: 28001"
+                            placeholder="Ej: 03001"
                             required={true}
-                            errorMessage="El código postal es obligatorio."
-                            pattern="[0-9]{5}"
+                            rule="cp"
                             value={codigoPostal}
-                            onChange={(e) => setCodigoPostal(e.target.value)}
+                            onChange={(e) => { setCodigoPostal(e.target.value); setMensaje({ tipo: '', texto: '' }); }}
                         />
                     </div>
                 </div>
@@ -67,34 +105,8 @@ export default function TabDirecciones() {
                         Guardar Dirección
                     </button>
                 </div>
-                
+
             </CustomForm>
         </div>
     );
 }
-
-
-// export default function TabDirecciones() {
-//     return (
-//         <div className="animate-fade-in">
-//             <h2 className="titulo">Mis Direcciones</h2>
-//             <form>
-//                 <div className="mb-3">
-//                     <label className="form-label">Dirección Completa</label>
-//                     <input type="text" className="form-control inputs" placeholder="Calle, número, piso..." />
-//                 </div>
-//                 <div className="row mb-3">
-//                     <div className="col-md-6">
-//                         <label className="form-label">Ciudad</label>
-//                         <input type="text" className="form-control inputs" />
-//                     </div>
-//                     <div className="col-md-6">
-//                         <label className="form-label">Código Postal</label>
-//                         <input type="text" className="form-control inputs" />
-//                     </div>
-//                 </div>
-//                 <button type="button" className="btn btn-primary mt-3">Guardar Dirección</button>
-//             </form>
-//         </div>
-//     );
-// }

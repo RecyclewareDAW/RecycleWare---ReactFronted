@@ -1,51 +1,104 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import CustomForm from '../CustomForm'; 
-import CustomInput from '../CustomInput'; 
+import CustomForm from '../CustomForm';
+import CustomInput from '../CustomInput';
 import FormCard from '../FormCard';
+import { api } from '../../services/api';
 
 export default function Contacto() {
   const [enviadoConExito, setEnviadoConExito] = useState(false);
 
-  const handleSubmit = (event) => {
-    // Si esta función se ejecuta, significa que el formulario es 100% válido.
-    setEnviadoConExito(true);
+  // 1. Estados para controlar lo que escribimos o autocompletamos
+  const [nombreInput, setNombreInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [usuarioId, setUsuarioId] = useState(null); // Guardaremos el ID si está logueado
+
+  // 2. Buscamos al usuario al cargar la página
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
+
+    // Si no hay nada, o es el texto "undefined", ni lo intentamos
+    if (!usuarioGuardado || usuarioGuardado === "undefined") {
+      setUsuarioId(null);
+      return;
+    }
+
+    try {
+      const user = JSON.parse(usuarioGuardado);
+      setNombreInput(user.nombre ?? '');
+      setEmailInput(user.correo ?? user.email ?? '');
+      setUsuarioId(user.id);
+    } catch (error) {
+      console.error("Error al parsear:", error);
+      localStorage.removeItem('usuarioRecycleware');
+    }
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const datosFormulario = Object.fromEntries(formData.entries());
+
+    // 3. Preparamos el paquete de datos
+    const paqueteDatos = {
+      nombre: datosFormulario.nombre,
+      correo: datosFormulario.email,
+      mensaje: datosFormulario.asunto
+    };
+
+    if (usuarioId) {
+      paqueteDatos.usuario = { id: usuarioId };
+    }
+
+    try {
+      await api.post('/contacto', paqueteDatos);
+      setEnviadoConExito(true);
+
+    } catch (error) {
+      console.error("No se pudo conectar con el servidor o hubo un error al guardar:", error);
+    }
   };
 
   return (
     <div id="contacto" className="container py-5">
-      
-      {/* Condicionamos el título para que no salga si el mensaje ya se envió */}
-      <FormCard 
-        title={!enviadoConExito ? "¡Contacta con nosotros!" : ""} 
+
+      <FormCard
+        title={!enviadoConExito ? "¡Contacta con nosotros!" : ""}
         colSize="col-lg-12"
       >
-        
+
         {!enviadoConExito ? (
-          
+
           <CustomForm onSubmit={handleSubmit}>
             <div className="row g-4 mb-4">
               <div className="col-md-6">
                 <CustomInput
                   id="nombre"
+                  name="nombre"
                   label="Nombre"
                   type="text"
                   placeholder="Nombre"
                   required={true}
                   hideLabel={true}
                   errorMessage="Por favor, escribe tu nombre."
+                  value={nombreInput}
+                  onChange={(e) => setNombreInput(e.target.value)}
                 />
               </div>
 
               <div className="col-md-6">
                 <CustomInput
                   id="email"
+                  name="email"
                   label="Email"
                   type="email"
-                  placeholder="Email"
+                  placeholder="Correo electrónico"
                   required={true}
                   hideLabel={true}
-                  errorMessage="Introduce un correo válido."
+                  rule="email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
                 />
               </div>
             </div>
@@ -53,27 +106,29 @@ export default function Contacto() {
             <div className="mb-4">
               <CustomInput
                 id="asunto"
+                name="asunto"
                 label="Asunto"
                 type="textarea"
                 placeholder="Asunto"
                 required={true}
                 hideLabel={true}
                 errorMessage="El asunto es obligatorio."
-                rows="3" 
+                rows="3"
               />
             </div>
 
             <CustomInput
-                id="terminos"
-                type="checkbox"
-                required={true}
-                errorMessage="Debes aceptar los términos y condiciones antes de enviar el mensaje."
-                label={
-                  <>
-                    Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-link">términos y condiciones</Link>
-                  </>
-    }
-/>
+              id="terminos"
+              name="terminos"
+              type="checkbox"
+              required={true}
+              errorMessage="Debes aceptar los términos y condiciones antes de enviar el mensaje."
+              label={
+                <>
+                  Acepto los <Link to="/terminos" target="_blank" rel="noopener noreferrer" className="text-link">términos y condiciones</Link>
+                </>
+              }
+            />
 
             <div className="text-center mt-4">
               <button
@@ -87,7 +142,6 @@ export default function Contacto() {
 
         ) : (
 
-          // Mensaje de éxito se mostrará dentro de la tarjeta blanca
           <div id="mensajeExito" className="alert alert-success text-center">
             <h4 className="alert-heading mb-3">
               <i className="bi bi-check-circle-fill me-2"></i>
@@ -97,162 +151,20 @@ export default function Contacto() {
               Gracias por contactar con nosotros. Hemos recibido tus datos correctamente
               y nos pondremos en contacto contigo pronto.
             </p>
-            <button 
-              className="btn btn-outline-success" 
-              onClick={() => setEnviadoConExito(false)} 
+            <button
+              className="btn btn-outline-success"
+              onClick={() => {
+                setEnviadoConExito(false);
+                // Limpiamos el asunto en caso de querer mandar otro mensaje
+              }}
             >
               Enviar otro mensaje
             </button>
           </div>
-          
+
         )}
 
       </FormCard>
     </div>
   );
 }
-
-
-// import { useState } from 'react'; // Hook de useState
-
-// export default function Contacto() {
-
-//   const [validated, setValidated] = useState(false);
-//   const [enviadoConExito, setEnviadoConExito] = useState(false);
-
-//   const handleSubmit = (event) => {
-
-//     event.preventDefault();
-    
-//     const form = event.currentTarget;
-
-//     if (form.checkValidity() === false) {
-//       event.stopPropagation();
-//       setValidated(true); 
-//     } else {
-//       setEnviadoConExito(true);
-//     }
-//   };
-
-//   return (
-//     <div className="container py-5">
-//       <div id="contacto" className="bg-white py-4 px-4 rounded-4 border shadow-sm">
-//         <h2 className="mb-5 titulo">¡Contacta con nosotros!</h2>
-
-//         {!enviadoConExito ? (
-//           <form
-//             id="miFormulario"
-//             noValidate 
-//             onSubmit={handleSubmit}
-//             className={`needs-validation ${validated ? 'was-validated' : ''}`}
-//           >
-//             <div className="row g-4 mb-4">
-//               <div className="col-md-6">
-//                 <label htmlFor="nombre" className="form-label d-none">
-//                   Nombre
-//                 </label>
-//                 <input
-//                   type="text"
-//                   className="form-control rounded-0 px-0 shadow-none text-primary inputs"
-//                   id="nombre"
-//                   name="nombre"
-//                   placeholder="Nombre"
-//                   required
-//                 />
-//                 <div className="invalid-feedback">
-//                   Por favor, escribe tu nombre.
-//                 </div>
-//               </div>
-
-//               <div className="col-md-6">
-//                 <label htmlFor="email" className="form-label d-none">
-//                   Email
-//                 </label>
-//                 <input
-//                   type="email"
-//                   className="form-control rounded-0 px-0 shadow-none text-primary inputs"
-//                   id="email"
-//                   name="email"
-//                   placeholder="Email"
-//                   required
-//                 />
-//                 <div className="invalid-feedback">
-//                   Introduce un correo válido.
-//                 </div>
-//               </div>
-//             </div>
-
-//             <div className="mb-4">
-//               <label htmlFor="asunto" className="form-label d-none">
-//                 Asunto
-//               </label>
-//               <textarea
-//                 className="form-control rounded-0 px-0 shadow-none text-primary inputs"
-//                 id="asunto"
-//                 name="asunto"
-//                 rows="2"
-//                 placeholder="Asunto"
-//                 required
-//               ></textarea>
-//               <div className="invalid-feedback">
-//                 El asunto es obligatorio.
-//               </div>
-//             </div>
-
-//             <div className="form-check mb-5">
-//               <input
-//                 className="form-check-input terminos"
-//                 type="checkbox"
-//                 id="terminos"
-//                 name="terminos"
-//                 required
-//               />
-//               <label
-//                 className="form-check-label text-muted"
-//                 htmlFor="terminos"
-//               >
-//                 Acepto los{" "}
-//                 <a href="#" className="text-link">
-//                   términos y condiciones
-//                 </a>
-//               </label>
-//               <div className="invalid-feedback">
-//                 Debes aceptar los términos y condiciones antes de enviar el mensaje.
-//               </div>
-//             </div>
-
-//             <div>
-//               <button
-//                 type="submit"
-//                 className="btn btn-primary text-white px-4 py-2"
-//               >
-//                 Enviar Mensaje
-//               </button>
-//             </div>
-//           </form>
-//         ) : (
-
-//           <div
-//             id="mensajeExito"
-//             className="alert alert-success text-center mt-4"
-//           >
-//             <h4 className="alert-heading">
-//               <i className="bi bi-check-circle-fill me-2"></i>
-//               ¡Mensaje enviado!
-//             </h4>
-//             <p className="mb-0">
-//               Gracias por contactar con nosotros. Hemos recibido tus datos correctamente
-//               y nos pondremos en contacto contigo pronto.
-//             </p>
-//             <button 
-//               className="btn btn-outline-success mt-3" 
-//               onClick={() => { setEnviadoConExito(false); setValidated(false); }}
-//             >
-//               Enviar otro mensaje
-//             </button>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }

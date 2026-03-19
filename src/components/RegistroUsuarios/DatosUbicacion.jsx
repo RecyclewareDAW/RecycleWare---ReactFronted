@@ -1,19 +1,28 @@
 import CustomInput from '../CustomInput';
 
-export default function DatosUbicacion({ tipoPerfil }) {
+export default function DatosUbicacion({ tipoPerfil, formData, handleChange }) {
+
+    const localidadesAlicante = [
+        { value: 'Alicante', label: 'Alicante' },
+        { value: 'San Vicente del Raspeig', label: 'San Vicente del Raspeig' },
+        { value: 'San Juan Playa', label: 'San Juan Playa' },
+        { value: 'San Juan Pueblo', label: 'San Juan Pueblo' },
+        { value: 'Mutxamel', label: 'Mutxamel (Muxamiel)' }
+    ];
+
     return (
         <>
-            {tipoPerfil === 'empresa' && (
                 <CustomInput
                     id="direccion"
                     label="Dirección"
                     type="text"
-                    placeholder="Dirección (Calle, número, nave...)"
+                    placeholder="Dirección (Calle, número, piso...)"
                     required={true}
                     hideLabel={true}
                     errorMessage="La dirección es obligatoria para gestionar recogidas."
+                    value={formData.direccion}
+                    onChange={handleChange}
                 />
-            )}
 
             <div className="row g-3">
                 <div className="col-md-4">
@@ -24,20 +33,23 @@ export default function DatosUbicacion({ tipoPerfil }) {
                         placeholder="C. Postal"
                         required={true}
                         hideLabel={true}
-                        errorMessage="CP inválido."
-                        pattern="[0-9]{5}" // ¡Aquí funciona el ...props!
-                        title="Debe contener 5 números"
+                        rule="cp"
+                        value={formData.cp}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-8">
                     <CustomInput
-                        id="provincia"
-                        label="Provincia"
-                        type="text"
-                        placeholder="Provincia / Ciudad"
+                        id="localidad"
+                        label="Localidad"
+                        type="select"
+                        placeholder="Selecciona tu localidad..."
                         required={true}
                         hideLabel={true}
-                        errorMessage="Indica tu provincia."
+                        errorMessage="Selecciona una localidad de la lista."
+                        options={localidadesAlicante}
+                        value={formData.localidad} 
+                        onChange={handleChange}
                     />
                 </div>
             </div>

@@ -1,69 +1,113 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom'; // 1. Importamos useNavigate
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ResumenProducto from '../components/SolicitudProducto/ResumenProducto';
 import FormularioSolicitud from '../components/SolicitudProducto/FormularioSolicitud';
 import MensajeExito from '../components/SolicitudProducto/MensajeExito';
+import { api } from '../services/api'; 
 
 export default function SolicitudProducto() {
-    const [enviadoConExito, setEnviadoConExito] = useState(false);
-    
-    const usuarioSesion = { 
-        nombre: "Manuel Rodriguez", 
-        dni: "12345678W", 
-        email: "manuel.rodriguez@email.com" 
-    };
+    const { id } = useParams();
+    const navigate = useNavigate(); // 2. Inicializamos el navegador
+    const location = useLocation();
 
-    const productoMock = { 
-        titulo: "Portátil Lenovo ThinkPad", 
-        imagen: "https://picsum.photos/id/231/800/600", 
-        descripcion: "Intel Core i5, 8GB RAM, 256GB SSD. Equipo reacondicionado bajo estándares de economía circular.",
-        estado: "Buen Estado",
-        centroRecogida: "IES Doctor Balmis - Alicante" 
-    };
+    const [enviadoConExito, setEnviadoConExito] = useState(false);
+    const [usuarioSesion, setUsuarioSesion] = useState(null);
+    const [producto, setProducto] = useState(null);
+    const [cargando, setCargando] = useState(true);
+    const [error, setError] = useState('');
+
+    // 3. La puerta del login
+    useEffect(() => {
+        const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
+        if (usuarioGuardado) {
+            setUsuarioSesion(JSON.parse(usuarioGuardado));
+        } else {
+            // Si no hay usuario, lo mandamos al login inmediatamente
+            navigate('/login', { state: { from: location.pathname } });
+        }
+    }, [navigate, location]); // Añadimos navigate a las dependencias por buenas prácticas
+
+    // Efecto para cargar el producto desde Spring Boot
+    useEffect(() => {
+        const cargarProducto = async () => {
+            try {
+                setCargando(true);
+                const datosProducto = await api.get(`/productos/${id}`);
+                setProducto(datosProducto);
+            } catch (err) {
+                console.error("Error al cargar el producto:", err);
+                setError("No hemos podido cargar los detalles del producto. Es posible que ya no esté disponible.");
+            } finally {
+                setCargando(false);
+            }
+        };
+
+        if (id) {
+            cargarProducto();
+        }
+    }, [id]);
+
+    // Si no hay usuario en sesión, devolvemos null para no pintar nada mientras redirige
+    if (!usuarioSesion) return null;
 
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
             <main className="flex-fill container py-5 pt-header align-content-center">
-                {!enviadoConExito ? (
-                    /* CENTRADO CON GRID:
-                       - row: crea el contexto.
-                       - justify-content-center: centra la columna.
-                       - col-xl-10: en pantallas grandes ocupa 10 de 12 (aprox 1100px).
-                    */
+                
+                {cargando && (
+                    <div className="text-center py-5">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden">Cargando producto...</span>
+                        </div>
+                        <p className="mt-3 text-muted fw-bold">Preparando tu solicitud...</p>
+                    </div>
+                )}
+
+                {!cargando && error && (
+                    <div className="alert alert-danger text-center fw-bold shadow-sm">
+                        <i className="bi bi-exclamation-triangle-fill me-2 fs-4 d-block mb-2"></i>
+                        {error}
+                    </div>
+                )}
+
+                {/* Si no está cargando, no hay error y TENEMOS producto, pintamos la página normal */}
+                {!cargando && !error && producto && !enviadoConExito && (
                     <div className="row justify-content-center">
                         <div className="col-12 col-xl-11 col-xxl-10">
-                            
                             <div className="bg-white p-4 p-md-5 rounded-4 border shadow-sm">
                                 <h2 className="titulo">Confirmar Solicitud</h2>
                                 
                                 <div className="row g-5 align-items-start">
-                                    {/* Izquierda: Resumen */}
                                     <div className="col-lg-5">
-                                        <ResumenProducto producto={productoMock} />
+                                        <ResumenProducto producto={producto} />
                                     </div>
 
-                                    {/* Derecha: Formulario */}
                                     <div className="col-lg-7">
+                                        {/* 4. Pasamos el usuario directamente */}
                                         <FormularioSolicitud 
-                                            producto={productoMock} 
+                                            producto={producto} 
                                             usuario={usuarioSesion} 
                                             onSuccess={() => setEnviadoConExito(true)} 
                                         />
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-                ) : (
-                    <div className="row justify-content-center">
-                        <div className="col-12 col-md-8 col-lg-6 animate-fade-in">
-                            <MensajeExito producto={productoMock} />
                         </div>
                     </div>
                 )}
+
+                {/* Mensaje de Éxito */}
+                {!cargando && !error && producto && enviadoConExito && (
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-md-8 col-lg-6 animate-fade-in">
+                            <MensajeExito producto={producto} />
+                        </div>
+                    </div>
+                )}
+
             </main>
             <Footer />
         </div>

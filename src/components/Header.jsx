@@ -1,126 +1,199 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
+import ButtonLogout from './Session/ButtonLogout';
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState('#inicio');
-  const location = useLocation(); // Para saber en qué ruta estamos
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [usuario, setUsuario] = useState(null);
 
+  // --- 1. MEDICIÓN DINÁMICA DEL NAVBAR ---
   useEffect(() => {
-    // Si la ruta es '/login', forzamos el estado activo a '#login' y evitamos el scroll spy
-    if (location.pathname === '/login') {
+    const medirNavbar = () => {
+      const header = document.querySelector('header');
+      if (header) {
+        document.documentElement.style.setProperty('--nav-height', `${header.offsetHeight}px`);
+      }
+    };
+    medirNavbar();
+    const timeoutId = setTimeout(medirNavbar, 150);
+    window.addEventListener('resize', medirNavbar);
+    return () => {
+      window.removeEventListener('resize', medirNavbar);
+      clearTimeout(timeoutId);
+    };
+  }, [usuario]);
+
+  // --- 2. LÓGICA DE RUTAS, USUARIO Y SCROLL ---
+  // --- 2. LÓGICA DE RUTAS Y SCROLL ---
+  useEffect(() => {
+    // A. Lógica de Rutas (Prioridad base)
+    const { pathname, hash } = location;
+
+    if (pathname === '/login') {
       setActiveLink('#login');
-      return;
-    }
-
-    // 👇 NUEVO: Si estamos en la página de solicitud, iluminamos "Productos"
-    if (location.pathname.startsWith('/solicitud')) {
+    } else if (pathname === '/ranking') {
+      setActiveLink('/ranking');
+    } else if (pathname === '/productos') {
+      setActiveLink('/productos'); // Estado para la página independiente
+    } else if (pathname.startsWith('/solicitud')) {
       setActiveLink('#categorias');
-      return;
+    } else if (pathname === '/') {
+      // Si estamos en el home, el activeLink inicial es el hash o inicio
+      setActiveLink(hash || '#inicio');
     }
 
-    // Si no estamos en la ruta raíz ('/'), no intentamos calcular el scroll
-    if (location.pathname !== '/') return;
+    // B. Cargar usuario (Mantengo tu lógica)
+    const rawData = localStorage.getItem('usuarioRecycleware');
+    if (rawData && rawData !== "undefined" && rawData !== "null") {
+      try {
+        const parsedUser = JSON.parse(rawData);
+        setUsuario(parsedUser?.id ? parsedUser : null);
+      } catch (e) { setUsuario(null); }
+    } else { setUsuario(null); }
+
+    // C. Lógica de Scroll (SOLO activa en el Home '/')
+    if (pathname !== '/') return;
 
     const handleScroll = () => {
+      // Incluimos 'categorias' en el rastreo de scroll del home
       const sections = ['inicio', 'categorias', 'info', 'contacto'];
-      let currentSection = ''; 
+      let currentSection = '';
+      
+      const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50;
 
-      sections.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            currentSection = `#${id}`;
+      if (isAtBottom) {
+        currentSection = '#contacto';
+      } else {
+        sections.forEach((id) => {
+          const element = document.getElementById(id);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // Si el centro de la pantalla (o un margen de 120px) toca la sección
+            if (rect.top <= 120 && rect.bottom >= 120) {
+              currentSection = `#${id}`;
+            }
           }
-        }
-      });
+        });
+      }
 
+      // Solo actualizamos si encontramos una sección y es distinta a la actual
       if (currentSection !== '') {
         setActiveLink(currentSection);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    
-    // Ejecutamos una vez al inicio para que detecte dónde estamos al cargar
-    handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]); // Escuchamos cambios en la ruta
+  }, [location.pathname, location.hash]); // Quitamos dependencias innecesarias
 
   return (
     <header className='sticky-top'>
-      <nav className="navbar navbar-expand-lg bg-dark">
-        <div className="container-fluid">
-          <Link className="navbar-brand d-flex align-items-center ps-4" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
-            <img src={logo} alt="RecycleWare logo" className="logo" />
-          </Link>
+      <nav className="navbar navbar-expand-xl bg-dark">
+        <div className="container-fluid d-block">
+          
+          <div className="row align-items-center m-0 g-0 w-100 position-relative">
+            <div className="col-6 col-xl-3 d-flex justify-content-start">
+              <Link className="navbar-brand m-0" to="/#inicio" onClick={() => setActiveLink('#inicio')}>
+                <img src={logo} alt="RecycleWare logo" className="logo" />
+              </Link>
+            </div>
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <i className="bi bi-list"></i>
-          </button>
+            <div className="col-xl-8 d-none d-xl-block"></div>
+
+            <div className="col-6 col-xl-1 d-flex justify-content-end align-items-center">
+              <div className="d-none d-xl-block">
+                {usuario ? (
+                  <div className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle text-white d-flex align-items-center fw-bold"
+                       href="#" role="button" data-bs-toggle="dropdown">
+                      <i className="bi bi-person-circle fs-4 me-2 text-success"></i>
+                      {usuario.nombre}
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-end mt-2 shadow border-0">
+                      <li><Link className="dropdown-item" to="/perfil"><i className="bi bi-gear-fill me-2 text-secondary"></i>Mi Perfil</Link></li>
+                      <li><hr className="dropdown-divider" /></li>
+                      <li>
+                        <ButtonLogout 
+                          className="dropdown-item text-danger fw-bold" 
+                          onLogout={() => {
+                            localStorage.removeItem('usuarioRecycleware');
+                            setUsuario(null);
+                            navigate('/');
+                          }}
+                        >
+                          <i className="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                        </ButtonLogout>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <Link to="/login"
+                    className={`iniciar-sesion text-decoration-none text-nowrap ${activeLink === '#login' ? 'active' : ''}`}
+                    onClick={() => setActiveLink('#login')}>
+                    Iniciar Sesión
+                  </Link>
+                )}
+              </div>
+
+              <button className="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <i className="bi bi-list"></i>
+              </button>
+            </div>
+          </div>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              
+            <ul className="navbar-nav mx-auto mb-2 mb-xl-0 align-items-center text-center">
               <li className="nav-item">
-                <Link 
-                  className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} 
-                  to="/#inicio"
-                  onClick={() => setActiveLink('#inicio')}
-                >
-                  Inicio
-                </Link>
+                <Link className={`nav-link ${activeLink === '#inicio' ? 'active' : ''}`} to="/#inicio" onClick={() => setActiveLink('#inicio')}>Inicio</Link>
               </li>
               <li className="nav-item">
+                <Link className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} to="/#info" onClick={() => setActiveLink('#info')}>¿Cómo funciona?</Link>
+              </li>
+              
+              {/* --- CAMBIO CLAVE AQUÍ --- */}
+              <li className="nav-item">
                 <Link 
-                  className={`nav-link ${activeLink === '#categorias' ? 'active' : ''}`} 
-                  to="/#categorias"
-                  onClick={() => setActiveLink('#categorias')}
+                  className={`nav-link ${activeLink === '/productos' || activeLink === '#categorias' ? 'active' : ''}`} 
+                  to="/productos" 
+                  onClick={() => setActiveLink('/productos')}
                 >
                   Productos
                 </Link>
               </li>
+              {/* ------------------------- */}
+
               <li className="nav-item">
-                <Link 
-                  className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} 
-                  to="/#info"
-                  onClick={() => setActiveLink('#info')}
-                >
-                  ¿Cómo funciona?
-                </Link>
+                <Link className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`} to="/#contacto" onClick={() => setActiveLink('#contacto')}>Contacto</Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  className={`nav-link ${activeLink === '#contacto' ? 'active' : ''}`} 
-                  to="/#contacto"
-                  onClick={() => setActiveLink('#contacto')}
-                >
-                  Contacto
-                </Link>
+                <Link className={`nav-link ${activeLink === '/ranking' ? 'active' : ''}`} to="/ranking" onClick={() => setActiveLink('/ranking')}>Colaboradores</Link>
               </li>
 
+              {/* Móvil */}
+              <li className="nav-item d-xl-none border-top mt-2 pt-2 w-100">
+                {usuario ? (
+                  <>
+                    <div className="text-success fw-bold py-2">Hola, {usuario.nombre}</div>
+                    <Link className="nav-link" to="/perfil">Mi Perfil</Link>
+                    <ButtonLogout 
+                      className="nav-link text-danger w-100 bg-transparent border-0" 
+                      onLogout={() => {
+                        localStorage.removeItem('usuarioRecycleware');
+                        setUsuario(null);
+                        navigate('/');
+                      }}
+                    >
+                      Cerrar Sesión
+                    </ButtonLogout>
+                  </>
+                ) : (
+                  <Link className="nav-link" to="/login" onClick={() => setActiveLink('#login')}>Iniciar Sesión</Link>
+                )}
+              </li>
             </ul>
-
-            <div className="d-flex flex-column flex-lg-row align-items-lg-center">
-              <form className="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
-                <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                <button className="btn btn-primary px-3 d-flex align-items-center justify-content-center" type="submit">
-                  <i className="bi bi-search"></i>
-                </button>
-              </form>
-              <Link 
-                to="/login" 
-                className={`iniciar-sesion text-nowrap text-decoration-none pb-2 pe-4 pb-lg-0 ${activeLink === '#login' ? 'active' : ''}`}
-                onClick={() => setActiveLink('#login')}
-              >
-                Iniciar Sesión
-              </Link>
-            </div>
           </div>
         </div>
       </nav>

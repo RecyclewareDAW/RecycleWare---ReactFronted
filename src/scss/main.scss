@@ -16,7 +16,8 @@ $utilities: map.merge($utilities,
         class: vh,
         values: (
             100: 100vh,
-            50: 50vh
+            50: 50vh,
+            30: 30vh
         )
     ))
 );
@@ -30,6 +31,7 @@ $utilities: map.merge($utilities,
 @import "formContrasenaOlvidada";
 @import "bootstrap-icons";
 @import "userConfig";
+@import "community";
 
 /* Reset CSS básico */
 * {
@@ -44,6 +46,8 @@ body {
     font-family: $font-family-base;
 }
 
-aside {
-    padding-top: 5rem;
+.card-img-top{
+    width: 100%;
+    height: 30vh;
+    object-fit:cover;
 }

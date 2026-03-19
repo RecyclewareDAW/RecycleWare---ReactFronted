@@ -1,6 +1,6 @@
 import CustomInput from '../CustomInput';
 
-export default function DatosIdentificacion({ tipoPerfil }) {
+export default function DatosIdentificacion({ tipoPerfil, formData, handleChange }) {
     return (
         <>
             <CustomInput
@@ -11,6 +11,8 @@ export default function DatosIdentificacion({ tipoPerfil }) {
                 required={true}
                 hideLabel={true}
                 errorMessage="Este campo es obligatorio."
+                value={formData.nombre}
+                onChange={handleChange}
             />
 
             {tipoPerfil === 'empresa' && (
@@ -22,6 +24,8 @@ export default function DatosIdentificacion({ tipoPerfil }) {
                     required={true}
                     hideLabel={true}
                     errorMessage="Indica una persona de contacto."
+                    value={formData.personaContacto}
+                    onChange={handleChange}
                 />
             )}
 
@@ -34,31 +38,25 @@ export default function DatosIdentificacion({ tipoPerfil }) {
                         placeholder={tipoPerfil === 'particular' ? 'DNI / NIE' : 'CIF'}
                         required={true}
                         hideLabel={true}
-                        errorMessage={`Por favor, introduce el ${tipoPerfil === 'particular' ? 'DNI' : 'CIF'}.`}
+                        rule={tipoPerfil === 'particular' ? 'dni' : 'cif'}
+                        value={formData.documento}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-6">
                     <CustomInput
                         id="telefono"
-                        label={tipoPerfil === 'particular' ? 'Teléfono' : 'Teléfono principal'}
+                        label={'Teléfono'}
                         type="tel"
-                        placeholder={tipoPerfil === 'particular' ? 'Teléfono' : 'Teléfono principal'}
+                        placeholder={'Teléfono'}
                         required={true}
                         hideLabel={true}
-                        errorMessage="Añade un número de contacto válido."
+                        rule="telefono"
+                        value={formData.telefono}
+                        onChange={handleChange}
                     />
                 </div>
             </div>
-
-            {tipoPerfil === 'empresa' && (
-                <CustomInput
-                    id="telefonoSecundario"
-                    label="Teléfono secundario"
-                    type="tel"
-                    placeholder="Teléfono secundario (Opcional)"
-                    hideLabel={true}
-                />
-            )}
         </>
     );
 }

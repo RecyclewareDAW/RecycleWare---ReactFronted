@@ -1,44 +1,86 @@
+import { useState, useEffect } from 'react';
+import { api } from '../services/api';
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ListaEmpresas from "../components/RankingEmpresa/ListaEmpresas";
 import { Podio } from "../components/RankingEmpresa/Podio";
 
-
 export default function RankingEmpresas() {
-    const datos = {
-        posInicial: 4,
-        empresas: [
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "Dxc", donaciones: "2000" },
-            { nombre: "NTTData", donaciones: "1000" }
-        ],
+    const [ranking, setRanking] = useState([]);
+    const [cargando, setCargando] = useState(true);
 
+    useEffect(() => {
+        const obtenerRanking = async () => {
+            try {
+                const data = await api.get('/donaciones/ranking');
+                
+                const formateados = data.map(item => ({
+                    nombre: item[0],
+                    donaciones: item[1]
+                }));
+
+                setRanking(formateados);
+            } catch (error) {
+                console.error("Error cargando ranking:", error);
+            } finally {
+                setCargando(false);
+            }
+        };
+        obtenerRanking();
+    }, []);
+
+    if (cargando) {
+        return (
+            <div className="d-flex flex-column min-vh-100">
+                <Header />
+                <main className="flex-fill d-flex align-items-center justify-content-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Cargando...</span>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
+
+    const primero = ranking[0] || { nombre: "---", donaciones: 0 };
+    const segundo = ranking[1] || { nombre: "---", donaciones: 0 };
+    const tercero = ranking[2] || { nombre: "---", donaciones: 0 };
+
+    const restoEmpresas = {
+        posInicial: 4,
+        empresas: ranking.slice(3)
     };
 
+    return (
+        <div id="ranking" className="d-flex flex-column min-vh-100">
+            <Header />
+            
+            <main className="flex-fill container py-5">
+                <div className="animate-fade-in">
+                    <h2 className="display-5 titulo">Empresas Colaboradoras</h2>
+                    
+                    <Podio
+                        nombre1={primero.nombre}
+                        donaciones1={primero.donaciones}
+                        nombre2={segundo.nombre}
+                        donaciones2={segundo.donaciones}
+                        nombre3={tercero.nombre}
+                        donaciones3={tercero.donaciones}
+                    />
 
-    return <>
-        <Header />
-        <main className="container">
-            <div className="d-flex flex-column">
-                <h2 className="display-3 titulo my-5">Empresas participantes</h2>
-                <Podio
-                    nombre1={"Patata EXTREME"}
-                    nombre2={"Patata Nº2"}
-                    nombre3={"Patata Nº3"}
-                    donaciones1={10000}
-                    donaciones2={5000}
-                    donaciones3={3000}
-                ></Podio>
-                <ListaEmpresas datos={datos}></ListaEmpresas>
+                    {ranking.length > 3 ? (
+                        <ListaEmpresas datos={restoEmpresas} />
+                    ) : (
+                        <div className="alert alert-light text-center border rounded-4 shadow-sm py-4 mt-4">
+                            <i className="bi bi-info-circle me-2 text-primary"></i>
+                            Próximamente más empresas en el ranking...
+                        </div>
+                    )}
+                </div>
+            </main>
 
-            </div>
-        </main>
-        <Footer></Footer>
-    </>
+            <Footer />
+        </div>
+    );
 }

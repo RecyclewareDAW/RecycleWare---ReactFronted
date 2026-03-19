@@ -1,4 +1,61 @@
-const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, options = [], ...props }) => {
+const validationRules = {
+  email: {
+    pattern: "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+[.][a-zA-Z]{2,}$",
+    maxLength: 80,
+    defaultError: "Introduce un correo válido (ej: usuario@dominio.com)."
+  },
+  dni: {
+    pattern: "^([0-9]{8}[A-Za-z]|[XYZxyz][0-9]{7}[A-Za-z])$",
+    maxLength: 9,
+    defaultError: "Introduce un DNI o NIE válido."
+  },
+  cif: {
+    pattern: "^([ABCDEFGHJNPQRSUVWabcdefghjnpqrsuvw][0-9]{7}[0-9A-Ja-j])$",
+    maxLength: 9,
+    defaultError: "Introduce un CIF válido."
+  },
+  telefono: {
+    pattern: "^[0-9]{9}$",
+    maxLength: 9,
+    defaultError: "El teléfono debe tener exactamente 9 cifras."
+  },
+  cp: {
+    pattern: "^[0-9]{5}$",
+    maxLength: 5,
+    defaultError: "El código postal debe tener 5 números."
+  }
+};
+
+const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, options = [], rule, ...props }) => {
+
+  // si nos pasan el rule "email" obtenemos sus datos
+  const appliedRule = validationRules[rule] || {};
+  const finalPattern = props.pattern || appliedRule.pattern;
+  const finalMaxLength = props.maxLength || appliedRule.maxLength;
+  const finalErrorMessage = errorMessage || appliedRule.defaultError;
+
+  //Interceptor para que funcionen bien las validaciones de bootstrap(sobre el correo)
+  const handleCustomChange = (e) => {
+    // ejecutamos el onChange normal para guardar el dato en React
+    if (onChange) onChange(e);
+
+    // tomamos el control absoluto de la validación visual
+    const inputValue = e.target.value;
+    if (inputValue && finalPattern) {
+        const regex = new RegExp(finalPattern);
+        if (!regex.test(inputValue)) {
+            // si falla la regla pintamos de rojo con la advertencia
+            e.target.setCustomValidity("Inválido"); 
+        } else {
+            // si cumple la regla, pintamos de verde como valido
+            e.target.setCustomValidity(""); 
+        }
+    } else {
+        // limpiamos si el campo está vacío (para que el "required" nativo haga su trabajo)
+        e.target.setCustomValidity(""); 
+    }
+  };
+
   // Si el input es un checkbox 
   if (type === "checkbox") {
     return (
@@ -9,6 +66,7 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
           id={id}
           name={id}
           required={required}
+          onChange={onChange}
         />
         <label className="form-check-label text-muted" htmlFor={id}>
           {label}
@@ -85,7 +143,9 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
         placeholder={placeholder}
         required={required}
         value={value}
-        onChange={onChange}
+        onChange={handleCustomChange}
+        pattern={finalPattern}
+        maxLength={finalMaxLength}
         {...props}
       />
       <div className="invalid-feedback">

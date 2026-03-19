@@ -1,77 +1,83 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/UserConfig/Sidebar';
-import Footer from '../components/Footer'; 
+import Footer from '../components/Footer';
 
 // Importación de todas las pestañas
 import TabPerfil from '../components/UserConfig/TabPerfil';
 import TabDirecciones from '../components/UserConfig/TabDirecciones';
 import TabSeguridad from '../components/UserConfig/TabSeguridad';
-import TabNotificaciones from '../components/UserConfig/TabNotificaciones';
-import TabPrivacidad from '../components/UserConfig/TabPrivacidad';
 import TabAyuda from '../components/UserConfig/TabAyuda';
-
 import TabPeticiones from '../components/UserConfig/TabPeticiones';
 import TabHistorial from '../components/UserConfig/TabHistorial';
-
 import TabDonaciones from '../components/UserConfig/TabDonaciones';
-import TabCertificados from '../components/UserConfig/TabCertificados';
 import TabImpacto from '../components/UserConfig/TabImpacto';
 
 export default function UserConfig() {
-    const [activeTab, setActiveTab] = useState('perfil');
-    const [userRole, setUserRole] = useState('empresa'); 
+    const { tab } = useParams();
+    const navigate = useNavigate();
+    const activeTab = tab || 'perfil';
 
-    // Gestor de contenido dinámico basado en la pestaña activa
+    const [userRole, setUserRole] = useState('');
+    const [nombreUsuario, setNombreUsuario] = useState('');
+
+    // Leemos la sesión real del usuario al cargar la página
+    useEffect(() => {
+        const session = localStorage.getItem('usuarioRecycleware');
+        if (session) {
+            const userData = JSON.parse(session || '{}');
+            // Si el rol en BD es EMPRESA, le pasamos 'empresa', sino 'individual'
+            setUserRole(userData.rol === 'EMPRESA' ? 'empresa' : 'individual');
+            // Sacamos el nombre (o la razón social si es empresa) para el saludo
+            setNombreUsuario(userData.rol === 'EMPRESA' ? userData.razonSocial : userData.nombre);
+        } else {
+            // Si alguien intenta entrar aquí sin estar logueado, lo echamos al login
+            navigate('/login');
+        }
+    }, [navigate]);
+
+    // Función para gestionar el cambio de pestañas vía URL
+    const handleTabChange = (tabName) => {
+        navigate(`/perfil/${tabName}`);
+    };
+
     const renderContent = () => {
         switch (activeTab) {
-            case 'perfil': return <TabPerfil userRole={userRole} setActiveTab={setActiveTab} />;
+            case 'perfil': return <TabPerfil userRole={userRole} setActiveTab={handleTabChange} />;
             case 'direcciones': return <TabDirecciones />;
             case 'seguridad': return <TabSeguridad />;
-            case 'notificaciones': return <TabNotificaciones />;
-            case 'privacidad': return <TabPrivacidad />;
-            case 'ayuda': return <TabAyuda />;
+            case 'ayuda': return <TabAyuda userRole={userRole} />;
             case 'peticiones': return <TabPeticiones />;
             case 'historial': return <TabHistorial />;
             case 'donaciones': return <TabDonaciones />;
-            case 'certificados': return <TabCertificados />;
             case 'impacto': return <TabImpacto />;
-            default: return null;
+            default: return <TabPerfil userRole={userRole} setActiveTab={handleTabChange} />;
         }
     };
+
+    if (!userRole) return null;
 
     return (
         <>
             <Header />
-            <main className="container-fluid container-xl user-config-container mt-5 pt-5 mb-5">
-                <div className="alert alert-info d-flex justify-content-between align-items-center mb-4">
-                    <span>Estás viendo la interfaz como: <strong>{userRole === 'individual' ? 'Usuario Particular' : 'Empresa'}</strong></span>
-                    <button
-                        className="btn btn-sm btn-outline-dark"
-                        onClick={() => {
-                            setUserRole(userRole === 'individual' ? 'empresa' : 'individual');
-                            setActiveTab('perfil');
-                        }}
-                    >
-                        Cambiar Rol (Prueba)
-                    </button>
-                </div>
-
+            <main className="container-fluid container-xl user-config-container mt-5 mb-5">
+                
                 <div className="d-flex align-items-center mb-4">
                     <h1 className="fw-bold mb-0 text-primary">
-                        ¡Hola, {userRole === 'individual' ? 'Usuario' : 'Empresa'}!
+                        ¡Hola, {nombreUsuario}!
                     </h1>
                 </div>
 
-                <div className="row g-4 align-items-stretch">
+                <div className="row g-4 align-items-start">
                     <Sidebar 
                         activeTab={activeTab} 
-                        setActiveTab={setActiveTab} 
+                        setActiveTab={handleTabChange} 
                         userRole={userRole} 
                     />
 
                     <section className="col-12 col-lg-9">
-                        <div className="config-content bg-white p-4 p-md-5 h-100">
+                        <div className="config-content bg-white p-4 p-md-5 h-100 shadow-sm rounded-4 animate-fade-in border">
                             {renderContent()}
                         </div>
                     </section>
@@ -79,6 +85,5 @@ export default function UserConfig() {
             </main>
             <Footer />
         </>
-
     );
 }
