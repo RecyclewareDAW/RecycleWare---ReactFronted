@@ -28,10 +28,9 @@ export default function App() {
       
       if (dataLocal) {
         try {
-          // Intentamos validar con el servidor
-          const response = await api.get('/auth/check');
-          // Si el servidor responde OK, cargamos el usuario en el estado
-          setUsuario(JSON.parse(dataLocal));
+          const response = await api.get('/auth/user');
+          setUsuario(response);
+          localStorage.setItem('usuarioRecycleware', JSON.stringify(response)); 
         } catch (error) {
           // Si el servidor falla (401/403), limpiamos todo
           console.warn("Sesión expirada o servidor reiniciado");
@@ -73,10 +72,15 @@ export default function App() {
           
           <Route path="/solicitud/:id" element={usuario ? <SolicitudProducto /> : <Navigate to="/login" />} />
           
-          {/* RUTAS DE ADMIN (Opcional: podrías chequear usuario.rol === 'ADMIN') */}
-          <Route path="/usuarios" element={usuario ? <CrudUsuarios /> : <Navigate to="/login" />} />
-          <Route path="/inventario-productos" element={usuario ? <CrudProductos /> : <Navigate to="/login" />} />
+          {/* RUTAS DE ADMIN (Acceso restringido) */}
+          <Route path="/usuarios" 
+                 element={usuario && usuario.rol?.toUpperCase() === 'ADMIN' ? <CrudUsuarios /> : (usuario ? <div className="p-5 text-center"><h1 className="text-danger">ACCESO DENEGADO</h1><p>Tu rol es: <b>{usuario.rol}</b> (Se requiere ADMIN)</p></div> : <Navigate to="/login" />)} 
+          />
           
+          <Route path="/inventario-productos" 
+                 element={usuario && usuario.rol?.toUpperCase() === 'ADMIN' ? <CrudProductos /> : (usuario ? <div className="p-5 text-center"><h1 className="text-danger">ACCESO DENEGADO</h1><p>Tu rol es: <b>{usuario.rol}</b> (Se requiere ADMIN)</p></div> : <Navigate to="/login" />)} 
+          />
+
           {/* Redirección por si escriben cualquier otra cosa */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -48,7 +48,8 @@ const RegisteredDonation = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/donaciones', {
+            const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+            const response = await fetch(`${baseUrl}/donaciones`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -23,7 +23,8 @@ const FormLogin = () => {
 
     try {
       // Usamos FETCH directamente para tener control total de las credenciales de Spring Security
-      const respuesta = await fetch('http://localhost:8080/api/auth/login', {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+      const respuesta = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

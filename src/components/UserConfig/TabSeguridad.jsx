@@ -23,24 +23,37 @@ export default function TabSeguridad() {
 
         const paqueteCambio = {
             id: userSession.id,
-            passwordActual: passwordActual, 
+            passwordActual: passwordActual,
             nuevaPassword: nuevaPassword
         };
 
         try {
-            const data = await api.post('/usuario/cambiar-password', paqueteCambio);
+            await api.post('/usuario/cambiar-password', paqueteCambio);
 
-            setMensaje({ tipo: 'success', texto: '¡Contraseña actualizada con éxito!' });
+            setMensaje({
+                tipo: 'success',
+                texto: '¡Contraseña actualizada! Por seguridad, debes iniciar sesión con tu nueva clave.'
+            });
 
-            // Limpiamos el formulario
+            // Limpiamos los campos visualmente
             setPasswordActual('');
             setNuevaPassword('');
             setConfirmarPassword('');
-            setFormKey(prev => prev + 1);
+
+            // Cerramos sesión tras 3 segundos para que el usuario lea el mensaje
+            setTimeout(async () => {
+                try {
+                    await api.post('/auth/logout');
+                } finally {
+                    localStorage.removeItem('usuarioRecycleware');
+                    window.location.href = '/login';
+                }
+            }, 3000);
+
         } catch (error) {
             setMensaje({
                 tipo: 'danger',
-                texto: error.message || 'La contraseña actual no es correcta.'
+                texto: error.response?.data?.error || 'La contraseña actual no es correcta.'
             });
         }
     };
