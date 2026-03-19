@@ -9,7 +9,6 @@
     min-height: calc(100dvh - var(--nav-height, 10dvh));
     width: 100%;
 
-    /* Vídeo de fondo */
     .video-fondo {
         position: absolute;
         top: 0;
@@ -27,17 +26,14 @@
         width: 100%;
         height: 100%;
         background-color: rgba($dark, 0.75);
-        /* Oscurece el vídeo para que el texto contraste */
         z-index: 1;
     }
 
-    /* Contenedor del texto y botones */
     .hero-contenido {
         position: relative;
         z-index: 2;
         color: $light;
         padding: 4rem 1.5rem;
-        /* 4rem de padding arriba y abajo para despegarlo de los bordes */
         width: 90vw;
         max-width: 1400px;
 
@@ -68,13 +64,10 @@
             flex-wrap: wrap;
 
             .btn {
-                // Esto asegura que ambos tengan el mismo ancho mínimo
                 min-width: 200px;
-
-                // En pantallas muy pequeñas, que ocupen todo el ancho
                 @media (max-width: 576px) {
                     width: 100%;
-                    max-width: 300px; // Para que no sean gigantes en móviles grandes
+                    max-width: 300px; 
                 }
             }
 

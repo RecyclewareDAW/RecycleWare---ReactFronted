@@ -28,35 +28,32 @@ const validationRules = {
 
 const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hideLabel, value, onChange, options = [], rule, ...props }) => {
 
-  // si nos pasan el rule "email" obtenemos sus datos
   const appliedRule = validationRules[rule] || {};
   const finalPattern = props.pattern || appliedRule.pattern;
   const finalMaxLength = props.maxLength || appliedRule.maxLength;
   const finalErrorMessage = errorMessage || appliedRule.defaultError;
 
-  //Interceptor para que funcionen bien las validaciones de bootstrap(sobre el correo)
   const handleCustomChange = (e) => {
-    // ejecutamos el onChange normal para guardar el dato en React
+   
     if (onChange) onChange(e);
 
-    // tomamos el control absoluto de la validación visual
     const inputValue = e.target.value;
     if (inputValue && finalPattern) {
         const regex = new RegExp(finalPattern);
         if (!regex.test(inputValue)) {
-            // si falla la regla pintamos de rojo con la advertencia
+            
             e.target.setCustomValidity("Inválido"); 
         } else {
-            // si cumple la regla, pintamos de verde como valido
+           
             e.target.setCustomValidity(""); 
         }
     } else {
-        // limpiamos si el campo está vacío (para que el "required" nativo haga su trabajo)
+        
         e.target.setCustomValidity(""); 
     }
   };
 
-  // Si el input es un checkbox 
+ 
   if (type === "checkbox") {
     return (
       <div className="form-check mb-3">
@@ -78,7 +75,6 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
     );
   }
 
-  // Si es un Textarea
   if (type === "textarea") {
     return (
       <div className="w-100 mb-4">
@@ -117,10 +113,10 @@ const CustomInput = ({ id, label, type, placeholder, required, errorMessage, hid
           onChange={onChange}
           {...props}
         >
-          {/* Opción por defecto deshabilitada que actúa como "Placeholder" */}
+          
           <option value="" disabled>{placeholder}</option>
 
-          {/* Recorremos la lista de opciones que le pasemos */}
+
           {options.map((opt, index) => (
             <option key={index} value={opt.value}>
               {opt.label}

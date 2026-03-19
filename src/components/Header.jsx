@@ -9,7 +9,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
 
-  // --- 1. MEDICIÓN DINÁMICA DEL NAVBAR ---
+
   useEffect(() => {
     const medirNavbar = () => {
       const header = document.querySelector('header');
@@ -26,10 +26,8 @@ export default function Navbar() {
     };
   }, [usuario]);
 
-  // --- 2. LÓGICA DE RUTAS, USUARIO Y SCROLL ---
-  // --- 2. LÓGICA DE RUTAS Y SCROLL ---
   useEffect(() => {
-    // A. Lógica de Rutas (Prioridad base)
+    
     const { pathname, hash } = location;
 
     if (pathname === '/login') {
@@ -41,11 +39,10 @@ export default function Navbar() {
     } else if (pathname.startsWith('/solicitud')) {
       setActiveLink('#categorias');
     } else if (pathname === '/') {
-      // Si estamos en el home, el activeLink inicial es el hash o inicio
+    
       setActiveLink(hash || '#inicio');
     }
 
-    // B. Cargar usuario (Mantengo tu lógica)
     const rawData = localStorage.getItem('usuarioRecycleware');
     if (rawData && rawData !== "undefined" && rawData !== "null") {
       try {
@@ -54,11 +51,11 @@ export default function Navbar() {
       } catch (e) { setUsuario(null); }
     } else { setUsuario(null); }
 
-    // C. Lógica de Scroll (SOLO activa en el Home '/')
+
     if (pathname !== '/') return;
 
     const handleScroll = () => {
-      // Incluimos 'categorias' en el rastreo de scroll del home
+  
       const sections = ['inicio', 'categorias', 'info', 'contacto'];
       let currentSection = '';
       
@@ -71,7 +68,7 @@ export default function Navbar() {
           const element = document.getElementById(id);
           if (element) {
             const rect = element.getBoundingClientRect();
-            // Si el centro de la pantalla (o un margen de 120px) toca la sección
+           
             if (rect.top <= 120 && rect.bottom >= 120) {
               currentSection = `#${id}`;
             }
@@ -79,7 +76,6 @@ export default function Navbar() {
         });
       }
 
-      // Solo actualizamos si encontramos una sección y es distinta a la actual
       if (currentSection !== '') {
         setActiveLink(currentSection);
       }
@@ -153,7 +149,7 @@ export default function Navbar() {
                 <Link className={`nav-link text-nowrap ${activeLink === '#info' ? 'active' : ''}`} to="/#info" onClick={() => setActiveLink('#info')}>¿Cómo funciona?</Link>
               </li>
               
-              {/* --- CAMBIO CLAVE AQUÍ --- */}
+            
               <li className="nav-item">
                 <Link 
                   className={`nav-link ${activeLink === '/productos' || activeLink === '#categorias' ? 'active' : ''}`} 
@@ -172,7 +168,7 @@ export default function Navbar() {
                 <Link className={`nav-link ${activeLink === '/ranking' ? 'active' : ''}`} to="/ranking" onClick={() => setActiveLink('/ranking')}>Colaboradores</Link>
               </li>
 
-              {/* Móvil */}
+       
               <li className="nav-item d-xl-none border-top mt-2 pt-2 w-100">
                 {usuario ? (
                   <>

@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import Sidebar from '../components/UserConfig/Sidebar';
 import Footer from '../components/Footer';
 
-// Importación de todas las pestañas
 import TabPerfil from '../components/UserConfig/TabPerfil';
 import TabDirecciones from '../components/UserConfig/TabDirecciones';
 import TabSeguridad from '../components/UserConfig/TabSeguridad';
@@ -22,22 +21,19 @@ export default function UserConfig() {
     const [userRole, setUserRole] = useState('');
     const [nombreUsuario, setNombreUsuario] = useState('');
 
-    // Leemos la sesión real del usuario al cargar la página
+    
     useEffect(() => {
         const session = localStorage.getItem('usuarioRecycleware');
         if (session) {
             const userData = JSON.parse(session || '{}');
-            // Si el rol en BD es EMPRESA, le pasamos 'empresa', sino 'individual'
             setUserRole(userData.rol === 'EMPRESA' ? 'empresa' : 'individual');
-            // Sacamos el nombre (o la razón social si es empresa) para el saludo
             setNombreUsuario(userData.rol === 'EMPRESA' ? userData.razonSocial : userData.nombre);
         } else {
-            // Si alguien intenta entrar aquí sin estar logueado, lo echamos al login
+            
             navigate('/login');
         }
     }, [navigate]);
 
-    // Función para gestionar el cambio de pestañas vía URL
     const handleTabChange = (tabName) => {
         navigate(`/perfil/${tabName}`);
     };

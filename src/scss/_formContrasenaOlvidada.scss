@@ -1,6 +1,4 @@
 
-// ESTILOS PARA LA PARTE DE RECUPERACIÓN DE CONTRASEÑA
-//Contenedor del formulario de recuperación de contraseña
 .contenedor-auth {
   min-height: 75vh;
 }
@@ -8,28 +6,27 @@
 .layout-auth {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; // Ocupa el 100% de la pantalla mínimo
+  min-height: 100vh; 
 
   main {
-    flex-grow: 1; // Obliga al main a expandirse y empujar el footer
+    flex-grow: 1;
   }
 }
 
-// Caja de información/acción que usa la paleta ($secondary / green-teal)
 .info-box-action {
-  background-color: rgba($secondary, 0.08); // Tint muy suave del color de acción
-  border: 1px solid rgba($secondary, 0.2); // Borde sutil a juego
+  background-color: rgba($secondary, 0.08); 
+  border: 1px solid rgba($secondary, 0.2); 
   padding: 1.25rem;
-  border-radius: 1rem; // Esquinas suaves como las tarjetas principales
+  border-radius: 1rem; 
   margin-bottom: 1.5rem;
   text-align: center;
 
   p.small {
-    color: rgba($primary, 0.85); // Texto sutil usando el azul marino para legibilidad
+    color: rgba($primary, 0.85); 
   }
 }
 
-// Icono del sobre del éxito para integrarlo limpiamente
+
 .icon-success-envelope {
   background-color: rgba($primary, 0.1); 
   color: $primary; 

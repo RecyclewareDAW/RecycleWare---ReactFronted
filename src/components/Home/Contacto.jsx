@@ -8,16 +8,14 @@ import { api } from '../../services/api';
 export default function Contacto() {
   const [enviadoConExito, setEnviadoConExito] = useState(false);
 
-  // 1. Estados para controlar lo que escribimos o autocompletamos
+ 
   const [nombreInput, setNombreInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
-  const [usuarioId, setUsuarioId] = useState(null); // Guardaremos el ID si está logueado
+  const [usuarioId, setUsuarioId] = useState(null);
 
-  // 2. Buscamos al usuario al cargar la página
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
 
-    // Si no hay nada, o es el texto "undefined", ni lo intentamos
     if (!usuarioGuardado || usuarioGuardado === "undefined") {
       setUsuarioId(null);
       return;
@@ -40,7 +38,6 @@ export default function Contacto() {
     const formData = new FormData(event.target);
     const datosFormulario = Object.fromEntries(formData.entries());
 
-    // 3. Preparamos el paquete de datos
     const paqueteDatos = {
       nombre: datosFormulario.nombre,
       correo: datosFormulario.email,
@@ -155,7 +152,7 @@ export default function Contacto() {
               className="btn btn-outline-success"
               onClick={() => {
                 setEnviadoConExito(false);
-                // Limpiamos el asunto en caso de querer mandar otro mensaje
+                
               }}
             >
               Enviar otro mensaje

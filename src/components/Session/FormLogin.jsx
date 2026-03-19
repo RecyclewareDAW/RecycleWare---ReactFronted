@@ -15,20 +15,20 @@ const FormLogin = () => {
   const [exitoMensaje, setExitoMensaje] = useState(location.state?.mensajeExito || '');
 
   const handleSubmit = async (e) => {
-    // Evitamos que el formulario recargue la página por defecto
+    
     if (e && e.preventDefault) e.preventDefault();
 
     setErrorMensaje('');
     setExitoMensaje('');
 
     try {
-      // Usamos FETCH directamente para tener control total de las credenciales de Spring Security
-      const respuesta = await fetch('http://localhost:8080/api/auth/login', {
+      
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+      const respuesta = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        // ESTO ES VITAL PARA SPRING SECURITY: Permite que el navegador guarde la Cookie de sesión
         credentials: 'include',
         body: JSON.stringify({ email, password })
       });
@@ -36,21 +36,14 @@ const FormLogin = () => {
       const data = await respuesta.json();
 
       if (respuesta.ok && data) {
-        // 1. Limpiamos basura previa
         localStorage.removeItem('usuarioRecycleware');
 
-        // 2. Verificamos que 'data' sea un objeto válido antes de guardar
-        // Si el backend devuelve el usuario, lo guardamos. 
-        // Si no, guardamos un objeto con el email al menos.
         const usuarioAGuardar = data.id ? data : { email: email, nombre: data.nombre || 'Usuario' };
 
         localStorage.setItem('usuarioRecycleware', JSON.stringify(usuarioAGuardar));
 
-        // 3. Redirección
         const rutaDestino = location.state?.from || '/';
 
-        // Usamos window.location para forzar una carga limpia de todos los componentes (Header, Footer, etc.)
-        // Esto evita que React intente renderizar con datos viejos o corruptos
         window.location.href = rutaDestino;
 
       } else {

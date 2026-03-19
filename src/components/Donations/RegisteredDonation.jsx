@@ -48,13 +48,13 @@ const RegisteredDonation = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/donaciones', {
+            const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+            const response = await fetch(`${baseUrl}/donaciones`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                // IMPORTANTE: Esto permite que el navegador envíe la cookie de sesión (JSESSIONID)
-                // Si no pones esto, Spring Security te dará error 401/403 aunque estés logueado.
+                
                 credentials: 'include',
                 body: JSON.stringify(nuevaDonacion)
             });
@@ -62,7 +62,6 @@ const RegisteredDonation = () => {
             if (response.ok) {
                 setEnviado(true);
             } else {
-                // Si el servidor responde con error (400, 401, 500...)
                 const errorData = await response.json().catch(() => ({}));
                 console.error("Error del servidor:", errorData);
                 setError(true);
@@ -76,7 +75,7 @@ const RegisteredDonation = () => {
     };
     if (userRole === null) return null;
 
-    // --- VISTA PARTICULAR ---
+ 
     if (userRole === 'individual' || userRole === 'particular') {
         return (
             <FormCard
@@ -138,7 +137,7 @@ const RegisteredDonation = () => {
         );
     }
 
-    // --- ESTADO ÉXITO / ERROR ---
+  
     if (enviado) {
         return (
             <div className="alert alert-success text-center my-4 py-5 rounded-4 shadow-sm border-0 animate-fade-in w-100">
@@ -165,7 +164,7 @@ const RegisteredDonation = () => {
         );
     }
 
-    // --- FORMULARIO EMPRESA (TAMAÑO ORIGINAL) ---
+
     return (
         <FormCard title="Donar Productos" colSize="col-lg-12">
             <div className="animate-fade-in">
@@ -189,7 +188,7 @@ const RegisteredDonation = () => {
                 </div>
 
                 <CustomForm onSubmit={handleSubmit}>
-                    {/* Fila 1: Descripción completa */}
+                    
                     <div className="mb-4">
                         <CustomInput
                             id="descripcion"
@@ -203,7 +202,6 @@ const RegisteredDonation = () => {
                         />
                     </div>
 
-                    {/* Fila 2: Cantidad y Peso*/}
                     <div className="row">
                         <div className="col-md-6">
                             <CustomInput
