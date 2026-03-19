@@ -29,11 +29,9 @@ export default function TabPerfil({ userRole, setActiveTab }) {
     useEffect(() => {
         // Solo hacemos la petición si es empresa y tenemos el ID del usuario
         if (userRole === 'empresa' && userId) {
-            fetch(`http://localhost:8080/api/donaciones/usuario/${userId}`)
-                .then(res => res.json())
+            api.get(`/donaciones/usuario/${userId}`)
                 .then(data => {
                     // ORDENACIÓN POR FECHA (MÁS PRECISO)
-                    // Comparamos los objetos de fecha creados a partir de tu campo 'fecha_donacion'
                     const ultimas = data.sort((a, b) => {
                         return new Date(b.fechaDonacion) - new Date(a.fechaDonacion);
                     }).slice(0, 2);

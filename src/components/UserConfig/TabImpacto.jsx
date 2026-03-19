@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { api } from '../../services/api';
 
 export default function TabImpacto() {
     const [stats, setStats] = useState({ equipos: 0, co2: 0 });
@@ -14,8 +15,7 @@ export default function TabImpacto() {
 
     const fetchDatosImpacto = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/donaciones/usuario/${userId}`);
-            const data = await response.json();
+            const data = await api.get(`/donaciones/usuario/${userId}`);
 
             // FILTRO POR ESTADO: Solo IDs 3 (Recibido) y 4 (Procesado)
             const donacionesValidadas = data.filter(d => d.estado.id === 3 || d.estado.id === 4);

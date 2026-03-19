@@ -28,33 +28,20 @@ export default function TabSeguridad() {
         };
 
         try {
-            const respuesta = await fetch('http://localhost:8080/api/usuario/cambiar-password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(paqueteCambio)
-            });
+            const data = await api.post('/usuario/cambiar-password', paqueteCambio);
 
-            // Solo llamamos a .json() UNA vez
-            const data = await respuesta.json();
+            setMensaje({ tipo: 'success', texto: '¡Contraseña actualizada con éxito!' });
 
-            if (respuesta.ok) {
-                setMensaje({ tipo: 'success', texto: '¡Contraseña actualizada con éxito!' });
-
-                // Limpiamos el formulario
-                setPasswordActual('');
-                setNuevaPassword('');
-                setConfirmarPassword('');
-                setFormKey(prev => prev + 1);
-            } else {
-                // Aquí usamos 'data' que ya tiene el JSON parseado
-                setMensaje({
-                    tipo: 'danger',
-                    texto: data.error || 'La contraseña actual no es correcta.'
-                });
-            }
+            // Limpiamos el formulario
+            setPasswordActual('');
+            setNuevaPassword('');
+            setConfirmarPassword('');
+            setFormKey(prev => prev + 1);
         } catch (error) {
-            setMensaje({ tipo: 'danger', texto: 'Error de conexión con el servidor.' });
+            setMensaje({
+                tipo: 'danger',
+                texto: error.message || 'La contraseña actual no es correcta.'
+            });
         }
     };
 

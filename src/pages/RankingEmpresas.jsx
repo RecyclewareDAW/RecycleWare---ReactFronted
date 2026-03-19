@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { api } from '../services/api';
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ListaEmpresas from "../components/RankingEmpresa/ListaEmpresas";
@@ -11,8 +12,7 @@ export default function RankingEmpresas() {
     useEffect(() => {
         const obtenerRanking = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/donaciones/ranking');
-                const data = await response.json();
+                const data = await api.get('/donaciones/ranking');
                 
                 const formateados = data.map(item => ({
                     nombre: item[0],

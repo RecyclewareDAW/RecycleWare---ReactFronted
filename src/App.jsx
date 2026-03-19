@@ -51,7 +51,7 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
+       <Routes>
           {/* RUTAS PÚBLICAS */}
           <Route path="/" element={<Home />} />
           <Route path='/login' element={<Login />} />
@@ -65,7 +65,7 @@ export default function App() {
           <Route path="/solicitar/:id" element={<SolicitudProducto />} />
 
           {/* RUTAS PROTEGIDAS CON LÓGICA (Solo entran si 'usuario' existe) */}
-          <Route path='/donar' element={usuario ? <DonateProduct /> : <Navigate to="/login" />} />
+          <Route path='/donar' element={<DonateProduct />} />
           
           {/* Aquí usamos UserConfig porque parece que ahí es donde tienes tu Tabs de perfil */}
           <Route path="/perfil" element={usuario ? <UserConfig /> : <Navigate to="/login" />} />

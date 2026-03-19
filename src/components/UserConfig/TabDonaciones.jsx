@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { api } from '../../services/api';
 
 export default function TabDonaciones() {
     const [donaciones, setDonaciones] = useState([]);
@@ -15,16 +16,14 @@ export default function TabDonaciones() {
 
     const obtenerDatos = async () => {
         try {
-            const [resDonaciones, resEstados] = await Promise.all([
-                fetch(`http://localhost:8080/api/donaciones/usuario/${userId}`),
-                fetch(`http://localhost:8080/api/donation-states`)
+            const [dataDonaciones, dataEstados] = await Promise.all([
+                api.get(`/donaciones/usuario/${userId}`),
+                api.get(`/donation-states`)
             ]);
-            if (!resDonaciones.ok || !resEstados.ok) throw new Error("Error");
             
-            const data = await resDonaciones.json();
             // Ordenamos para que las más nuevas aparezcan arriba
-            setDonaciones(data.sort((a, b) => new Date(b.fechaDonacion) - new Date(a.fechaDonacion)));
-            setEstados(await resEstados.json());
+            setDonaciones(dataDonaciones.sort((a, b) => new Date(b.fechaDonacion) - new Date(a.fechaDonacion)));
+            setEstados(dataEstados);
         } catch (error) {
             console.error(error);
         } finally {
