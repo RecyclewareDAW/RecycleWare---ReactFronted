@@ -8,7 +8,6 @@
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/utilities";
 
-/* Modificamos utilities para añadir vh-50 para ranking */
 $utilities: map.merge($utilities,
     ("viewport-height": (
         property: height,
@@ -24,7 +23,6 @@ $utilities: map.merge($utilities,
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-/* NUESTROS ARCHIVOS VAN DESPUÉS DE CARGAR TODO BOOTSTRAP */
 @import "header";
 @import "hero";
 @import "formularios";
@@ -33,11 +31,10 @@ $utilities: map.merge($utilities,
 @import "userConfig";
 @import "community";
 
-/* Reset CSS básico */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Hace que el width incluya padding y border */
+    box-sizing: border-box;
     scroll-padding-top: 5rem; 
 }
 

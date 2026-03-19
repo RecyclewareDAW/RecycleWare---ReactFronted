@@ -1,6 +1,5 @@
 @import "variables";
 
-// Contenedor principal
 .user-config-container {
   min-height: 80vh;
 
@@ -11,7 +10,6 @@
   }
 }
 
-// Estilos compartidos para las "Tarjetas" (Menú y Contenido)
 .config-sidebar, .config-content {
   background-color: #ffffff;
   border: none; 
@@ -19,14 +17,12 @@
   box-shadow: 0 10px 40px rgba($primary, 0.06); 
 }
 
-// --- MENÚ LATERAL ---
 .config-sidebar {
   .custom-list-group {
     display: flex;
     flex-direction: column;
     gap: 0.4rem; 
 
-    // Añadimos las pseudo-clases para ganar a Bootstrap sin tener que usar !important
     .list-group-item,
     .list-group-item:first-child,
     .list-group-item:last-child {
@@ -75,7 +71,6 @@
   }
 }
 
-// --- ÁREA DE CONTENIDO (Formularios) ---
 .config-content {
 
   .form-label {
@@ -136,7 +131,6 @@
   }
 }
 
-// Animación de entrada
 .animate-fade-in {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }

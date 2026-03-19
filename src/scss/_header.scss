@@ -1,13 +1,12 @@
 .navbar {
 
-    // Ajuste para PC
     @media (min-width: 1200px) {
         .container-fluid {
-            position: relative; // Para que el absolute se base en este contenedor
+            position: relative; 
         }
 
         .navbar-collapse {
-            // Subimos el menú a la misma línea que el logo y el usuario
+            
             position: absolute;
             left: 50%;
             top: 50%;
@@ -18,19 +17,17 @@
     }
 
     .logo {
-        // clamp(MÍNIMO, TAMAÑO DINÁMICO, MÁXIMO)
+        
         height: clamp(2rem, 3vw, 3rem);
         width: auto;
-        object-fit: contain; // Mantiene la proporción sin deformarse
+        object-fit: contain; 
     }
 
-    //para el color de la hamburguesa en tamaño pequeño
     .navbar-toggler {
         color: $secondary;
         border-color: $secondary;
     }
 
-    // navegador del header
     .navbar-nav {
         .nav-link {
             color: $light;
@@ -47,13 +44,6 @@
         }
     }
 
-    // box buscador controlar tamaño mínimo
-    // .form-control {
-    //     min-width: 8ch;
-    // }
-
-
-    // Derecha el iniciar sesión
     .iniciar-sesion {
         color: $light;
         font-family: $headings-font-family;
@@ -70,7 +60,6 @@
         }
     }
 
-    // botón del buscador
     .btn-primary {
         background-color: transparent;
         color: $success;
