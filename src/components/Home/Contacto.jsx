@@ -93,10 +93,10 @@ export default function Contacto() {
                   name="email"
                   label="Email"
                   type="email"
-                  placeholder="Email"
+                  placeholder="Correo electrónico"
                   required={true}
                   hideLabel={true}
-                  errorMessage="Introduce un correo válido."
+                  rule="email"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                 />

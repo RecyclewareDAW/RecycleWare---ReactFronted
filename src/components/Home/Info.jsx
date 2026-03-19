@@ -1,6 +1,16 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function InfoSection() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuarioRecycleware');
+    if (usuarioGuardado && usuarioGuardado !== "undefined") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <div className="container py-5">
       <section className="row justify-content-center" id="info">
@@ -46,9 +56,15 @@ export default function InfoSection() {
                 </p>
               </div>
               <div className="col-md-4 text-center">
-                <Link to="/registro" className="btn btn-primary">
-                  Registrarse ahora
-                </Link>
+                {isLoggedIn ? (
+                  <Link to="/productos" className="btn btn-primary">
+                    Ver catálogo
+                  </Link>
+                ) : (
+                  <Link to="/registro" className="btn btn-primary">
+                    Registrarse ahora
+                  </Link>
+                )}
               </div>
             </div>
           </article>
